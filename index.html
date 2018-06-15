@@ -3,28 +3,32 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>RWD</title>
+  <title>Newsreader</title>
   <link rel="stylesheet" href="./src/css/style.css">
 </head>
 
 <body>
   <div class="app">
     <header class="app__header">
-      <div class="app__header-logo">LOGO</div>
-      <nav>
+      <div class="app__header-logo">Newsreader</div>
+      <nav id="app__header-nav--wrapper">
         <ul class="app__header-nav">
-          <li>
-            <a href="#">News</a>
+          <li class="app__header-nav--active">
+            <a id="app__header-nav--live" href="#">Live</a>
           </li>
           <li>
-            <a href="#">Live</a>
+            <a href="#">News</a>
           </li>
         </ul>
       </nav>
     </header>
     <main class="app__main-content">
       <nav class="app__content-nav">nav</nav>
-      <div class="app__content-body">body</div>
+      <div class="app__content-body">
+        <div id="app__content-body--news-display" class="app__content-body--news-display">
+
+        </div>
+      </div>
       <div class="app__content-sidebar">sidebar</div>
     </main>
     <footer class="app__footer">
