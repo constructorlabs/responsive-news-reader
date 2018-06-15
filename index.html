@@ -21,7 +21,7 @@
 
         <div class="app__content">
 
-            <div class="app__content__body">
+            <div class="app__content__body" id="articlesBody">
                 <p>body</p>
             </div>
 
@@ -29,17 +29,19 @@
 
         <footer class="app__footer">
 
-            <div class="app__footer__topic">
-                <input type="text" name="searchTopic" placeholder="What do you want to know about?">
+            <form class="app__footer__topic" id="searchTopic">
+                <p>What do you want to search for?</p><input id="topicSearchBar" placeholder="Topic">
                 <button>SEARCH</button>
-            </div>
+            </form>
 
             <div class="app__footer__source">
-                <input type="text" name="searchSource" placeholder="Where would you like your news from?">
+                    <p>Where do you want your news from?</p><input placeholder="Source" name="searchSource">
                 <button>SEARCH</button>
             </div>
 
         </footer>
+
+    </div>
 
     <script src="src/index.js"></script>
 
