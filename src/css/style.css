@@ -160,9 +160,9 @@ body {
   display: block;
 }
 
-.article__description:before {
+/* .article__description:before {
   content: "-";
-}
+} */
 .article__description:after {
   content: "..";
 }

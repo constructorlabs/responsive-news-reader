@@ -1,17 +1,22 @@
 const newsAPIKey = "8483a39eb2d649bb80b09b3c36cb30df";
 const newsDisplay = document.querySelector("#app__content-body--news");
 const readLater = [];
-const readLaterButton = document.querySelector("#app__header-nav--readlater");
-const mainNav = document.querySelector("#app__header-nav--wrapper");
-const liveNewsButton = document.querySelector("#app__header-nav--live");
-const searchButton = document.querySelector("#app__header-nav--search");
-const showImagesButton = document.querySelector("#show-images");
-let liveNewsCollection = "";
 
-function createRequest(service) {
+const liveNewsButton = document.querySelector("#app__header-nav--live");
+const readLaterButton = document.querySelector("#app__header-nav--readlater");
+const searchNavButton = document.querySelector("#app__header-nav--search");
+const mainNav = document.querySelector("#app__header-nav--wrapper");
+const navOptions = document.querySelector("#app__content-nav-options");
+
+const showImagesButton = document.querySelector("#show-images");
+const searchButton = document.querySelector("#app__content-nav-options");
+let liveNewsCollection = "";
+let searchDataCollection = "";
+
+function createRequest(service, searchTerm, sortBy = "", language = "") {
   return service === "live"
     ? `https://newsapi.org/v2/top-headlines?language=en&apiKey=${newsAPIKey}`
-    : ``;
+    : `https://newsapi.org/v2/everything?q=${searchTerm}&language=${language}&sortBy=${sortBy}&apiKey=${newsAPIKey}`;
 }
 
 function displayNews(news) {
@@ -87,6 +92,22 @@ function displayImages(e) {
   }
 }
 
+function searchNews(searchTerm, sortBy, category) {
+  if (!searchTerm) return;
+  fetch(createRequest("search", searchTerm, sortBy, category))
+    .then(function(searchResponse) {
+      return searchResponse.json();
+    })
+    .then(function(searchData) {
+      searchDataCollection = searchData.articles;
+      displayNews(searchDataCollection);
+      toggleImages();
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+}
+
 newsDisplay.addEventListener("click", e => {
   if (e.target.className === "article__readlater") {
     const articleTitle = e.target.getAttribute("data-title");
@@ -97,6 +118,15 @@ newsDisplay.addEventListener("click", e => {
         }
       });
     });
+    if (searchDataCollection) {
+      searchDataCollection.forEach(articleObj => {
+        return Object.keys(articleObj).find(articleKey => {
+          if (articleObj[articleKey] === articleTitle) {
+            readLater.push(articleObj);
+          }
+        });
+      });
+    }
     e.target.setAttribute("disabled", "");
   }
 });
@@ -107,3 +137,47 @@ readLaterButton.addEventListener("click", () => {
   toggleImages();
 });
 showImagesButton.addEventListener("change", displayImages);
+searchNavButton.addEventListener("click", function(e) {
+  e.preventDefault();
+  // Check if search form is already displayed
+  const isSet = document.querySelector("#search-form");
+  if (!isSet) {
+    const formContainer = document.createElement("div");
+    const form = `
+        <form id="search-form" class="search-form">
+          <div>
+            <input placeholder="Type search here" type="text" id="searchTerm" name="search">
+          </div>
+          <div>
+          <select name="sortby" id="sortby">
+            <option value="relevancy">Relevancy</option>
+            <option value="popularity">Popularity</option>
+            <option value="publishedAt">Newest first</option>
+          </select>
+          <select name="sortby" id="language">
+            <option value="">Language</option>
+            <option value="es">Spanish</option>
+            <option value="en">English</option>
+            <option value="fr">French</option>
+            <option value="it">Italian</option>
+          </select>
+          </div>
+          <button id="search-form__submit">Search</button>
+        </form>
+    `;
+    formContainer.innerHTML = form;
+    navOptions.appendChild(formContainer);
+  } else {
+    navOptions.innerHTML = "";
+  }
+});
+// Search
+navOptions.addEventListener("click", function(e) {
+  e.preventDefault();
+  if (e.target.id === "search-form__submit") {
+    const searchTerm = document.querySelector("#searchTerm").value;
+    const sortBy = document.querySelector("#sortby").value;
+    const language = document.querySelector("#language").value;
+    searchNews(searchTerm, sortBy, language);
+  }
+});
