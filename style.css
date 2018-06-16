@@ -10,7 +10,6 @@ body{
   text-align: center;
   display:flex;
   flex-direction: column;
-  height: 100vh;
   background: salmon;
 
 }
@@ -18,29 +17,33 @@ body{
 .masterhead{
   background: blueviolet;
   display:flex;
-  height: 15vh;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.masterheader__logo{
+@font-face {
+  font-family: 'squealerembossed';
+  src: url('squealerembossed-webfont.woff2') format('woff2'),
+  url('squealerembossed-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
+.masterheader__logo{
+  font-family: 'squealerembossed';
+  
 }
 
 .buttons_container{
-  diplay:flex;
+  display:flex;
 
 }
 
-.masterhead__button{
-
-}
 
 .content{
 
   display: flex;
   flex-direction: column;
-  height: 75vh;
 
 }
 
@@ -54,6 +57,16 @@ body{
   background:darkkhaki;
   flex:4
 }
+.article1{
+background: #cce6ff;
+}
+.article2{
+background: #e6ffb3;
+}
+
+.article__img{
+  display: none;
+}
 
 .content__sidebar{
   display: none;
@@ -64,7 +77,6 @@ body{
 .footer{
 display: flex;
 flex-direction: row;
-height: 10vh;
 }
 
 .footer__notes{
@@ -100,6 +112,14 @@ height: 10vh;
     flex:4;
   }
 
+  .article__img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    width: 300px;
+  }
+
   .footer__notes,
   .footer__map {
     flex: 1;
@@ -118,6 +138,10 @@ height: 10vh;
   .content__body{
     flex:5;
   }
+
+  .article__img{
+    display: block;
+  }
 }
 
 @media(min-width: 1200px) {
@@ -130,5 +154,9 @@ height: 10vh;
   }
   .content__body{
     flex:4;
+  }
+
+  .article__img{
+    display: block;
   }
 }
