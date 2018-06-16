@@ -168,7 +168,11 @@ body {
 
 @media (min-width: 640px) {
   .article__image {
-    display: block;
+    display: block !important;
+  }
+
+  .show-images {
+    display: none;
   }
 }
 
