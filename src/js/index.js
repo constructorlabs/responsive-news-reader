@@ -2,10 +2,11 @@ const newsAPIKey = "8483a39eb2d649bb80b09b3c36cb30df";
 const newsDisplay = document.querySelector("#app__content-body--news");
 const readLater = [];
 const readLaterButton = document.querySelector("#app__header-nav--readlater");
-let liveNewsCollection = "";
-// Main navigation items
 const mainNav = document.querySelector("#app__header-nav--wrapper");
 const liveNewsButton = document.querySelector("#app__header-nav--live");
+const searchButton = document.querySelector("#app__header-nav--search");
+const showImagesButton = document.querySelector("#show-images");
+let liveNewsCollection = "";
 
 function createRequest(service) {
   return service === "live"
@@ -42,19 +43,6 @@ function generateArticle(article) {
     `;
 }
 
-// {
-//     "source": {
-//       "id": "the-economist",
-//       "name": "The Economist"
-//     },
-//     "author": "The Economist",
-//     "title": "AT&T and Time Warner are cleared to merge",
-//     "description": "More consolidation will follow. Consumers ought to worry",
-//     "url": "http://www.economist.com/news/leaders/21744068-more-consolidation-will-follow-consumers-ought-worry-att-and-time-warner-are-cleared",
-//     "urlToImage": "https://cdn.static-economist.com/sites/default/files/images/print-edition/20180616_LDD004_0.jpg",
-//     "publishedAt": "2018-06-16T00:00:00Z"
-//   }
-
 function toggleImages() {
   const localStor = localStorage.getItem("showImages");
   const images = document.querySelectorAll(".article__image");
@@ -72,8 +60,8 @@ function toggleImages() {
   }
 }
 
-function loadLiveNews(event) {
-  event.preventDefault();
+function loadLiveNews(e) {
+  e.preventDefault();
   fetch(createRequest("live"))
     .then(function(liveNewsResponse) {
       return liveNewsResponse.json();
@@ -88,7 +76,18 @@ function loadLiveNews(event) {
     });
 }
 
-newsDisplay.addEventListener("click", function(e) {
+function displayImages(e) {
+  const images = document.querySelectorAll(".article__image");
+  if (e.target.checked) {
+    localStorage.setItem("showImages", "show");
+    toggleImages();
+  } else {
+    localStorage.setItem("showImages", "hide");
+    toggleImages();
+  }
+}
+
+newsDisplay.addEventListener("click", e => {
   if (e.target.className === "article__readlater") {
     const articleTitle = e.target.getAttribute("data-title");
     liveNewsCollection.forEach(articleObj => {
@@ -101,24 +100,10 @@ newsDisplay.addEventListener("click", function(e) {
     e.target.setAttribute("disabled", "");
   }
 });
-
 document.addEventListener("DOMContentLoaded", loadLiveNews);
 liveNewsButton.addEventListener("click", loadLiveNews);
 readLaterButton.addEventListener("click", () => {
   displayNews(readLater);
   toggleImages();
 });
-
-const showImagesButton = document.querySelector("#show-images");
-showImagesButton.addEventListener("change", function(e) {
-  const images = document.querySelectorAll(".article__image");
-  if (e.target.checked) {
-    localStorage.setItem("showImages", "show");
-
-    toggleImages();
-  } else {
-    localStorage.setItem("showImages", "hide");
-
-    toggleImages();
-  }
-});
+showImagesButton.addEventListener("change", displayImages);
