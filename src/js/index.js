@@ -25,7 +25,9 @@ function generateArticle(article) {
   return `
   <article class="article">
         <a target="_blank" class="article__link" href="${article.url}">
-            <figure class="article__image"></figure>
+            <figure class="article__image"
+                    style="background-image:url('${article.urlToImage}')">
+            </figure>
             <span id="article__date" class="article__date">${
               article.publishedAt
             }</span>

@@ -140,6 +140,13 @@ body {
   font-weight: bold;
 }
 
+.article__image {
+  display: none;
+  height: 170px;
+  background-size: 100%;
+  background-position: center;
+}
+
 .article__author {
   font-size: 14px;
   margin-right: 20px;
@@ -157,6 +164,12 @@ body {
 }
 .article__description:after {
   content: "..";
+}
+
+@media (min-width: 640px) {
+  .article__image {
+    display: block;
+  }
 }
 
 /* FOOTER */
