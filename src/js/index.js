@@ -28,9 +28,9 @@ function generateArticle(article) {
             <figure class="article__image"
                     style="background-image:url('${article.urlToImage}')">
             </figure>
-            <span id="article__date" class="article__date">${
+            <span id="article__date" class="article__date">${new Date(
               article.publishedAt
-            }</span>
+            ).toGMTString()}</span>
             <header class="article__title">${article.title}</header>
             <span class="article__author">${article.author}</span>
             <p class="article__description">${article.description}</p>

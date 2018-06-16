@@ -145,6 +145,7 @@ body {
   height: 170px;
   background-size: 100%;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .article__author {
