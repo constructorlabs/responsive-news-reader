@@ -30,7 +30,8 @@ body {
   flex-direction: column;
 
   text-align: center;
-  background-color: Aqua;
+  background-color: #000;
+  color: #fff;
   padding: 20px;
 }
 
@@ -57,7 +58,7 @@ body {
 
 .app__header-nav li a {
   text-decoration: none;
-  color: #000;
+  color: #fff;
 }
 
 .app__header-nav li a:hover {
@@ -70,6 +71,9 @@ body {
     justify-content: space-between;
     flex-direction: row;
   }
+  .app__header-logo {
+    font-size: 36px;
+  }
 }
 
 /* CONTENT */
@@ -81,14 +85,14 @@ body {
 }
 
 .app__content-nav {
-  background-color: LemonChiffon;
+  /* background-color: LemonChiffon; */
   display: block;
 }
 
 .app__content-body {
   flex: 3;
 
-  background-color: PapayaWhip;
+  /* background-color: PapayaWhip; */
 }
 
 .app__content-sidebar {
@@ -101,7 +105,7 @@ body {
   }
   .app__content-nav {
     flex: 1;
-    background-color: LemonChiffon;
+    /* background-color: LemonChiffon; */
   }
 }
 
@@ -113,7 +117,7 @@ body {
     display: flex;
     flex: 2;
 
-    background-color: Khaki;
+    /* background-color: Khaki; */
   }
 }
 
@@ -152,7 +156,7 @@ body {
   content: "-";
 }
 .article__description:after {
-  content: "...";
+  content: "..";
 }
 
 /* FOOTER */
