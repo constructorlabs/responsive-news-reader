@@ -1,32 +1,40 @@
 # Responsive News Reader
 
-Let's create a responsive news reader website. To get the latest news the app will display we are going to use [News API](https://newsapi.org/). As with the Weather and Unsplash APIs, you will need to register with the service to obtain an API key.
+**Brief:** To create a responsive news reader website using fetches from [News API](https://newsapi.org/). 
+
+# Personal Goals
+
+To produce a good-looking website on the 3 different devices that make best use of the space available. I also wanted to produce something that worked well, without any bugs, possibly at the expense of extra features. 
 
 ## Objectives
 
-- [ ] Create a responsive layout that works well and looks good at mobile, tablet and desktop screen sizes. Please create the mobile version first, then tablet and then desktop.
+- [x] Create a responsive layout that works well and looks good at mobile, tablet and desktop screen sizes. Please create the mobile version first, then tablet and then desktop.
 
-- [ ] Fetch news articles from News API and display them including title, image, description, publication, date and link to article.
+- [x] Fetch news articles from News API and display them including title, image, description, publication, date and link to article.
 
-- [ ] Implement a feature of your choice
+- [x] Implement a feature of your choice **Added a Category Search**
 
 ## Stretch goals
 
 - [ ] Implement pagination which allows you to get the next 20 results and display them
 
-- [ ] Add search functionality which allows the user to retrieve news about a particular topic
+- [x] Add search functionality which allows the user to retrieve news about a particular topic
 
 ## Instructions
+Ensure that the following files are all in the same folder and open news.html in a browser:
 
-- Fork and clone this repo
-- Commit your changes frequently with short and descriptive commit messages
-- Create a pull request when complete
-- We want to see great looking webpages
-- Your code should have consistent indentation and sensible naming
-- Use lots of concise functions with a clear purpose
-- Add code comments where it is not immediately obvious what your code does
-- Your code should not throw errors and handle edge cases gracefully. For example not break if server fails to return expected results
+1. independent.png
+2. news.css
+3. news.html
+4. news.js
+5. NRN.png
+6. youtube_social_icon_dark.png
+
 
 ## README.md
 
 When finished, include a README.md in your repo. This should explain what the project is, how to run it and how to use it. Someone who is not familiar with the project should be able to look at it and understand what it is and what to do with it.
+
+## Bugs
+
+No bugs that I have found with this current version, however, I could have implemented the HOME/HEADLINES button more wisely by allowing the user to click on the News Right Now logo to go home rather than using up extra space on the screen just for that feature.
