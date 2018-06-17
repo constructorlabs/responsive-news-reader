@@ -46,8 +46,28 @@ body{
 }
 
 .content__nav{
-  flex:1
+  flex:1;
+  
+  
+}
+.history{
+ 
+  display: flex;
+  flex-direction: row;
 
+}
+
+.history__items{
+
+color: blue;
+}
+.clear{
+cursor: pointer;
+color: red;
+margin-left: 10px;
+}
+.searched{
+  cursor: pointer;
 }
 
 .content__body{
@@ -102,6 +122,11 @@ flex-direction: row;
   }
   .no1200{
     display: none;
+  }
+  .history{
+ 
+    display: flex;
+    flex-direction: column;
   }
 
   .footer,
