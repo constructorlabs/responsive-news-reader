@@ -275,6 +275,8 @@ body.readlater .article__readlater {
   display: flex;
   flex-direction: row;
   text-align: center;
+  background-color: var(--secondary-color);
+  color: #fff;
 }
 
 .app__footer-notes,
@@ -285,7 +287,7 @@ body.readlater .article__readlater {
   padding: 7px;
 }
 
-.app__footer-notes {
+/* .app__footer-notes {
   background-color: NavajoWhite;
 }
 .app__footer-address {
@@ -293,7 +295,7 @@ body.readlater .article__readlater {
 }
 .app__footer-map {
   background-color: Chocolate;
-}
+} */
 
 @media (min-width: 640px) {
   .app__footer-notes,
