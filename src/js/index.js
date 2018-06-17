@@ -136,8 +136,14 @@ newsDisplay.addEventListener("click", e => {
 document.addEventListener("DOMContentLoaded", loadLiveNews);
 liveNewsButton.addEventListener("click", loadLiveNews);
 readLaterButton.addEventListener("click", () => {
-  displayNews(readLater);
-  toggleImages();
+  if (readLater.length > 0) {
+    displayNews(readLater);
+    toggleImages();
+  } else {
+    newsDisplay.innerHTML = `
+      <strong>Read later list is empty</strong>
+    `;
+  }
 });
 showImagesButton.addEventListener("change", displayImages);
 searchNavButton.addEventListener("click", function(e) {
@@ -154,6 +160,8 @@ navOptions.addEventListener("click", function(e) {
     searchNews(searchTerm, sortBy, language);
   }
 });
+
+// Main navigation state
 mainNavItems.forEach(navItem => {
   navItem.addEventListener("click", function(e) {
     mainNavItems.forEach(navItem => {

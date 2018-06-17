@@ -287,16 +287,6 @@ body.readlater .article__readlater {
   padding: 7px;
 }
 
-/* .app__footer-notes {
-  background-color: NavajoWhite;
-}
-.app__footer-address {
-  background-color: Peru;
-}
-.app__footer-map {
-  background-color: Chocolate;
-} */
-
 @media (min-width: 640px) {
   .app__footer-notes,
   .app__footer-address,
