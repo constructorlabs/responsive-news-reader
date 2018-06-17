@@ -6,36 +6,45 @@ import { topHeadlines } from "./newsApi";
 import { Header } from "./componets/header";
 import { ArticleList } from "./articles/articaleList";
 
-import { data } from "./mockData";
-import { realpathSync } from "fs";
+import { mockedData } from "./mockData";
 
 class App extends React.Component {
   state = {
-    loading: false,
-    data
+    loading: true,
+    data: [mockedData]
   };
-  // componentDidMount() {
-  //   topHeadlines.then(data =>
-  //     this.setState(state => ({
-  //       ...state,
-  //       loading: false,
-  //       ...data
-  //     }))
-  //   );
-  // }
+  componentDidMount() {
+    topHeadlines.then(data =>
+      this.setState(state => ({
+        ...state,
+        loading: false,
+        data: [...this.state.data, data]
+      }))
+    );
+
+    // this.setState(state => ({
+    //   ...state,
+    //   loading: false,
+    //   data: [mockedData, mockedData, mockedData, mockedData]
+    // }));
+  }
   render() {
-    console.log();
+    console.log(this.state);
     return (
-      <React.Fragment>
+      <div className="main__layout">
         <Header title={siteConfig.siteTitle} slogan={siteConfig.siteSlogan} />
-        {this.state.loading ? (
-          "loading"
-        ) : (
-          <ArticleList allArticles={this.state.data} />
-        )}
-      </React.Fragment>
+        {this.state.loading
+          ? "loading"
+          : this.state.data.map((topics, i) => (
+              <ArticleList
+                key={i}
+                allArticles={topics.articles}
+                title={topics.title}
+              />
+            ))}
+      </div>
     );
   }
 }
 
-render(<App className="main__layout" />, document.getElementById("root"));
+render(<App />, document.getElementById("root"));

@@ -7,7 +7,7 @@ const configTopHeadlines = {
 export const topHeadlines = fetch(configTopHeadlines.url)
   .then(response => response.json())
   .then(data => ({
-    type: "Top Headlines - USA",
-    data: data.articles.filter(data => data.urlToImage)
+    title: "Top Headlines - USA",
+    articles: data.articles.filter(data => data.urlToImage)
   }))
   .catch(e => console.log(e));
