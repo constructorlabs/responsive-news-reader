@@ -1,14 +1,40 @@
-function getLatestNews (latestNews) {
+const breaking_news = document.querySelector("#breaking_news");
 
-fetch('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=876e36c7116d4ea8bb23b4b1eb97e8d2')
-  .then(function(response){
-    return response.json()
-  })
-  .then(function(data){
-    console.log(data.articles);
-    return data.articles;
-  })
-  return 'hello';
-};
+// Parses newsfeed in markup
+function parseNews(news) {
+  const parsed = news
+    .map(function(feed) {
+      //console.log("myFeed", feed);
+      // if no descr then dont show feed
+      // if (feed.description) {}
+      const { title, urlToImage, description, publishedAt } = feed;
+      return `
+    <div class="article">
+        <div class="article__title">${title}</div>
+        <div class="article__image"><img src="${
+          urlToImage ? urlToImage : "No image"
+        }"/></div>
+        <div class="article__description">${
+          description ? description : "No description"
+        }</div>
+        <div class="article__publication">${publishedAt}</div>
+    </div>
+    `;
+    })
+    .join("");
+  return parsed;
+}
+//fetch wihtin a fx grabbing received data & sending it to the relevant markup element
+function getLatestNews(latestNews) {
+  fetch(
+    "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=876e36c7116d4ea8bb23b4b1eb97e8d2"
+  )
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      breaking_news.innerHTML = parseNews(data.articles);
+    });
+}
 
 getLatestNews();

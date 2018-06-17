@@ -5,7 +5,7 @@
 body {
   margin : 0;
   padding: 0;
-  
+  background : lightgray;
 } 
 
 .wrapper {
@@ -17,39 +17,27 @@ body {
 }
 
 .header {
-  display: flex;
+  text-align: center;
+  background: url('http://i1146.photobucket.com/albums/o539/sanchezmartinezjosecarlos/fondos-hd-de-paredes-Fondosdepantalla.top-3-360x200_zpsnsenqjax.jpg')
+  padding:30px;
   
-  
-  background: lightblue;
   
 }
 
-.header__logo {
-  padding: 10px;
-}
-
-.header__logo , .header__links {
-  margin: 0 auto;
-  
-}
-
-.header__links {
-  display: flex;
-  }
-
-  .header__links li {
-     
-  }
-  .header__search {
-    display: flex;
-    justify-content: center;
+.header__logo, .header__search {
     align-items: center;
-    margin-right: 15px;
-  }
+}
+
+input {
+  border:1px solid lightgrey;
+  margin-bottom: 10px;
+}
 
 .breaking_news {
   flex :1;
-  background: lightcoral;
+
+  
+  padding: 1%;
 } 
 
 h3 {
@@ -58,23 +46,51 @@ h3 {
 }
 
 .article {
-  border: 1px black solid;
+  
+  background: #f7f4f4;
   margin: 10px;
-  padding: 5px;
+  padding: 5%;
   border-radius: 4px;
+}
+
+.article:nth-child(odd) {
+background-color: #f9f7f7;
+box-shadow: 1px 1px 2px;
+
+
+}
+
+.article__title {
+  font-size:x-large;
+  text-decoration: underline black;
+  margin-bottom: 10px;
+}
+
+
+
+.article__description {
+  font-size: medium;
+  margin-bottom: 10px;
+
+}
+
+.article__publication {
+  font-size : small;
+  margin-bottom: 10px;
+  
 }
 
 .article__image {
   display: none;
+}
 
-
+.article__image > img {
+  width: 100%;
 }
 .sideBar {
-  flex: 1;
+  display: none;
   
-
   background: lightgreen;
-  
 }
 
 .main-footer {
@@ -82,12 +98,9 @@ h3 {
   background: lightsalmon;
 }
 
-li {
-  list-style: none;
-}
-
-@media screen and (min-width: 375px) {
+@media screen and (min-width: 320px) {
   .article__image {
-    display: flex;
+    display: block;
   }
 }
+
