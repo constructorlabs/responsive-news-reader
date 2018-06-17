@@ -6,6 +6,7 @@ const liveNewsButton = document.querySelector("#app__header-nav--live");
 const readLaterButton = document.querySelector("#app__header-nav--readlater");
 const searchNavButton = document.querySelector("#app__header-nav--search");
 const mainNav = document.querySelector("#app__header-nav--wrapper");
+const contentBody = document.querySelector("#app__content-body");
 const mainNavItems = document.querySelectorAll(
   "#app__header-nav--wrapper ul > li"
 );
@@ -15,11 +16,20 @@ const showImagesButton = document.querySelector("#show-images");
 const searchButton = document.querySelector("#app__content-nav-options");
 let liveNewsCollection = "";
 let searchDataCollection = "";
+let totalPages = 1;
+let page = 1;
+let maxItemPerPage = 5;
 
-function createRequest(service, searchTerm, sortBy = "", language = "") {
+function createRequest(
+  service,
+  searchTerm,
+  sortBy = "",
+  language = "",
+  page = 1
+) {
   return service === "live"
-    ? `https://newsapi.org/v2/top-headlines?language=en&apiKey=${newsAPIKey}`
-    : `https://newsapi.org/v2/everything?q=${searchTerm}&language=${language}&sortBy=${sortBy}&apiKey=${newsAPIKey}`;
+    ? `https://newsapi.org/v2/top-headlines?language=en&apiKey=${newsAPIKey}&page=${page}&pageSize=${maxItemPerPage}`
+    : `https://newsapi.org/v2/everything?q=${searchTerm}&language=${language}&sortBy=${sortBy}&apiKey=${newsAPIKey}&page=${page}&pageSize=${maxItemPerPage}`;
 }
 
 function displayNews(news) {
@@ -76,8 +86,11 @@ function loadLiveNews(e) {
     })
     .then(function(liveNewsData) {
       liveNewsCollection = liveNewsData.articles;
+      totalPages = Math.floor(liveNewsData.totalResults / maxItemPerPage);
+      console.log(totalPages);
       displayNews(liveNewsCollection);
       toggleImages();
+      pagination(page, totalPages);
     })
     .catch(function(error) {
       console.log(error);
@@ -109,6 +122,30 @@ function searchNews(searchTerm, sortBy, category) {
     .catch(function(error) {
       console.log(error);
     });
+}
+
+function pagination(page, totalPages) {
+  const container = document.createElement("div");
+  paginationUl = `
+  <ul class="pagination">
+    <li id="prev-page">Prev</li>
+    <li id="page">${page} of ${totalPages}</li>
+    <li id="next-page">Next</li>
+  </ul>`;
+  container.innerHTML = paginationUl;
+  // document
+  //   .querySelector("#app__content-body--news")
+  //   .prepend(container.cloneNode(true));
+  document.querySelector("#app__content-body--news").appendChild(container);
+
+  // Show/hide buttons when needed
+  page === 1
+    ? (document.querySelector("#prev-page").style.visibility = "hidden")
+    : (document.querySelector("#prev-page").style.visibility = "visible");
+
+  page === totalPages
+    ? (document.querySelector("#next-page").style.visibility = "hidden")
+    : (document.querySelector("#next-page").style.visibility = "visible");
 }
 
 newsDisplay.addEventListener("click", e => {
@@ -164,6 +201,7 @@ navOptions.addEventListener("click", function(e) {
 // Main navigation state
 mainNavItems.forEach(navItem => {
   navItem.addEventListener("click", function(e) {
+    page = 1;
     mainNavItems.forEach(navItem => {
       navItem.classList.remove("app__header-nav--active");
     });
@@ -174,4 +212,33 @@ mainNavItems.forEach(navItem => {
       document.querySelector("body").classList.remove("readlater");
     }
   });
+});
+
+// Prev and Next pagination
+contentBody.addEventListener("click", function(e) {
+  if (e.target.id === "prev-page") {
+    page > 1 ? (page -= 1) : 1;
+    console.log(page);
+  }
+  if (e.target.id === "next-page") {
+    page += 1;
+  }
+  if (e.target.id === "prev-page" || e.target.id === "next-page") {
+    fetch(createRequest("live", "", "", "", page))
+      .then(function(liveNewsResponse) {
+        return liveNewsResponse.json();
+      })
+      .then(function(liveNewsData) {
+        liveNewsCollection = liveNewsData.articles;
+        totalPages = Math.floor(liveNewsData.totalResults / maxItemPerPage);
+        displayNews(liveNewsCollection);
+        toggleImages();
+        pagination(page, totalPages);
+
+        window.scroll(0, 0);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
 });

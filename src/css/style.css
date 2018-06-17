@@ -173,17 +173,24 @@ body {
   }
 }
 
+/* PAGINATION */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  height: 40px;
+}
+
+.pagination li:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 /* ARTICLES */
 .article {
   padding: 15px 10px;
   margin-bottom: 20px;
 }
-/* .article:nth-child(odd) {
-  background-color: #dbe9ee;
-}
-.article:nth-child(even) {
-  background-color: #c0d6df;
-} */
 
 .article {
   background-color: #dbe9ee;
