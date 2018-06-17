@@ -62,7 +62,8 @@ body {
 }
 
 .app__header-nav--active {
-  text-decoration: underline;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 3px;
 }
 
 .app__header-nav li {
@@ -93,6 +94,9 @@ body {
   }
   .app__header-nav {
     justify-content: center;
+  }
+  .app__header-nav li {
+    font-size: 1rem;
   }
 }
 
@@ -223,6 +227,10 @@ body {
   margin-top: 20px;
 }
 
+body.readlater .article__readlater {
+  display: none;
+}
+
 .article__readlater:hover {
   cursor: pointer;
 }
@@ -231,11 +239,6 @@ body {
   opacity: 0.2;
   cursor: default;
 }
-
-/* .article__readlater:hover {
-  cursor: pointer;
-  opacity: 0.8;
-} */
 
 .article__description {
   padding-top: 10px;

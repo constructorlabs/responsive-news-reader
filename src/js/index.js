@@ -6,6 +6,9 @@ const liveNewsButton = document.querySelector("#app__header-nav--live");
 const readLaterButton = document.querySelector("#app__header-nav--readlater");
 const searchNavButton = document.querySelector("#app__header-nav--search");
 const mainNav = document.querySelector("#app__header-nav--wrapper");
+const mainNavItems = document.querySelectorAll(
+  "#app__header-nav--wrapper ul > li"
+);
 const navOptions = document.querySelector("#app__content-nav-options");
 
 const showImagesButton = document.querySelector("#show-images");
@@ -109,7 +112,7 @@ function searchNews(searchTerm, sortBy, category) {
 }
 
 newsDisplay.addEventListener("click", e => {
-  if (e.target.className === "article__readlater") {
+  if (e.target.className === "article__readlater btn") {
     const articleTitle = e.target.getAttribute("data-title");
     liveNewsCollection.forEach(articleObj => {
       return Object.keys(articleObj).find(articleKey => {
@@ -150,4 +153,17 @@ navOptions.addEventListener("click", function(e) {
     const language = document.querySelector("#language").value;
     searchNews(searchTerm, sortBy, language);
   }
+});
+mainNavItems.forEach(navItem => {
+  navItem.addEventListener("click", function(e) {
+    mainNavItems.forEach(navItem => {
+      navItem.classList.remove("app__header-nav--active");
+    });
+    e.target.parentNode.classList.add("app__header-nav--active");
+    if (e.target.id === "app__header-nav--readlater") {
+      document.querySelector("body").classList.add("readlater");
+    } else {
+      document.querySelector("body").classList.remove("readlater");
+    }
+  });
 });
