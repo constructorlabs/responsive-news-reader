@@ -12,16 +12,17 @@ img {
 }
 
 h1 {
-  margin: 20px;
+  /* smaller header for mobiles */
   padding: 10px;
   font-family: "IBM Plex Serif", serif;
-  font-size: 50px;
+  font-size: 30px;
 }
 
 h2 {
   margin: 10px 0;
   border-top: 1px solid;
-  padding-top: 11px;
+  padding-top: 10px;
+  font-size: 20px;
 }
 
 h3 {
@@ -36,6 +37,7 @@ body {
 .app {
   display: flex;
   flex-direction: column;
+
   max-width: 1400px;
   margin: auto;
 }
@@ -43,6 +45,7 @@ body {
 .app__header {
   display: flex;
   flex-direction: column;
+
   text-align: center;
 }
 
@@ -83,6 +86,7 @@ body {
   flex: 6;
   flex-direction: column;
   flex-wrap: wrap;
+
   text-align: center;
 }
 
@@ -133,20 +137,42 @@ body {
   opacity: 1;
 }
 
+/* Tablet View */
 @media (min-width: 768px) {
   img {
     display: block;
   }
+
+  h1 {
+    margin: 20px;
+    padding: 10px;
+    font-family: "IBM Plex Serif", serif;
+    font-size: 40px;
+  }
+  
+  h2 {
+    margin: 10px 0;
+    border-top: 1px solid;
+    padding-top: 11px;
+  }
+  
+  h3 {
+    text-align: center;
+  }
+
   .app__header {
     flex-direction: row;
     align-items: center;
     justify-content: center;
   }
+
   #article__row {
     display: flex;
     flex-direction: row;
   }
+
 }
+
 .footer__media {
   display: flex;
   justify-content: center;
@@ -170,22 +196,47 @@ body {
   padding: 20px;
 }
 
+/* Laptop View */
 @media (min-width: 960px) {
+  h1 {
+  margin: 20px; 
+  padding: 10px;
+  font-family: "IBM Plex Serif", serif;
+  font-size: 50px;
+  }
+
+  h2 {
+    margin: 10px 0;
+    border-top: 1px solid;
+    padding-top: 11px;
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  .header__list {
+    margin-left: 20px;
+    
+  }
+
   .main__content {
     display: flex;
     flex: 12;
     flex-direction: row;
     flex-wrap: wrap;
   }
+
   article {
     flex: 6;
+    
     padding: 10px;
   }
 
   #article__row {
     align-self: center;
     flex-wrap: wrap;
-    /* padding: 10px; */
     justify-content: center;
   }
+  
 }
