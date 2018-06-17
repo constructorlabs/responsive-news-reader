@@ -4,25 +4,17 @@ APIKEY - 4e6aa60e17534b93ad4407fa0a2256a7
 */
 /*
 */
-
 const formEvent = document.querySelector("#form");
-
-function createNode(element) {
-  return document.createElement(element);
-}
-
-function append(parent, el) {
-  return parent.appendChild(el);
-}
 
 formEvent.addEventListener("submit", function(e) {
   e.preventDefault();
   const cityName = document.querySelector("#input");
 
   getNews(cityName.value);
+  getFlag(cityName.value);
 });
 
-function getNews(cityName, createNode, append) {
+function getNews(cityName) {
   const sideBarImg = document.querySelector(".app__content-sidebar");
   const bodyContent = document.querySelector(".app__content-body");
   const rightNav = document.querySelector(".app__content-nav");
@@ -56,6 +48,23 @@ function getNews(cityName, createNode, append) {
           item.url
         }</a></p>`);
       });
+    })
+    .catch(function(error) {
+      console.log("error");
+    });
+}
+
+function getFlag(cityName) {
+  const flagFooter = document.querySelector(".app__footer-notes");
+  let apiImageCall = encodeURI(
+    `https://restcountries.eu/rest/v2/name/${cityName}?fullText=true`
+  );
+
+  fetch(apiImageCall)
+    .then(resp => resp.json())
+    .then(function(data) {
+      let flagImg = data[0].flag;
+      flagFooter.innerHTML += "<img src =" + flagImg + ">";
     })
     .catch(function(error) {
       console.log("error");
