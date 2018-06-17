@@ -3,9 +3,8 @@ APIKEY - 4e6aa60e17534b93ad4407fa0a2256a7
 *
 */
 /*
-https://newsapi.org/v2/top-headlines?country=us&apiKey=4e6aa60e17534b93ad4407fa0a2256a7
 */
-//const sideBarImg = document.querySelector(".app__content-sidebar");
+
 const formEvent = document.querySelector("#form");
 
 function createNode(element) {
@@ -62,7 +61,9 @@ function getNews(cityName, createNode, append) {
       });
       let articleLink = data.articles.map(function(item) {
         //console.log(item.url);
-        return (bodyContent.innerHTML += "<p>" + item.articleLink + "</p>");
+        return (bodyContent.innerHTML += `<p><a href =${item.url} > ${
+          item.url
+        }</a></p>`);
       });
     })
     .catch(function(error) {

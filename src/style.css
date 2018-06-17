@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  white-space: nowrap;
+  overflow: auto;
 }
 
 body {
@@ -20,7 +22,7 @@ body {
   flex-direction: column;
 
   text-align: center;
-  background-color: Aqua;
+  background-color: darkgrey;
   padding: 20px;
 }
 
@@ -62,28 +64,28 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-
+  overflow-wrap: break-word;
   text-align: center;
 }
 
 .app__content-nav {
-  background-color: LemonChiffon;
+  background-color: white;
   display: block;
 }
 
 .app__content-body {
   flex: 3;
 
-  background-color: PapayaWhip;
+  background-color: white;
 }
 
 .app__content-sidebar {
   display: none;
 }
 img {
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
+  /**display: flex;*/
+  /* align-items: flex-end;
+  flex-wrap: wrap; */
   width: 30%;
   height: 30%;
   margin: 1.66%;
@@ -95,7 +97,7 @@ img {
   }
   .app__content-nav {
     flex: 1;
-    background-color: LemonChiffon;
+    background-color: white;
   }
 }
 
@@ -107,7 +109,9 @@ img {
     display: flex;
     flex: 2;
 
-    background-color: Khaki;
+    background-color: white;
+    align-items: flex-end;
+    flex-wrap: wrap;
   }
 }
 
@@ -128,13 +132,13 @@ img {
 }
 
 .app__footer-notes {
-  background-color: NavajoWhite;
+  background-color: skyblue;
 }
 .app__footer-address {
-  background-color: Peru;
+  background-color: skyblue;
 }
 .app__footer-map {
-  background-color: Chocolate;
+  background-color: skyblue;
 }
 
 @media (min-width: 640px) {
