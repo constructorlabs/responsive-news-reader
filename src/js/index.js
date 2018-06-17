@@ -31,19 +31,19 @@ function generateArticle(article) {
   return `
   <article class="article">
         <a target="_blank" class="article__link" href="${article.url}">
+        <header class="article__title">${article.title}</header>
             <figure class="article__image"
                     style="background-image:url('${article.urlToImage}')">
             </figure>
             <span id="article__date" class="article__date">${new Date(
               article.publishedAt
             ).toGMTString()}</span>
-            <header class="article__title">${article.title}</header>
             <span class="article__author">${article.author}</span>
             <p class="article__description">${article.description}</p>
         </a>
         <button type="text" data-title="${
           article.title
-        }" class="article__readlater">Read later</button>
+        }" class="article__readlater btn">Read later</button>
     </article>
     `;
 }
@@ -139,37 +139,7 @@ readLaterButton.addEventListener("click", () => {
 showImagesButton.addEventListener("change", displayImages);
 searchNavButton.addEventListener("click", function(e) {
   e.preventDefault();
-  // Check if search form is already displayed
-  const isSet = document.querySelector("#search-form");
-  if (!isSet) {
-    const formContainer = document.createElement("div");
-    const form = `
-        <form id="search-form" class="search-form">
-          <div>
-            <input placeholder="Type search here" type="text" id="searchTerm" name="search">
-          </div>
-          <div>
-          <select name="sortby" id="sortby">
-            <option value="relevancy">Relevancy</option>
-            <option value="popularity">Popularity</option>
-            <option value="publishedAt">Newest first</option>
-          </select>
-          <select name="sortby" id="language">
-            <option value="">Language</option>
-            <option value="es">Spanish</option>
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="it">Italian</option>
-          </select>
-          </div>
-          <button id="search-form__submit">Search</button>
-        </form>
-    `;
-    formContainer.innerHTML = form;
-    navOptions.appendChild(formContainer);
-  } else {
-    navOptions.innerHTML = "";
-  }
+  navOptions.classList.toggle("search-form--open");
 });
 // Search
 navOptions.addEventListener("click", function(e) {

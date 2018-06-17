@@ -1,5 +1,7 @@
 /* font-family: 'Source Sans Pro', sans-serif; */
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+/* font-family: 'Merriweather', serif; */
+@import url("https://fonts.googleapis.com/css?family=Merriweather");
 
 * {
   box-sizing: border-box;
@@ -9,12 +11,22 @@
 
 :root {
   --primary-color: #f1f1f1;
-  --secondary-color: #fdb813;
+  --secondary-color: #4a6fa5;
+  --buttons-bg-color: #4f6d7a;
 }
 
 body {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
+}
+
+.btn {
+  background-color: var(--buttons-bg-color);
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
 }
 
 .app {
@@ -30,19 +42,20 @@ body {
   flex-direction: column;
 
   text-align: center;
-  background-color: #000;
+  background-color: var(--secondary-color);
   color: #fff;
   padding: 20px;
 }
 
 .app__header-logo {
   font-size: 22px;
+  font-family: "Merriweather", serif;
   /* flex: 1; */
 }
 
 .app__header-nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 
   text-align: center;
   list-style-type: none;
@@ -54,6 +67,7 @@ body {
 
 .app__header-nav li {
   margin-right: 15px;
+  font-size: 0.875rem;
 }
 
 .app__header-nav li a {
@@ -74,48 +88,82 @@ body {
   .app__header-logo {
     font-size: 36px;
   }
+  .app__header-nav li:nth-child(2) {
+    display: none;
+  }
+  .app__header-nav {
+    justify-content: center;
+  }
 }
 
 /* CONTENT */
 
 .app__main-content {
   flex: 1;
+
   display: flex;
   flex-direction: column;
 }
 
 .app__content-nav {
-  /* background-color: LemonChiffon; */
+  padding: 10px;
   display: block;
 }
 
 .app__content-body {
   flex: 3;
-
-  /* background-color: PapayaWhip; */
 }
 
-.app__content-sidebar {
+.app__content-sidebar,
+.app__content-nav-options {
   display: none;
+}
+
+.app__content-nav-options.search-form--open {
+  display: block;
+}
+
+.app__content-nav-options form.search-form {
+  padding-top: 15px;
+}
+
+.app__content-nav-options form.search-form select,
+.app__content-nav-options form.search-form input {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.app__content-nav-options form.search-form input {
+  padding: 10px;
 }
 
 @media (min-width: 640px) {
   .app__main-content {
     flex-direction: row;
+    margin-top: 20px;
   }
   .app__content-nav {
     flex: 1;
-    /* background-color: LemonChiffon; */
+
+    padding: 0 30px 10px 10px;
+  }
+  .app__content-nav-options {
+    display: block;
+  }
+  .app__content-nav-options form.search-form {
+    padding-top: 0;
   }
 }
 
 @media (min-width: 960px) {
   .app__main-content {
     flex-direction: row;
+    margin-top: 40px;
   }
   .app__content-sidebar {
     display: flex;
-    flex: 2;
+    flex: 1;
 
     /* background-color: Khaki; */
   }
@@ -124,9 +172,17 @@ body {
 /* ARTICLES */
 .article {
   padding: 15px 10px;
+  margin-bottom: 20px;
 }
-.article:nth-child(odd) {
-  background-color: #f1f1f1;
+/* .article:nth-child(odd) {
+  background-color: #dbe9ee;
+}
+.article:nth-child(even) {
+  background-color: #c0d6df;
+} */
+
+.article {
+  background-color: #dbe9ee;
 }
 .article__link {
   text-decoration: none;
@@ -138,11 +194,13 @@ body {
 
 .article__title {
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .article__image {
   display: none;
   height: 170px;
+  margin-bottom: 10px;
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -158,13 +216,39 @@ body {
   text-align: right;
   width: 100%;
   display: block;
+  padding-bottom: 10px;
 }
 
-/* .article__description:before {
-  content: "-";
+.article__readlater {
+  margin-top: 20px;
+}
+
+.article__readlater:hover {
+  cursor: pointer;
+}
+
+.article__readlater[disabled] {
+  opacity: 0.2;
+  cursor: default;
+}
+
+/* .article__readlater:hover {
+  cursor: pointer;
+  opacity: 0.8;
 } */
+
+.article__description {
+  padding-top: 10px;
+}
+
 .article__description:after {
   content: "..";
+}
+.show-images label:hover {
+  cursor: pointer;
+}
+.show-images label {
+  font-size: 13px;
 }
 
 @media (min-width: 640px) {
@@ -174,6 +258,11 @@ body {
 
   .show-images {
     display: none;
+  }
+
+  .article {
+    padding: 20px;
+    margin-bottom: 30px;
   }
 }
 
