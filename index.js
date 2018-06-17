@@ -4,13 +4,15 @@ const breaking_news = document.querySelector("#breaking_news");
 function parseNews(news) {
   const parsed = news
     .map(function(feed) {
-      //console.log("myFeed", feed);
+      console.log(feed);
       // if no descr then dont show feed
       // if (feed.description) {}
-      const { title, urlToImage, description, publishedAt } = feed;
+      const { title,url, urlToImage, description, publishedAt } = feed;
       return `
     <div class="article">
-        <div class="article__title">${title}</div>
+        <a href="${url}">
+          <div class="article__title">${title}</div>
+        </a>
         <div class="article__image"><img src="${
           urlToImage ? urlToImage : "No image"
         }"/></div>
