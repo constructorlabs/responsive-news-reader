@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+  <title>News App</title>
+  <link rel="stylesheet" href="./stylesheet.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla">
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="mainhead">
+      <h1 class="mainhead__logo">📰 Good or Bad News First? 📰</h1>
+      <form class="form" id="newsform" action="">
+        <input id="input" class="search__input" placeholder="Enter your search query here">
+        <button id="news__submit" class="submit__button">Search</button>
+      </form>
+    </header>
+    <div id="results__holder" class="maincontent">
+      <nav class="maincontent__nav">
+        <h4 class="popularsearch" id="popular__links">Narrow Your Search</h4>
+        <div id="nav__links">
+          <div class="li__nav" id=" nav__links ">
+            <li id="li__goodBad" class="li__goodBad">
+              <select name="good__bad" id="good__bad">
+                <option value="good">Good News</option>
+                <option value="bad">Bad News</option>
+              </select>
+            </li>
+            <li id="li__category" class="li__category">
+              <select name="category " id="categories">
+                <option value="business">Business</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="spprts">Sports</option>
+                <option value="health">Health and Fitness</option>
+                <option value="technology">Technology</option>
+                <option value="science">Science</option>
+              </select>
+            </li>
+            <li id="li__country" class="li__country">
+              <select name="country " id="countries">
+                <option value="UK">UK</option>
+                <option value="america">USA</option>
+                <option value="australia">Australia</option>
+                <option value="canada">Canada</option>
+                <option value="russia">Russia</option>
+                <option value="middle east">Middle East</option>
+                <option value="china">China</option>
+              </select>
+            </li>
+          </div>
+          <div class="stored__search">
+            <h4 class="storednav" id="stored__header">Your Recent Searches</h4>
+            <select name="stored__search" id="stored__search">
+
+            </select>
+          </div>
+        </div>
+      </nav>
+      <main id="news__results__container" class="maincontent__body">
+      </main>
+    </div>
+    <footer class="mainfooter">
+      <div class="mainfooter__item mainfooter__item--link">
+        <a href="https://newsapi.org"> Powered by News API</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./index.js"></script>
+</body>
