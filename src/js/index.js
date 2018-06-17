@@ -1,6 +1,8 @@
 const newsAPIKey = "8483a39eb2d649bb80b09b3c36cb30df";
 const newsDisplay = document.querySelector("#app__content-body--news");
-const readLater = [];
+const readLater = localStorage.getItem("readLater")
+  ? JSON.parse(localStorage.getItem("readLater"))
+  : [];
 
 const liveNewsButton = document.querySelector("#app__header-nav--live");
 const readLaterButton = document.querySelector("#app__header-nav--readlater");
@@ -87,7 +89,7 @@ function loadLiveNews(e) {
     .then(function(liveNewsData) {
       liveNewsCollection = liveNewsData.articles;
       totalPages = Math.floor(liveNewsData.totalResults / maxItemPerPage);
-      console.log(totalPages);
+
       displayNews(liveNewsCollection);
       toggleImages();
       pagination(page, totalPages);
@@ -98,7 +100,6 @@ function loadLiveNews(e) {
 }
 
 function displayImages(e) {
-  const images = document.querySelectorAll(".article__image");
   if (e.target.checked) {
     localStorage.setItem("showImages", "show");
     toggleImages();
@@ -148,6 +149,7 @@ function pagination(page, totalPages) {
     : (document.querySelector("#next-page").style.visibility = "visible");
 }
 
+// Read later button
 newsDisplay.addEventListener("click", e => {
   if (e.target.className === "article__readlater btn") {
     const articleTitle = e.target.getAttribute("data-title");
@@ -167,6 +169,8 @@ newsDisplay.addEventListener("click", e => {
         });
       });
     }
+
+    localStorage.setItem("readLater", [JSON.stringify(readLater)]);
     e.target.setAttribute("disabled", "");
   }
 });
