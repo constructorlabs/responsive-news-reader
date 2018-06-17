@@ -25,6 +25,8 @@ formEvent.addEventListener("submit", function(e) {
 
 function getNews(cityName, createNode, append) {
   const sideBarImg = document.querySelector(".app__content-sidebar");
+  const bodyContent = document.querySelector(".app__content-body");
+  const rightNav = document.querySelector(".app__content-nav");
   let apiCall = encodeURI(
     `https://newsapi.org/v2/top-headlines?q=${cityName}&apiKey=4e6aa60e17534b93ad4407fa0a2256a7`
   );
@@ -38,7 +40,7 @@ function getNews(cityName, createNode, append) {
       // console.log(articlesData);
       let title = data.articles.map(function(item) {
         //console.log(item.title);
-        return item.title;
+        return (bodyContent.innerHTML += "<p>Title: " + item.title + "</p>");
       });
       let images = data.articles.map(function(item) {
         console.log(item.urlToImage);
@@ -48,19 +50,19 @@ function getNews(cityName, createNode, append) {
       });
       let description = data.articles.map(function(item) {
         //console.log(item.description);
-        return item.description;
+        return (bodyContent.innerHTML += "<p>" + item.description + "</p>");
       });
       let newsSource = data.articles.map(function(item) {
         //console.log(item.source.name);
-        return item.source.name;
+        return (rightNav.innerHTML += "<p>" + item.source.name + "</p>");
       });
       let articleDate = data.articles.map(function(item) {
         //console.log(item.publishedAt);
         return item.publishedAt;
       });
       let articleLink = data.articles.map(function(item) {
-        console.log(item.url);
-        return item.url;
+        //console.log(item.url);
+        return (bodyContent.innerHTML += "<p>" + item.articleLink + "</p>");
       });
     })
     .catch(function(error) {

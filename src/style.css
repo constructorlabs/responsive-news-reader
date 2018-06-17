@@ -80,6 +80,14 @@ body {
 .app__content-sidebar {
   display: none;
 }
+img {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  width: 30%;
+  height: 30%;
+  margin: 1.66%;
+}
 
 @media (min-width: 640px) {
   .app__main-content {
