@@ -14,15 +14,45 @@ body {
     height: 100vh;
 }
 
+.clicked {
+    filter: invert(100%);
+}
+
+.content__body--title {
+    font-size: 3em;
+}
+
 .masthead {
-    flex: 0;
-    padding: 10px;
-    text-align: center;
+    /* flex: 2; */
+    justify-content: flex-start;
     background: mediumpurple;
+}
+
+.masthead__logo {
+    font-size: 1em;
+}
+
+.masthead__logo--subtitle {
+    padding-top: 0;
+    margin-top: 0;
+    font-size: 0.7em;
+}
+
+.masthead__logo--subtitle a {
+    text-decoration: none;
 }
 
 .masthead__logo--title {
     font-family: fantasy;
+}
+
+.masthead__icons {
+    order: -1;
+    padding-bottom: 15px;
+}
+
+.masthead__icons i:hover {
+    color: white;
 }
 
 .content {
@@ -33,39 +63,36 @@ body {
 
 .content__body {
     padding: 2%;
+    color: black;
 }
+
 
 .content__sidebar {
     display: none;
-    background: darkcyan;
+    background: white;
     padding: 2%;
 }
 
 .content__nav {
-    background: mediumpurple;
+    display: none;
+    background: white;
     padding: 2%;
-    list-style: none;
-}
-
-.content__nav a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.content__nav a:hover {
-    color: white;
 }
 
 .footer {
     text-align: center;
     background: mediumpurple;
-    padding: 1%;
+    padding: 0;
     position: fixed;
-    height: 60px;
+    height: auto;
     bottom: 0;
     left: 0;
     right: 0;
     overflow: hidden;
+}
+
+.toggle-on {
+    display: none;
 }
 
 @media (min-width: 768px){
@@ -73,24 +100,47 @@ body {
         display: flex;
     }
     .content__nav {
-        flex: 2;
+        flex: 1;
+        display: block;
     }
-
+    .content__sidebar{
+        flex: 1;
+        display: block;
+    }
     .content__body {
         flex: 4;
     }
-}
+    .footer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        padding-bottom: 15px;
+        padding-top: 15px
+    }
+    .masthead__logo {
+        justify-content: flex-start;
+        padding-top: 5px;
+        /* padding-bottom: 5px; */
+        padding-left: 30px;
+        align-items: center;
+    }
+    .masthead__logo--subtitle {
+        padding-left: 30px;
+    }
+    .masthead__icons {
+        justify-content: flex-start;
+        flex-flow: row-reverse;
+        order: 0;
+        padding-top: 10px;
+        padding-right: 30px;
+        
+    }
+    .fas {
+        padding: 0 10px;
+    }
 
-@media (min-width: 993px) {
-    .content__nav {
-        flex: 1;
-    }
-    .content__body {
-        flex: 9;
-    }
-    .content__sidebar {
-        flex: 2;
-        display: block;
-        padding: 2%;
+    .thumbs {
+        margin-bottom: 200px;
     }
 }
