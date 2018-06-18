@@ -21,7 +21,8 @@ body {
   align-items: center;
 
   font-family: "Song Myung", serif;
-  background: crimson;
+  background: skyblue;
+  color: white;
 }
 
 .header__logo {
@@ -62,7 +63,10 @@ body {
   flex: 6;
 
   overflow: scroll;
-  background: rgba(255, 0, 0, 0.2);
+  background-image: url("bubbles.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .main__content__article {
@@ -101,7 +105,7 @@ body {
 
 .footer__item {
   /* padding: 10px; */
-  background: seagreen;
+  background: lightblue;
 }
 
 @media (min-width: 768px) {
