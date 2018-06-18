@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slacker News</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="app" id="app">
+        
+        <div class="content">
+            <div class="content__nav"></div>
+            <main class="content__body">
+                    <h2 class="content__body--title">Top Tech Stories</h2>
+                    <hr>
+                <div class="thumbs" id="thumbs">
+                    <!-- <p id="news-desc">Hello</p> -->
+                </div>
+            </main>
+            <div class="content__sidebar"></div>
+        </div>
+
+        <footer class="footer">
+                <header class="masthead">
+                    <h1 class="masthead__logo"><i class="masthead__logo--title">Slacker</i> <i>News</i></h1>
+                    <p class="masthead__logo--subtitle"><a href="newsapi.org">powered by newsapi.org</a></p>
+                </header>
+                <div class="masthead__icons">
+                    <i class="fas fa-sync-alt fa-3x" id="content__nav--links" tooltiptext="Refresh" alt="refresh-button"></i> 
+                    <i class="fas fa-window-restore fa-3x" id="descrption-toggle" tooltiptext="Toggle Description" alt="toggle-description-button"></i> 
+                    <i class="fas fa-adjust fa-3x" id="invert-btn" tooltiptext="Invert Colours" alt="invert-colour-button"></i>
+                </div>
+        </footer>
+    </div>
+    <script src="./assets/index.js"></script>
+</body>
+
+</html>
