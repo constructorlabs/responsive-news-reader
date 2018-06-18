@@ -17,8 +17,14 @@ function submitHandler(event) {
         return response.json();
     }).then(function(data){
 
+        // console.log(data);
+
+        const articlesLength = data.articles.length;
+
+        if (articlesLength > 0) {
+
         const results = data.articles.map(article =>
-            `<div class="app__content__body__article"><a href="${article.url}"><h2>${article.title}</h2></a><img class="app__content___body__article--img" src="${article.urlToImage}"><h3>${article.source.name}</h3><p>${article.description}</p><p>Author: ${article.author}</p></div>
+            `<div class="app__content__body__article"><a href="${article.url}" target="_blank"><h2>${article.title}</h2></a><img class="app__content___body__article--img" src="${article.urlToImage}"><h3>${article.source.name}</h3><p>${article.description}</p><p>Author: ${article.author}</p></div>
             `
         ).join('');
         getTopic.value = '';
@@ -26,6 +32,11 @@ function submitHandler(event) {
         const resultsEl = document.querySelector('#articlesBody');
 
         resultsEl.innerHTML = results;
+    }
+
+    else {
+        alert('Hmm, slow news day. Maybe search for something else.');
+    }
 
     }).catch(function(error){
         alert('Sorry, I couldn\'t find anything.');
