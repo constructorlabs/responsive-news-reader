@@ -10,14 +10,14 @@ function submitHandler(event) {
 
     // Get news information
     
-    const url = `https://newsapi.org/v2/top-headlines?country=${countryToSearch}&category=${topicToSearch}&apiKey=814db06ca1814aeca4562dbafab25378`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${countryToSearch}&q=${topicToSearch}&apiKey=814db06ca1814aeca4562dbafab25378`;
 
     fetch(url)
     .then(function(response){
         return response.json();
     }).then(function(data){
 
-        // console.log(data);
+        console.log(data);
 
         const articlesLength = data.articles.length;
 
