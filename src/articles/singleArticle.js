@@ -1,5 +1,5 @@
 import React from "react";
-
+import { distanceInWordsToNow } from "date-fns";
 export const SingleArticle = ({
   author,
   title,
@@ -15,9 +15,12 @@ export const SingleArticle = ({
 
     <div className="article__details">
       <p className="article__description">{description}</p>
-      <div className="article__publishedAt">{publishedAt}</div>
+      <div className="article__publishedAt">
+        Posted
+        {" " + distanceInWordsToNow(publishedAt)} ago
+      </div>
       <div className="article__url">
-        <a href={url} alt={source.name}>
+        <a href={url} target="_blank">
           Read more...
         </a>
       </div>

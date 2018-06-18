@@ -1,4 +1,4 @@
 export const siteConfig = {
-  siteTitle: "fakeNews",
+  siteTitle: "fakeNews()",
   siteSlogan: "'Truth' === Undefined"
 };

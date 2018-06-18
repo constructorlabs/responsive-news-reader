@@ -4,7 +4,7 @@
   "description": "Let's create a responsive news reader website. To get the latest news the app will display we are going to use [News API](https://newsapi.org/). As with the Weather and Unsplash APIs, you will need to register with the service to obtain an API key.",
   "main": "index.js",
   "scripts": {
-    "start": "parcel"
+    "start": "react-scripts start"
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,10 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react-app": "^3.1.1",
+    "date-fns": "^1.29.0",
     "parcel-bundler": "^1.9.0",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "react-scripts": "^1.1.4"
   }
 }
