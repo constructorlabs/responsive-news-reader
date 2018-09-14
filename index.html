@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<header class="header">
+    <div class='page_control'>
+        <div class="dropdown">
+            <button class="dropbtn">Articles per page</button>
+            <div class="dropdown-content">
+                <a href="#" class='pageSize'>10</a>
+                <a href="#" class='pageSize'>20</a>
+                <a href="#" class='pageSize'>30</a>
+            </div>
+        </div>
+        
+    </div>    
+    <div>
+        <form class="form">
+            <input type='text' class="search" name="search" placeholder="Search...">
+            <i class="fas fa-search"></i>
+        </form>
+    </div>
+</header>
+
+<body>
+
+    <div class='articles'></div>
+    
+    <div class='page-nav'>
+        <a href="#" class="previous">&#8249;</a>
+        <a href="#" class="next">&#8250;</a>
+    </div>
+
+    <script type="text/javascript" src="index.js"></script>    
+
+</body>
+
+<footer class='footer'>
+    <p class="copyright">&copy; 2018, Yetkin Ergun. Made in London, UK. </p>
+    <p class='attribution'>Powered by News API and Turkish figs</p>
+</footer>
+
+
+</html>
