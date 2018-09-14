@@ -10,29 +10,21 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background: gray;
+    background:#eeeeee;
   }
 
 .app {
     display: flex;
     flex-direction: column;
     flex:10;
-    background: white;
+    background: #eeeeee;
 }
 
-.article {
-    display: flex;
-    flex-direction:column;
-    margin:1em;
-}
 .hero__photo {
     display:flex;
     flex-direction:row;
-    min-height:200px;
-    background-image:
-        url("images/header-ventoux.jpg");
-    object-fit: cover;
-
+    min-height:60px;
+    background:#33b5e5;
   }
 
 img {
@@ -51,6 +43,17 @@ header {
     margin-right: 1em;
 }
 
+.excludedDomains {
+    display:flex;
+    padding:0;
+    margin:1em;
+    align-content:flex-start;
+}
+
+.excludedDomains__li {
+    display:flex;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -61,12 +64,13 @@ main {
     display: flex;
     flex-direction: column;
     margin:0;
+    padding:10px;
     margin-bottom:1em;
-    background:gray;
+    background:white;
 }
 
 .article__title {
-    margin-bottom: 5px;
+    margin-bottom:5px;
     font-weight:400;
 }
 
@@ -78,6 +82,7 @@ main {
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-top:10px;
     border-bottom:2px;
     font-size:0.8em;
 }
@@ -102,4 +107,115 @@ input[type=search] {
     border-radius: 0;
   
     -webkit-appearance: none;
+  }
+
+  .excludedDomains {
+      display:flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-left:1em;
+  }
+  .excludedDomains__li {
+	-moz-box-shadow:inset 0px 39px 0px -24px #ff4444;
+	-webkit-box-shadow:inset 0px 39px 0px -24px #ff4444;
+	box-shadow:inset 0px 39px 0px -24px #ff4444;
+	background-color:#ff4444;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	border:1px solid #ffffff;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:10px;
+    padding:6px 15px;
+    margin: 0 5px 5px 0;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #b23e35;
+}
+.excludedDomains__li:hover {
+    background-color:#72b352;
+	-moz-box-shadow:inset 0px 39px 0px -24px #72b352;
+	-webkit-box-shadow:inset 0px 39px 0px -24px #72b352;
+}
+.excludedDomains__li:active {
+	position:relative;
+	top:1px;
+}
+
+.excludeButton {
+	-moz-box-shadow:inset 0px 39px 0px -24px #ff4444;
+	-webkit-box-shadow:inset 0px 39px 0px -24px #ff4444;
+	box-shadow:inset 0px 39px 0px -24px #ff4444;
+	background-color:#ff4444;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	border:1px solid #ffffff;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:10px;
+    padding:6px 15px;
+    margin-top:5px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #b23e35;
+}
+.excludeButton:hover {
+    background-color:black;
+	-moz-box-shadow:inset 0px 39px 0px -24px black;
+	-webkit-box-shadow:inset 0px 39px 0px -24px black;
+}
+.excludeButton:active {
+	position:relative;
+	top:1px;
+}
+
+p {
+    margin:0;
+}
+
+.search {
+    width: 100%;
+    position: relative
+  }
+  
+  .searchTerm {
+    float: left;
+    width: 100%;
+    border: 3px solid #00B4CC;
+    padding: 5px;
+    height: 20px;
+    border-radius: 5px;
+    outline: none;
+    color: #9DBFAF;
+  }
+  
+  .searchTerm:focus{
+    color: #00B4CC;
+  }
+  
+  .searchButton {
+    position: absolute;  
+    right: -50px;
+    width: 40px;
+    height: 36px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  /*Resize the wrap to see the search bar change!*/
+.wrap {
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }

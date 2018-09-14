@@ -1,3 +1,5 @@
+let itemId = 1;
+
 // adds a listener to the search submit button
 function formListener () {
 	const formElement = document.querySelector("form");
@@ -26,17 +28,18 @@ function nextListener () {
 // adds listeners that change the colour of the article the mouse is over
 function mouseOverArticle(articleNode) {
 	articleNode.addEventListener("mouseover", event => {
-		articleNode.style.backgroundColor = "red";
+		articleNode.style.backgroundColor = "#ffc754";
 	})
 	articleNode.addEventListener("mouseout", event => {
-		articleNode.style.backgroundColor = "gray";
+		articleNode.style.backgroundColor = "white";
 	})
 }
 
 // add a listener to article creating 'click' event that takes user to URL
 function clickArticle(articleNode, url) {
 	articleNode.addEventListener("click", event => {
-	window.location = url;	
+		
+		window.location = url;		
 	})
 }
 
@@ -47,6 +50,7 @@ function clearArticles() {
 }
 
 function excludeDomain(articleDomain) {
+	event.stopPropagation();
 	if (!excludedDomainsArray.includes(articleDomain)) {
 		excludedDomainsArray.push(articleDomain);
 	}
@@ -54,6 +58,7 @@ function excludeDomain(articleDomain) {
 	getArticles(1,excludedDomainsArray.toString());
 }
 
+// creates red buttons for excluded domains / publishers at top of page.
 function createExcluded() {
 	console.log(excludedDomainsArray.length);
 	document.querySelector('.excludedDomains').innerHTML = "";
@@ -62,6 +67,7 @@ function createExcluded() {
 		excludedDomainsArray.forEach(domain => {
 			const parentNode = document.querySelector('.excludedDomains');
 			const childNode = document.createElement('li');
+			childNode.className = "excludedDomains__li";
 			childNode.innerHTML = domain;
 			parentNode.appendChild(childNode);
 			childNode.addEventListener("click", event => {
@@ -80,7 +86,7 @@ function articleTemplate(article, articleDomain) {
       <div class="article__image"><img src="${article.urlToImage}"></div>
     </div>
     <div class="article__meta">
-        <div class="article__publication">${article.source.name} - exclude articles from <span onclick="excludeDomain('${articleDomain}')">${article.source.name}</span></div>
+        <div class="article__publication">${article.source.name}<p id="item${itemId}"></p></div>
         <div class="article__date">${article.publishedAt}</div>
     </div>`
 }
@@ -89,15 +95,32 @@ function articleTemplate(article, articleDomain) {
 // takes request body and turns it into html to be appended into 'main'
 function createArticles(body) {
 	clearArticles();
+	itemId = 0;
 	body.articles.forEach(article => {
+		console.log(article.content);
+		itemId ++
 		const articleNode = document.createElement('div');
 		articleNode.className = "article";
 		let articleDomain = article.url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
-		articleNode.innerHTML = articleTemplate(article,articleDomain);
+		articleNode.innerHTML = articleTemplate(article,articleDomain, itemId);
 		const parentNode = document.querySelector('main');
 		parentNode.appendChild(articleNode);
+
+		const excludeDomainSpan = document.createElement('span');
+		excludeDomainSpan.textContent = "Exclude Publisher";
+		excludeDomainSpan.className = "excludeButton";
+		console.log(itemId);
+		const excludeDomainSpanParent = document.querySelector(`#item${itemId}`);
+		excludeDomainSpanParent.appendChild(excludeDomainSpan);
+		excludeDomainSpan.addEventListener("click", event => {
+			excludeDomain(articleDomain);
+		})
+
+		// create span element 
+		// insert span element into element with id article.url 
+		// set click click listener on span
 		mouseOverArticle(articleNode)
-		//clickArticle(articleNode, article.url);
+		clickArticle(articleNode, article.url);
 	});
 };
 
