@@ -11,12 +11,11 @@ const queryCountry = "country=us&"; // choose country (UK)
 const querySubject = "q=bitcoin"; // choose subject
 const apiKey = "apiKey=756ef978eb384d9cb3ecdab2d9bac0da";
 
-const topUKHeadlinesURL = newsURL + sectionHeadlines + "?" + queryCountry + apiKey;
+const topUSHeadlinesURL = newsURL + sectionHeadlines + "?" + queryCountry + apiKey;
 const bbcNewsURL = newsURL + sectionEverything + "?" + querySources + apiKey;
-const newsApiURL = topUKHeadlinesURL;
 
-const loadAPI = function () {
-    fetch(newsApiURL) 
+const loadAPI = function (url) {
+    fetch(url) 
     .then(function(response) {
         return response.json();
     })
@@ -31,15 +30,19 @@ const loadAPI = function () {
 const articleTemplate = article => {
     return `
     <div>
-        <span class="article__header"><a href="${article.source.name}" target="_blank">${article.source.name}</a></span>
+        <span class="article__header"><a href="${article.url}" target="_blank">${article.source.name}</a></span>
     </div>
-    <div>
-        <span class="article__main">
+    <div class="article__main">
+        <div class="article__image">
+            <a href="${article.url}" target="_blank"><img src="${article.urlToImage}" class="article__image"></a>
+        </div>
+        <div class="article__text">
             <ul>
                 <li><strong>${article.title}</strong></li>
                 <li>${article.description}</li>
                 <li><cite>Author: ${article.author}</cite></li>
-        </span>
+            </ul>
+        </div>
     </div>
     `;
     // source: {
@@ -58,8 +61,10 @@ const articleTemplate = article => {
 
 const parentNode = document.querySelector(".content__body");
 const articleNode = document.querySelector(".article__list");
+const sectionButtonsNode = document.querySelector(".content__section__buttons");
 
 function displayDataOnPage(body) {
+    // parentNode.removeChild(articleNode);
     const articleKeys = Object.keys(body.articles[0]);
     body.articles.forEach(function(article) {
         const node = document.createElement("li");
@@ -67,12 +72,21 @@ function displayDataOnPage(body) {
         articleNode.appendChild(node);
     });
     const displayURL = document.querySelector(".display-url");
-    displayURL.innerHTML = `View JSON: <a href="${newsApiURL}" target="_blank">${newsApiURL}</a>`;
+    displayURL.innerHTML = `View JSON: <a href="${topUSHeadlinesURL}" target="_blank">${topUSHeadlinesURL}</a>`;
+
+    const buttonNode = document.createElement("button");
+    buttonNode.innerHTML = "US Headlines";
+    sectionButtonsNode.appendChild(buttonNode);
+    buttonNode.addEventListener('click', function(event){
+        event.preventDefault();
+        console.log(topUSHeadlinesURL)
+        // loadAPI(topUSHeadlinesURL);
+    });
 }
 
 const displayErrorToUser = error => console.log(error);
 
-loadAPI();
+loadAPI(bbcNewsURL);
 
 /*
 ======================================================
