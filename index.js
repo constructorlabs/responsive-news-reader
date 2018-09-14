@@ -46,7 +46,15 @@ function clearArticles() {
 	mainNode.innerHTML = "";
 }
 
-function articleTemplate(article) {
+function excludeDomain(articleDomain) {
+	if (!excludedDomainsArray.includes(articleDomain)) {
+		excludedDomainsArray.push(articleDomain);
+	}
+	console.log(excludedDomainsArray.toString());
+	getArticles(1,excludedDomainsArray.toString());
+}
+
+function articleTemplate(article, articleDomain) {
 	return `
     <div class="article__title"><a href="${article.url}">${article.title}</a></div>
     <div class="article__content">
@@ -54,7 +62,7 @@ function articleTemplate(article) {
       <div class="article__image"><img src="${article.urlToImage}"></div>
     </div>
     <div class="article__meta">
-        <div class="article__publication">${article.source.name} - More from <a href="" onCLick="getArticles()">${article.source.name}</a></div>
+        <div class="article__publication">${article.source.name} - exclude articles from <span onclick="excludeDomain('${articleDomain}')">${article.source.name}</span></div>
         <div class="article__date">${article.publishedAt}</div>
     </div>`
 }
@@ -66,20 +74,22 @@ function createArticles(body) {
 	body.articles.forEach(article => {
 		const articleNode = document.createElement('div');
 		articleNode.className = "article";
-		articleNode.innerHTML = articleTemplate(article);
+		let articleDomain = article.url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
+		articleNode.innerHTML = articleTemplate(article,articleDomain);
 		const parentNode = document.querySelector('main');
 		parentNode.appendChild(articleNode);
 		mouseOverArticle(articleNode)
-		clickArticle(articleNode, article.url);
+		//clickArticle(articleNode, article.url);
 	});
 };
 
 // api request to news api. Returns json and calls createArticles function
-function getArticles(page) {
+function getArticles(page, excludedDomainsStr='') {
 	var url = 'https://newsapi.org/v2/everything?' +
 		'q=' + search  +
 		'&page=' + page +
-		'&apiKey=280f7af9f5c448c4a3598861960c947a&sortBy=publishedAt';
+		'&apiKey=280f7af9f5c448c4a3598861960c947a&sortBy=publishedAt' + 
+		'+&excludeDomains=' + excludedDomainsStr;
 	var req = new Request(url);
 	fetch(req)
 		.then(function (response) {
@@ -94,14 +104,13 @@ function getArticles(page) {
 function addPageLink() {
 	const pageLinkNode = document.createElement('li');
 	const parentNode = document.querySelector('.pagination__ul');
-	console.log(parentNode);
 	pageLinkNode.innerHTML = page;
 	pageLinkNode.className = "pagination__page";
 	parentNode.appendChild(pageLinkNode);
 	pageLinkNode.addEventListener("click", event => {getArticles(pageLinkNode.innerHTML)});
 }
 
-
+const excludedDomainsArray = [];
 let search = "uk";
 let page = 1;
 getArticles();
