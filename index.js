@@ -24,15 +24,25 @@ retrieveNewsItems = (newsItem) => {
     const source = newsItem.articles[0].source.name;
     const imgUrl = newsItem.articles[0].urlToImage;
 
-    setContent(headline);
+    setContent(headline, description, date, source, imgUrl);
 }
 
 // sets the news items to the items retrieved from retrieveNewsItems
-setContent = (headline) => {
-
+setContent = (headline, description, date, source, imgUrl) => {
     const headlineText = document.querySelector('.headline');
     headlineText.textContent = headline;
-    
+
+    const descriptionText = document.querySelector('.description');
+    descriptionText.textContent = description;
+
+    const dateText = document.querySelector('.date');
+    dateText.textContent = date;
+
+    const sourceText = document.querySelector('.source');
+    sourceText.textContent = source;
+
+    const imgSrc = document.querySelector('.image');
+    imgSrc.src = imgUrl;
 }
 
 
