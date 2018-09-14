@@ -115,9 +115,11 @@ a {
 
 .article__image {
   width: 100%;
+  min-width: 150px;
   display: flex;
   flex: 1;
   background: #e0e0e0;
+  padding: 0.2em;
 }
 
 .article__text {
@@ -127,4 +129,9 @@ a {
   padding: 1rem;
   display: flex;
   flex: 3;
+}
+
+.article__text ul {
+    padding: 0 0 0 1em;
+    margin: 0;
 }
