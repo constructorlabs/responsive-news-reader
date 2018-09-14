@@ -11,3 +11,7 @@
 body {
   font-family: 'FF Meta VF', Helvetica, Arial, sans-serif;
 }
+
+img.news__image {
+  width: 100%;
+}
