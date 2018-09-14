@@ -5,37 +5,50 @@ fetch(
     return response.json();
   })
   .then(data => {
-    addArticleToFeed(data.articles);
+    addArticlesToNewsfeed(data.articles, 5);
   })
   .catch(err => {
     displayErrorToUser('Server failed to return data');
   });
 
 const createArticle = articleData => {
-  let article = document.createElement('article');
-  article.classList.add('news__article');
-  article.innerHTML = `  <h2 class='news__headline'>${articleData[0].title}</h2>
-                        <img class='news__image' src="${
-                          articleData[0].urlToImage
-                        }" alt="${articleData[0].title}">
-                        <p class="news__story">${articleData[0].description}</p>
-                        <p class="news__publication">${
-                          articleData[0].source.name
-                        }</p>
-                        <p class="news__date">${articleData[0].publishedAt}</p>
-                        <a href="" class="news__source">${
-                          articleData[0].url
-                        }</a>`;
+  console.log(articleData.title);
 
-  console.log(article);
+  const article = document.createElement('article');
+  article.classList.add('news__article');
+  const elapsedTime = Math.floor(
+    (Date.now() - new Date(articleData.publishedAt).valueOf()) / 60000
+  );
+
+  article.innerHTML = `  <h2 class='news__headline'>${articleData.title}</h2>
+        <p class="news__date">Published ${elapsedTime} mins ago</p>
+                              <img class='news__image' src="${
+                                articleData.urlToImage
+                              }" alt="${articleData.title}">
+                              <p class="news__story">${
+                                articleData.description
+                              }</p>
+                              <p class="news__publication">Read the full story at <a href="${
+                                articleData.url
+                              }" class="news__source">${
+    articleData.source.name
+  }</a></p>
+      `;
   return article;
 };
 
-const addArticleToFeed = data => {
-  const newsArticle = createArticle(data);
-  const newsFeed = document.querySelector('section.news');
-  //   const refArticle = newsFeed.querySelector('article:first-child');
-  newsFeed.appendChild(newsArticle);
+const getArticles = (data, number) => {
+  return data.filter(article => data.indexOf(article) <= number - 1);
+};
+
+const addArticlesToNewsfeed = (data, number) => {
+  const articles = getArticles(data, number);
+  articles.forEach(story => {
+    const newsArticle = createArticle(story);
+    const newsFeed = document.querySelector('section.news');
+    const refArticle = newsFeed.querySelector('article:first-child');
+    newsFeed.appendChild(newsArticle);
+  });
 };
 
 const displayErrorToUser = err => {
