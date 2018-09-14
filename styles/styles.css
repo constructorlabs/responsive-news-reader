@@ -22,6 +22,14 @@ header{
 }
 
 
+
+.story-div-element{
+  background-color: white;
+  margin: 1em;
+  border: black 1px solid;
+  padding: 0.5em;
+}
+
 .story-image{
   display: none;
 }

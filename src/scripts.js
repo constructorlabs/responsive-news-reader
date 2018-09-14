@@ -6,8 +6,26 @@ const apiRequests = {
   ukTop20: 'https://newsapi.org/v2/top-headlines?country=gb&apiKey=9ed005ef4eb94baf913fce701c69972f',
 }
 
+const pageHandlers = {
+  changeCountry: function(){
+                    console.log("test")
+                    const countryButtonElement = document.querySelector(".country-button")
+                    countryButtonElement.addEventListener("click", event => {
+                      contentElement.innerHTML = ""
+                      countryButtonElement.textContent === "UK"
+                        ? ( countryButtonElement.textContent = "US",
+                           fetchNews(apiRequests.ukTop20))
+                        : (countryButtonElement.textContent = "UK",
+                           fetchNews(apiRequests.usTop20))
+                    })
+                  }
+
+}
+
+
+
+
 function createStoryPanel(article){
-  const contentElement = document.querySelector(".content")
   const storyDivElement = document.createElement("div")
   storyDivElement.className = "story-div-element"
 
@@ -39,9 +57,11 @@ function createStoryPanel(article){
   storyDivElement.appendChild(descriptionElement)
   storyDivElement.appendChild(linkElement)
   contentElement.appendChild(storyDivElement)
-
-
 }
+
+
+
+
 
 
 function fetchNews(apiAddress){
@@ -57,4 +77,7 @@ function fetchNews(apiAddress){
 }
 
 
+const contentElement = document.querySelector(".content")
+
 fetchNews(apiRequests.usTop20)
+pageHandlers.changeCountry()
