@@ -61,6 +61,7 @@ a {
     text-decoration: none;
     list-style: none;
     background-color: #f0f0f0;
+    padding: 1em
 }
 
 .content__nav li {
@@ -92,7 +93,8 @@ a {
     font-weight: 100;
 }
 
-.article-name {
+.article__header {
+    display: block;
     font-size: 1.5rem;
     background: #303030;
     color: white;
@@ -100,10 +102,15 @@ a {
     margin: 1rem 0 0 0;
 }
 
-.article-other-props {
+.article__list {
+    list-style: none;
+    padding: 0;
+}
+
+.article__main {
   font-size: 1rem;
   background: #f0f0f0;
   color: black;
   padding: 1rem;
-  margin: 0.2rem 0;
+  display: block;
 }
