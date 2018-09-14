@@ -19,6 +19,7 @@ html {
   font-weight: 800;
   background-color: #A2B6DB;
   margin:0px;
+  padding:0.2em;
 }
 
 /* Style the search field */
@@ -72,4 +73,18 @@ h2 {
 .article-div{
   background-color: #F7FBF9;
   margin: 1em;
+}
+
+@media(min-width :768px) {
+  .header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  img{
+    display: block;
+    width: 50%;
+  }
+
 }
