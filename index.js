@@ -20,7 +20,7 @@ function articleTemplate (article) {
     (article.source.name === null) ? sourceVar = "" : sourceVar = article.source.name;
     return `
     <h2 class="article_title">${article.title}</h2>
-    <img class="article_image" src="${article.urlToImage}">
+    <div class="image_container"><img class="article_image" src="${article.urlToImage}"></div>
     <p class="article_content">${article.content}</p>
     <ul class="article_author_source_list">
         <li class="author_item">${authorVar}</li>
