@@ -1,13 +1,13 @@
-// Fetches the news articles from News API and returns content to displayDataOnPage
+// Fetches the news articles from News API and returns content to setContent
 fetch('https://newsapi.org/v2/top-headlines?country=gb&apiKey=a346fd18cae743c7a27e0f214df32cbd')
     .then(function (response) {
         return response.json();
     })
     .then(function (content) {
-        retrieveNewsItems(content);
+        setContent(content);
     })
     .catch(error => {
-        retrieveNewsItems('Server failed to return data');
+        displayErrorToUser('Server failed to return data');
     });
 
 // Error message displayed when failed to get content from server
@@ -15,36 +15,39 @@ function displayErrorToUser(errorMessage) {
     console.log(errorMessage);
 }
 
-// Gets content and assigns into individual variables
-retrieveNewsItems = (newsItem) => {
-    const articleArr = newsItem.articles;
-    const headline = newsItem.articles[0].title;
-    const description = newsItem.articles[0].description;
-    const date = newsItem.articles[0].publishedAt;
-    const source = newsItem.articles[0].source.name;
-    const imgUrl = newsItem.articles[0].urlToImage;
-
-    setContent(headline, description, date, source, imgUrl);
+// Clones the first DIV element news-item__container and copies it x amount of times
+cloneDiv = (amount) => {
+    const parentNode = document.querySelector('.news-container')
+    for (i = 1; i < amount; i++) {
+        const div = document.querySelector('.news-item__container'),
+            clone = div.cloneNode(true);
+        parentNode.appendChild(clone);
+    }
 }
+
+// Sets how many news cards are added to the page
+cloneDiv(20);
 
 // sets the news items to the items retrieved from retrieveNewsItems
-setContent = (headline, description, date, source, imgUrl) => {
-    const headlineText = document.querySelector('.headline');
-    headlineText.textContent = headline;
+setContent = (content) => {
+    const newsItemContainer = document.querySelectorAll('.news-item__container');
+    let counter = 0;
+    newsItemContainer.forEach(item => {
+        const headlineText = item.querySelector('.headline');
+        headlineText.textContent = content.articles[counter].title;
 
-    const descriptionText = document.querySelector('.description');
-    descriptionText.textContent = description;
+        const descriptionText = item.querySelector('.description');
+        descriptionText.textContent = content.articles[counter].description;
 
-    const dateText = document.querySelector('.date');
-    dateText.textContent = date;
+        const dateText = item.querySelector('.date');
+        dateText.textContent = content.articles[counter].publishedAt;
 
-    const sourceText = document.querySelector('.source');
-    sourceText.textContent = source;
+        const sourceText = item.querySelector('.source');
+        sourceText.textContent = content.articles[counter].source.name;
 
-    const imgSrc = document.querySelector('.image');
-    imgSrc.src = imgUrl;
+        const imgSrc = item.querySelector('.image');
+        imgSrc.src = content.articles[counter].urlToImage;
+
+        counter++;
+    });
 }
-
-
-
-
