@@ -5,9 +5,12 @@ const apiRequests = {
 
   ukTop20: 'https://newsapi.org/v2/top-headlines?country=gb&apiKey=9ed005ef4eb94baf913fce701c69972f',
 
-  searchURL: function(userString){
-    return `https://newsapi.org/v2/everything?q=${userString}&sortBy=popularity&apiKey=9ed005ef4eb94baf913fce701c69972f`
-
+  searchURL: function(userString, daterange){
+    if (daterange === null){
+      return `https://newsapi.org/v2/everything?q=${userString}&sortBy=popularity&apiKey=9ed005ef4eb94baf913fce701c69972f`
+    }else{
+      return `https://newsapi.org/v2/everything?q=${userString}${daterange}&sortBy=popularity&apiKey=9ed005ef4eb94baf913fce701c69972f`
+    }
   }
 }
 
@@ -17,10 +20,10 @@ const pageHandlers = {
                     const countryButtonElement = document.querySelector(".country-button")
                     countryButtonElement.addEventListener("click", event => {
                       contentElement.innerHTML = ""
-                      countryButtonElement.textContent === "UK"
-                        ? ( countryButtonElement.textContent = "US",
+                      countryButtonElement.textContent === "Top UK Stories"
+                        ? ( countryButtonElement.textContent = "Top US Stories",
                            fetchNews(apiRequests.ukTop20))
-                        : (countryButtonElement.textContent = "UK",
+                        : (countryButtonElement.textContent = "Top UK Stories",
                            fetchNews(apiRequests.usTop20))
                     })
                   },
@@ -28,10 +31,15 @@ const pageHandlers = {
   search: function(){
     const searchFormElement = document.querySelector(".search-form")
     const searchTextElement = document.querySelector(".search-text")
+    const dateRangeElement = document.querySelector(".date-range")
     searchFormElement.addEventListener("submit", event => {
       event.preventDefault();
-      const searchString = apiRequests.searchURL(searchTextElement.value)
+      console.log(dateRangeElement.value)
+      const dateRange = formatDate(dateRangeElement.value)
+      console.log(dateRange)
+      const searchString = apiRequests.searchURL(searchTextElement.value, dateRange)
       contentElement.innerHTML = ""
+      searchTextElement.value = ""
       fetchNews(searchString)
 
     })
@@ -79,7 +87,17 @@ function createStoryPanel(article){
 }
 
 
-
+function formatDate(monthsAgo){
+  if ( monthsAgo != "all-time") {
+    const newDate = new Date
+    newDate.setMonth(newDate.getMonth() - monthsAgo);
+    const isoDate = newDate.toISOString().slice(0,10)
+    console.log(isoDate)
+    return `&from=${isoDate}`
+  }else{
+    return null
+  }
+}
 
 
 
