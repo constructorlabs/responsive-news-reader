@@ -1,3 +1,75 @@
-.author {
-    color: red;
+body{
+  margin: 0px;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+}
+*,
+*:before,
+*:after {
+  /* display: none; */
+  box-sizing: inherit;
+}
+
+.header{
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  background-color: #A2B6DB;
+  margin:0px;
+}
+
+/* Style the search field */
+form.search input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.search button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #BBD1E1;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.search button:hover {
+  background: #95B8D1;
+}
+
+/* Clear floats */
+form.search::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+main{
+  margin: 0px;
+}
+
+img {
+  display: none;
+}
+
+h2 {
+  font-size: 1.2em;
+  background-color: #D1EBE2;
+  margin: 0;
+}
+
+.article-div{
+  background-color: #F7FBF9;
+  margin: 1em;
 }
