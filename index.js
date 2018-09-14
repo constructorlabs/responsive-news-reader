@@ -3,8 +3,6 @@ const articleNode = document.querySelector(".article__list");
 const sectionButtonsNode = document.querySelector(".content__section__buttons");
 const displayJSONNode = document.querySelector(".display__url");
 const countryMenuNode = document.querySelector(".country");
-const newsURL = "https://newsapi.org/v2/";
-const apiKey = "756ef978eb384d9cb3ecdab2d9bac0da";
 
 /*
 ======================================================
@@ -32,10 +30,10 @@ FETCH DATA FOR ARTICLES
 */
 
 const articleTemplate = article => {
+    const title = (article.title !== null) ? `<li><strong>${article.title}</strong></li>` : "";
     const description = (article.description !== null) ? `<li>${article.description}</li>` : "";
     const content = (article.content !== null) ? `<li>${article.content}</li>` : "";
     const author = (article.author !== null) ? `<li><cite>Author: ${article.author}</cite></li>` : "";
-    const title = (article.title !== null) ? `<li><strong>Author: ${article.title}</strong></li>` : "";
     return `
     <div>
         <span class="article__header">
@@ -69,52 +67,40 @@ function displayDataOnPage(body, url) {
 }
 
 /*
-======================================================
 CREATE MENU AND BUTTONS
-======================================================
 */
 
-countryMenuNode.addEventListener('change', function(event){
-    event.preventDefault();
-    const countryURL = queryHeadlines(event.target.value, "business");
-    loadAPI(countryURL);
-});
-
-const createSectionButton = function (url, title){
-    let buttonNode = document.createElement("button");
-    buttonNode.innerHTML = title;
-    sectionButtonsNode.appendChild(buttonNode);
-    buttonNode.addEventListener('click', function(event){
+const createCountriesMenu = function() {
+    const menuNode = document.createElement("select");
+    menuNode.innerHTML = getCountries();
+    countryMenuNode.appendChild(menuNode);
+    countryMenuNode.addEventListener('change', function(event){
         event.preventDefault();
-        loadAPI(url);
+        const countryURL = queryHeadlines(event.target.value);
+        loadAPI(countryURL);
     });
 }
 
-const buttons = {
-    // 'uk': `top-headlines?country=uk&apiKey=${apiKey}`
-    'top-headlines': ['category', 'country', 'q'],
-    'sources': ['language','country'],
-    'everything': ['q']
-}
+/*
+CREATE QUERIES
+*/
 
-const queryHeadlines = function (country, category) {
+const newsURL = "https://newsapi.org/v2/";
+const apiKey = "756ef978eb384d9cb3ecdab2d9bac0da";
+
+const queryHeadlines = function (country, category="") {
     // categories are: business entertainment general health science sports technology
     let validCategory = category ? `&category=${category}` : "";
-    const url = `${newsURL}top-headlines?country=${country}${validCategory}&apiKey=${apiKey}`;
-    return url;
+    return `${newsURL}top-headlines?country=${country}${validCategory}&apiKey=${apiKey}`;
 }
 const queryEverything = function (subject) {
-    const url = `${newsURL}everything?q=${subject}&apiKey=${apiKey}`;
-    return url;
+    return `${newsURL}everything?q=${subject}&apiKey=${apiKey}`;
 }
 
-const headlinesUS = queryHeadlines("us");
-createSectionButton(headlinesUS, "US Headlines");
-const ukMusic = queryEverything("music");
-createSectionButton(ukMusic, "Music UK");
 const displayErrorToUser = error => console.log(error);
 
-loadAPI(ukMusic);
+createCountriesMenu();
+loadAPI(queryHeadlines("gb"));
 
 /*
 ======================================================
@@ -132,7 +118,6 @@ navButton.addEventListener("click", function(event){
     state = !state;
 });
 
-
 // source: {
 //     id: null,
 //     name: "Birminghammail.co.uk"
@@ -145,7 +130,29 @@ navButton.addEventListener("click", function(event){
 //     publishedAt: "2018-09-14T11:26:20Z",
 //     content: "JD Wetherspoon's profits..."
 
+// const buttons = {
+//     'top-headlines': ['category', 'country', 'q'],
+//     'sources': ['language','country'],
+//     'everything': ['q']
+// }
+// const createSectionButton = function (url, title){
+//     let buttonNode = document.createElement("button");
+//     buttonNode.innerHTML = title;
+//     sectionButtonsNode.appendChild(buttonNode);
+//     buttonNode.addEventListener('click', function(event){
+//         event.preventDefault();
+//         loadAPI(url);
+//     });
+// }
+
+// const headlinesUS = queryHeadlines("us");
+// createSectionButton(headlinesUS, "US Headlines");
+// const ukMusic = queryEverything("music");
+// createSectionButton(ukMusic, "Music UK");
+
+
 // documentation: 
+// https://newsapi.org/sources
 // https://newsapi.org/docs
 // https://newsapi.org/docs/get-started
 // everything: https://newsapi.org/docs/endpoints/everything
