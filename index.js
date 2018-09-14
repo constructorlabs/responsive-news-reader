@@ -1,3 +1,4 @@
+// adds a listener to the search submit button
 function formListener () {
 	const formElement = document.querySelector("form");
 	const formInput = document.querySelector("#form-search");
@@ -7,10 +8,10 @@ function formListener () {
 		search = formInput.value;
 		page=1;
 		getArticles(1)
-		console.log("HI");
 	});
 }
 
+// adds a listener to the next button
 function nextListener () {
 	const nextButton = document.querySelector("#next");
 	nextButton.addEventListener('click', event => {
@@ -22,46 +23,63 @@ function nextListener () {
 	});
 }
 
-
+// adds listeners that change the colour of the article the mouse is over
 function mouseOverArticle(articleNode) {
 	articleNode.addEventListener("mouseover", event => {
 		articleNode.style.backgroundColor = "red";
 	})
 	articleNode.addEventListener("mouseout", event => {
-		articleNode.style.backgroundColor = "white";
+		articleNode.style.backgroundColor = "gray";
 	})
 }
 
+// add a listener to article creating 'click' event that takes user to URL
+function clickArticle(articleNode, url) {
+	articleNode.addEventListener("click", event => {
+	window.location = url;	
+	})
+}
+
+// clears existing articles from page in preparation for a new search or new page
 function clearArticles() {
 	const mainNode = document.querySelector('main');
 	mainNode.innerHTML = "";
 }
 
-function createArticles(body) {
-	clearArticles();
-	body.articles.forEach(article => {
-		const articleNode = document.createElement('div');
-		articleNode.innerHTML = `
+function articleTemplate(article) {
+	return `
     <div class="article__title"><a href="${article.url}">${article.title}</a></div>
-    <!--<div class="article__content">
+    <div class="article__content">
       <div class="article__description">${article.description}</div>
       <div class="article__image"><img src="${article.urlToImage}"></div>
     </div>
     <div class="article__meta">
-        <div class="article__publication">${article.source.name}</div>
+        <div class="article__publication">${article.source.name} - More from <a href="" onCLick="getArticles()">${article.source.name}</a></div>
         <div class="article__date">${article.publishedAt}</div>
-    </div>-->`
+    </div>`
+}
+
+
+// takes request body and turns it into html to be appended into 'main'
+function createArticles(body) {
+	clearArticles();
+	body.articles.forEach(article => {
+		const articleNode = document.createElement('div');
+		articleNode.className = "article";
+		articleNode.innerHTML = articleTemplate(article);
 		const parentNode = document.querySelector('main');
 		parentNode.appendChild(articleNode);
-		mouseOverArticle(articleNode);
+		mouseOverArticle(articleNode)
+		clickArticle(articleNode, article.url);
 	});
 };
 
+// api request to news api. Returns json and calls createArticles function
 function getArticles(page) {
 	var url = 'https://newsapi.org/v2/everything?' +
 		'q=' + search  +
 		'&page=' + page +
-		'&apiKey=280f7af9f5c448c4a3598861960c947a';
+		'&apiKey=280f7af9f5c448c4a3598861960c947a&sortBy=publishedAt';
 	var req = new Request(url);
 	fetch(req)
 		.then(function (response) {
@@ -72,6 +90,7 @@ function getArticles(page) {
 		})
 }
 
+// adds a link to a new page when the next button is clicked
 function addPageLink() {
 	const pageLinkNode = document.createElement('li');
 	const parentNode = document.querySelector('.pagination__ul');
@@ -83,7 +102,7 @@ function addPageLink() {
 }
 
 
-let search = "cycling";
+let search = "uk";
 let page = 1;
 getArticles();
 formListener();
