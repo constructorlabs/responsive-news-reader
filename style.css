@@ -20,12 +20,20 @@ img{
     height: 30vh;
 }
 
-button {
-    width: 50px;
-    margin: auto;
-   
-}
 
+
+/* button:hover {
+
+} */
+ul {
+    display: flex;
+    justify-content: center;
+    margin-right: 45px;
+}
+li {
+    display:inline-block;
+    
+}
 
 .arrows{
    width: 20px;
@@ -50,4 +58,8 @@ button {
    transform: rotate(-135deg);
    right: 10px;
    margin-right: 10vh;
+}
+
+.publishedAt {
+    font-size: 10px;
 }
