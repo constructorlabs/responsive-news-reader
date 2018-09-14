@@ -54,6 +54,24 @@ function excludeDomain(articleDomain) {
 	getArticles(1,excludedDomainsArray.toString());
 }
 
+function createExcluded() {
+	console.log(excludedDomainsArray.length);
+	document.querySelector('.excludedDomains').innerHTML = "";
+	if (excludedDomainsArray.length>0) {
+		console.log(61);
+		excludedDomainsArray.forEach(domain => {
+			const parentNode = document.querySelector('.excludedDomains');
+			const childNode = document.createElement('li');
+			childNode.innerHTML = domain;
+			parentNode.appendChild(childNode);
+			childNode.addEventListener("click", event => {
+				excludedDomainsArray.splice(excludedDomainsArray.indexOf(domain),1);
+				getArticles();
+			})
+		})
+	}
+}
+
 function articleTemplate(article, articleDomain) {
 	return `
     <div class="article__title"><a href="${article.url}">${article.title}</a></div>
@@ -96,7 +114,9 @@ function getArticles(page, excludedDomainsStr='') {
 			return response.json();
 		})
 		.then(function (body) {
-			createArticles(body);
+			createArticles(body)
+			createExcluded();;
+			console.log("boom");
 		})
 }
 
