@@ -4,6 +4,11 @@ const apiRequests = {
   usTop20:  'https://newsapi.org/v2/top-headlines?country=us&apiKey=9ed005ef4eb94baf913fce701c69972f',
 
   ukTop20: 'https://newsapi.org/v2/top-headlines?country=gb&apiKey=9ed005ef4eb94baf913fce701c69972f',
+
+  searchURL: function(userString){
+    return `https://newsapi.org/v2/everything?q=${userString}&sortBy=popularity&apiKey=9ed005ef4eb94baf913fce701c69972f`
+
+  }
 }
 
 const pageHandlers = {
@@ -18,7 +23,21 @@ const pageHandlers = {
                         : (countryButtonElement.textContent = "UK",
                            fetchNews(apiRequests.usTop20))
                     })
-                  }
+                  },
+
+  search: function(){
+    const searchFormElement = document.querySelector(".search-form")
+    const searchTextElement = document.querySelector(".search-text")
+    searchFormElement.addEventListener("submit", event => {
+      event.preventDefault();
+      const searchString = apiRequests.searchURL(searchTextElement.value)
+      contentElement.innerHTML = ""
+      fetchNews(searchString)
+
+    })
+  }
+
+
 
 }
 
@@ -81,3 +100,4 @@ const contentElement = document.querySelector(".content")
 
 fetchNews(apiRequests.usTop20)
 pageHandlers.changeCountry()
+pageHandlers.search()
