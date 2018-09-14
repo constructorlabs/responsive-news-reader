@@ -6,24 +6,26 @@ body {
     text-align: center;
 }
 
-
 .top-content {
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
+    background-color:red;
 
 }
-
 
 img{
     width: 40vh;
     height: 30vh;
 }
 
-ul {
-    list-style-type: none;
+button {
+    width: 50px;
+    margin: auto;
+   
 }
+
 
 .arrows{
    width: 20px;
@@ -39,13 +41,13 @@ ul {
    border-left: 6px solid;
    transform: rotate(45deg);
    left: 10px;
-   margin-left: 70px;
+   margin-left: 10vh;
 }
 
 .next{
    border-bottom: 6px solid;
    border-left: 6px solid;
    transform: rotate(-135deg);
-   right: 5vh;
-   margin-right: 10px;
+   right: 10px;
+   margin-right: 10vh;
 }
