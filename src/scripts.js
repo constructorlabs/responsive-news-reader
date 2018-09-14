@@ -34,9 +34,7 @@ const pageHandlers = {
     const dateRangeElement = document.querySelector(".date-range")
     searchFormElement.addEventListener("submit", event => {
       event.preventDefault();
-      console.log(dateRangeElement.value)
       const dateRange = formatDate(dateRangeElement.value)
-      console.log(dateRange)
       const searchString = apiRequests.searchURL(searchTextElement.value, dateRange)
       contentElement.innerHTML = ""
       searchTextElement.value = ""
@@ -92,7 +90,6 @@ function formatDate(monthsAgo){
     const newDate = new Date
     newDate.setMonth(newDate.getMonth() - monthsAgo);
     const isoDate = newDate.toISOString().slice(0,10)
-    console.log(isoDate)
     return `&from=${isoDate}`
   }else{
     return null
