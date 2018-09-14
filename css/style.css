@@ -3,3 +3,59 @@
     padding: 0;
 }
 
+.container {
+    width: 100vw;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    border: 5px solid red;
+}
+
+.main__title {
+    display: flex;
+    width: 100%;
+    border: 10px solid yellow;
+}
+
+.main__description {
+    display: flex;
+    width: 100%;
+    border: 10px solid black;
+}
+
+.main__image {
+    max-width: 100%;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.main__content {
+    display: flex;
+    width: 100%;
+}
+
+.main__published {
+    display: flex;
+    width: 100%;
+}
+
+.main__source {
+    display: flex;
+    width: 100%;
+}
+
