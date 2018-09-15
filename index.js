@@ -49,7 +49,6 @@ const displayErrorToUser = err => {
 
 // Filter data to prevent stories without description or image loading
 const cleanData = data => {
-  console.log(data.articles);
   return data.articles.filter(
     article => article.description !== null && article.urlToImage !== null
   );
@@ -84,6 +83,7 @@ const createArticles = data => {
     const newsArticle = createArticle(story);
     newsWrapper.appendChild(newsArticle);
   });
+
   return newsWrapper;
 };
 
@@ -164,15 +164,16 @@ searchForm.addEventListener('submit', e => {
   const query = searchForm.lastElementChild.value;
   console.log(query);
   // do something with input value
-  params.query = query;
-  params.endpoint = 'everything';
-  params.country = '';
-  clearNewsFeed();
-  getNews(params);
-
+  if (query !== '') {
+    params.query = query;
+    params.endpoint = 'everything';
+    params.country = '';
+    clearNewsFeed();
+    getNews(params);
+  }
   //reset the search input
-  // searchForm.lastElementChild.value = '';
-  // searchForm.lastElementChild.placeholder = 'Type your query here...';
+  searchForm.lastElementChild.value = '';
+  searchForm.lastElementChild.placeholder = 'Type your query here...';
 });
 
 const searchInput = document.querySelector('#search--query');
