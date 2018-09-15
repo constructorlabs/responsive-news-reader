@@ -4,7 +4,7 @@ fetch('https://newsapi.org/v2/top-headlines?country=gb&apiKey=a346fd18cae743c7a2
         return response.json();
     })
     .then(function (content) {
-        setContent(content);
+        setContent(content, 0);
     })
     .catch(error => {
         displayErrorToUser('Server failed to return data');
@@ -29,7 +29,7 @@ cloneDiv = (amount) => {
 cloneDiv(20);
 
 // sets the news items to the items retrieved from retrieveNewsItems
-setContent = (content) => {
+setContent = (content, count) => {
     const newsItemContainer = document.querySelectorAll('.news-item__container');
     let counter = 0;
     newsItemContainer.forEach(item => {
@@ -51,3 +51,9 @@ setContent = (content) => {
         counter++;
     });
 }
+
+const button = document.querySelector('button');
+button.addEventListener("click", (event) => {
+    console.log("button was clicked");
+})
+
