@@ -9,7 +9,8 @@ function formListener () {
 		clearArticles();
 		search = formInput.value;
 		page=1;
-		getArticles(1)
+		getArticles(1,excludedDomainsArray);
+		console.log(excludedDomainsArray);
 	});
 }
 
@@ -18,8 +19,6 @@ function nextListener () {
 	const nextButton = document.querySelector("#next");
 	nextButton.addEventListener('click', event => {
 		page ++;
-		console.log(`getting page: ${page}`)
-
 		getArticles(page);
 		addPageLink();
 	});
@@ -45,7 +44,13 @@ function clickArticle(articleNode, url) {
 
 // clears existing articles from page in preparation for a new search or new page
 function clearArticles() {
-	const mainNode = document.querySelector('main');
+	const mainNode = document.querySelector('.articles');
+	mainNode.innerHTML = "";
+}
+
+// clears pagination
+function clearPagination() {
+	const mainNode = document.querySelector('.pagination__ul');
 	mainNode.innerHTML = "";
 }
 
@@ -63,6 +68,7 @@ function createExcluded() {
 	console.log(excludedDomainsArray.length);
 	document.querySelector('.excludedDomains').innerHTML = "";
 	if (excludedDomainsArray.length>0) {
+		document.querySelector('.excludedDomains__message').style.display = 'flex';
 		console.log(61);
 		excludedDomainsArray.forEach(domain => {
 			const parentNode = document.querySelector('.excludedDomains');
@@ -75,6 +81,12 @@ function createExcluded() {
 				getArticles();
 			})
 		})
+		document.querySelector('.excludedDomainsDiv').style.display = 'flex';
+	} else {
+		document.querySelector('.excludedDomainsDiv').style.display = 'none';
+	}
+	if (excludedDomainsArray.length > 4) {
+		document.querySelector('.excludedDomainsDiv').style.flexDirection = 'column';
 	}
 }
 
@@ -97,19 +109,17 @@ function createArticles(body) {
 	clearArticles();
 	itemId = 0;
 	body.articles.forEach(article => {
-		console.log(article.content);
 		itemId ++
 		const articleNode = document.createElement('div');
 		articleNode.className = "article";
 		let articleDomain = article.url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
 		articleNode.innerHTML = articleTemplate(article,articleDomain, itemId);
-		const parentNode = document.querySelector('main');
+		const parentNode = document.querySelector('.articles');
 		parentNode.appendChild(articleNode);
 
 		const excludeDomainSpan = document.createElement('span');
 		excludeDomainSpan.textContent = "Exclude Publisher";
 		excludeDomainSpan.className = "excludeButton";
-		console.log(itemId);
 		const excludeDomainSpanParent = document.querySelector(`#item${itemId}`);
 		excludeDomainSpanParent.appendChild(excludeDomainSpan);
 		excludeDomainSpan.addEventListener("click", event => {
@@ -121,11 +131,12 @@ function createArticles(body) {
 		// set click click listener on span
 		mouseOverArticle(articleNode)
 		clickArticle(articleNode, article.url);
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	});
 };
 
 // api request to news api. Returns json and calls createArticles function
-function getArticles(page, excludedDomainsStr='') {
+function getArticles(page=1, excludedDomainsStr='', i) {
 	var url = 'https://newsapi.org/v2/everything?' +
 		'q=' + search  +
 		'&page=' + page +
@@ -139,25 +150,41 @@ function getArticles(page, excludedDomainsStr='') {
 		.then(function (body) {
 			createArticles(body)
 			createExcluded();;
-			console.log("boom");
+			addPagination(body.totalResults);
 		})
 }
 
 // adds a link to a new page when the next button is clicked
-function addPageLink() {
-	const pageLinkNode = document.createElement('li');
-	const parentNode = document.querySelector('.pagination__ul');
-	pageLinkNode.innerHTML = page;
-	pageLinkNode.className = "pagination__page";
-	parentNode.appendChild(pageLinkNode);
-	pageLinkNode.addEventListener("click", event => {getArticles(pageLinkNode.innerHTML)});
+// function addPageLink() {
+// 	const pageLinkNode = document.createElement('li');
+// 	const parentNode = document.querySelector('.pagination__ul');
+// 	pageLinkNode.innerHTML = page;
+// 	pageLinkNode.className = "pagination__page";
+// 	parentNode.appendChild(pageLinkNode);
+// 	pageLinkNode.addEventListener("click", event => {getArticles(pageLinkNode.innerHTML)});
+// }
+
+// adds 5 page links to bottom of page
+function addPagination(totalResults) {
+	clearPagination();
+	let numberOfPages = Math.floor(totalResults/20)+1;
+	if (numberOfPages > 5) {numberOfPages = 5};
+	for (i=1;i<=numberOfPages;i++) {
+		const pageLinkNode = document.createElement('li');
+		const parentNode = document.querySelector('.pagination__ul');
+		pageLinkNode.innerHTML = i;
+		pageLinkNode.className = "pagination__page";
+		parentNode.appendChild(pageLinkNode);
+		console.log("i: " + i)
+	//	console.log("page aP :" + page);
+		pageLinkNode.addEventListener("click", event => {getArticles(pageLinkNode.innerHTML)});
+	}
 }
 
 const excludedDomainsArray = [];
 let search = "uk";
-let page = 1;
 getArticles();
 formListener();
-nextListener();
-addPageLink();
+// nextListener();
+// addPageLink();
 
