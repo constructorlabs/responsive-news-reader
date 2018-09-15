@@ -31,18 +31,23 @@ FORMAT DATA FOR ARTICLES
 */
 
 const articleTemplate = article => {
+    const keys = Object.keys(article);
+    // ["title", "description", "content"].forEach(function(key){
+    //     const convertedText = (article[key] !== null) ? highlightFoundWords(article[key]) : "";
+    //     article[key] = convertedText;
+    // });
     const title = (article.title !== null) ? `<li><strong>${article.title}</strong></li>` : "";
     const convertedDescription = (article.description !== null) ? highlightFoundWords(article.description) : null;
     const description = (article.description !== null) ? `<li>${convertedDescription}</li>` : "";
     const content = (article.content !== null) ? `<li>${article.content}</li>` : "";
-    const author = (article.author !== null) ? `<li><cite>Author: ${article.author}</cite></li>` : "";
-    const source = (article.source.name !== null) ? `<li><cite>Source: ${article.source.name}</cite></li>` : "";
-    const url = (article.url !== null) ? `<a href="${article.url}" target="_blank">READ FULL STORY...</a>` : "";
+    const author = (article.author !== null) ? `<cite>Author: ${article.author}</cite>` : "";
+    const source = (article.source.name !== null) ? `<cite>Source: ${article.source.name}</cite>` : "";
+    const url = (article.url !== null) ? `<a href="${article.url}" target="_blank">READ FULL STORY</a>` : "";
     const urlToImage = (article.urlToImage !== null) ? `<a href="${article.url}" target="_blank"><img src="${article.urlToImage}" class="article__image__src"></a>` : "";
     return `
     <div>
         <span class="article__header">
-            <a href="${article.url}" target="_blank">${title}</a>
+            <a href="${url}" target="_blank">${article.title}</a>
         </span>
     </div>
     <div class="article__main">
@@ -51,27 +56,26 @@ const articleTemplate = article => {
         </div>
         <div class="article__text">
             <ul>
-                ${title}
-                ${description}
-                ${content}
-                ${author}
-                ${source}
-                ${url}
+                <li>${title}</li>
+                <li>${description}</li>
+                <li>${content}</li>
+                <li>${author}</li>
+                <li>${source}</li>
+                <li>${url}</li>
             </ul>
         </div>
     </div>
     `;
 }
 
-/*
-DISPLAY DATA
-*/
+/* //////////////////////////
+// DISPLAY DATA
+///////////////////////////*/
 
 function displayDataOnPage(body, url) {
     articleNode.innerHTML = "";
     displaySearchMessage(url);
     body.articles.forEach(function(article) {
-        // console.log(body)
         const node = document.createElement("li");
         node.innerHTML = articleTemplate(article);
         articleNode.appendChild(node);
@@ -149,6 +153,12 @@ const convertedSearchArray = function (url) {
     return found.split("=")[1].split("+");
 }
 
+Array.prototype.intersect = function(secondArray) {
+    return this.filter(function(item) {
+        return (secondArray.indexOf(item) != -1);
+    });
+}
+
 // highlight found search terms
 const highlightFoundWords = function (descriptionText) {
     if (bodyURL.indexOf("everything?") >= 0) {
@@ -157,13 +167,14 @@ const highlightFoundWords = function (descriptionText) {
             const found = searchResultsArray.find(function(searchItem) {
                 return searchItem === item;
             });
-            return found ? `<span class="highlighted">${found}</span>` : item;
+            return found !== undefined ? `<span class="highlighted">${found}</span>` : item;
         });
         return updatedWords.join(" ");
     } else {
         return descriptionText;
     }
 }
+
 // collapse main nav
 let state = 1;
 navSections.addEventListener("click", function(event){
