@@ -11,7 +11,7 @@ const params = {
   country: 'gb',
   category: '',
   query: '',
-  pageSize: 1,
+  pageSize: 5,
   pageNum: 1
 };
 
@@ -22,13 +22,6 @@ const init = () => {
 };
 
 const setURL = params => {
-  console.log(
-    `${params.base}${params.endpoint}?apiKey=${params.apiKey}&q=${
-      params.query
-    }&country=${params.country}&category=${params.category}&pageSize=${
-      params.pageSize
-    }&page=${params.pageNum}`
-  );
   return `${params.base}${params.endpoint}?apiKey=${params.apiKey}&q=${
     params.query
   }&country=${params.country}&category=${params.category}&pageSize=${
@@ -42,7 +35,7 @@ const getNews = params => {
       return response.json();
     })
     .then(data => {
-      addArticlesToFeed(data.articles);
+      addArticlesToFeed(data);
     })
     .catch(err => {
       displayErrorToUser('Server failed to return data');
@@ -79,7 +72,7 @@ const createArticle = articleData => {
 
 const createArticles = data => {
   const newsWrapper = document.createElement('div');
-  data.forEach(story => {
+  data.articles.forEach(story => {
     const newsArticle = createArticle(story);
     newsWrapper.appendChild(newsArticle);
   });
@@ -92,6 +85,8 @@ const addArticlesToFeed = data => {
   const ref = document.querySelector('section.news nav:first-child');
   const stories = createArticles(data);
   newsFeed.insertBefore(stories, ref);
+  document.querySelector('.page-total').textContent =
+    data.totalResults / params.pageSize;
 };
 
 // Content helper functions
@@ -133,11 +128,16 @@ const clearNewsFeed = () => {
 
 const nextPage = document.querySelector('.page-nav .next');
 nextPage.addEventListener('click', e => {
+  const currentPageNum = document.querySelector('.page-current');
+  const totalPageNum = document.querySelector('.page-total');
+  console.log({ currentPageNum });
   e.preventDefault();
-  params.pageNum++;
+  +currentPageNum.textContent < +totalPageNum.textContent
+    ? params.pageNum++
+    : false;
   clearNewsFeed();
   getNews(params);
-  document.querySelector('.page-num').textContent = `Page ${params.pageNum}`;
+  currentPageNum.textContent = params.pageNum;
 });
 
 const prevPage = document.querySelector('.page-nav .prev');
@@ -146,7 +146,7 @@ prevPage.addEventListener('click', e => {
   params.pageNum > 1 ? params.pageNum-- : false;
   clearNewsFeed();
   getNews(params);
-  document.querySelector('.page-num').textContent = `Page ${params.pageNum}`;
+  document.querySelector('.page-current').textContent = params.pageNum;
 });
 
 // Search
@@ -179,6 +179,10 @@ searchInput.addEventListener('focus', e => {
 // Personal features
 
 // Santise data to prevent incomlete stories loading
+
+const cleanData = data => {
+  return data.articles.filter(article.title !== null);
+};
 
 // Prevent image loading on mobile view, not just hide with CSS
 
