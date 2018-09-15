@@ -72,7 +72,7 @@ CREATE MENU AND BUTTONS
 
 const createCountriesMenu = function() {
     const menuNode = document.createElement("select");
-    menuNode.innerHTML = getCountries();
+    menuNode.innerHTML = getCountries().join("");
     countryMenuNode.appendChild(menuNode);
     countryMenuNode.addEventListener('change', function(event){
         event.preventDefault();

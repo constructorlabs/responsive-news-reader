@@ -1,6 +1,6 @@
 const getCountries = function () {
     return Object.keys(countries).map(function(key){
-        return `<option value="${key}">${countries[key]}</option>/n/r`;
+        return `<option value="${key}">${countries[key]}</option>\n`;
     });
 }
 const countries = {
