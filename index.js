@@ -166,6 +166,7 @@ searchForm.addEventListener('submit', e => {
     params.query = query;
     params.endpoint = 'everything';
     params.country = '';
+    params.pageNum = 1;
     clearNewsFeed();
     getNews(params);
   }
@@ -206,12 +207,23 @@ categories.forEach(category => {
       params.endpoint = 'everything';
       params.country = '';
       params.category = '';
+    } else if (topic === 'food') {
+      params.query = 'food nutrition cooking';
+      params.endpoint = 'everything';
+      params.country = '';
+      params.category = '';
+    } else if (topic === 'top stories') {
+      params.category = 'general';
+      params.query = '';
+      params.endpoint = 'top-headlines';
+      params.country = 'gb';
     } else {
       params.category = topic;
       params.query = '';
       params.endpoint = 'top-headlines';
       params.country = 'gb';
     }
+    params.pageNum = 1;
     clearNewsFeed();
     getNews(params);
   });

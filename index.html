@@ -5,31 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Responsive News Reader</title>
+    <title>Update - News Reader</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header class='hero'>
-        <img class='hero__image' src="" alt="logo">
-        <h1 class='hero__title'>Here’s the news</h1>
+        <h1 class='hero__title'>Upd<i class="fas fa-broadcast-tower"></i>te <span>Live<i class="far fa-window-minimize"></i></span></h1>
         <p class='hero__date'>Saturday</p>
+        <section class="search">
+            <form class="search--form">
+                <label for="search--query">Search</label>
+                <input type="text" name="search-query" id="search--query" placeholder="Type your search query...">
+            </form>
+        </section>
+        <nav class="category-nav">
+            <ul>
+                <li class="category category-general">top stories</li>
+                <li class="category category-entertainment">entertainment</li>
+                <li class="category category-tech">technology</li>
+                <li class="category category-science">science</li>
+                <li class="category category-health">health</li>
+                <li class="category category-food">food</li>
+                <li class="category category-cycling">cycling</li>
+            </ul>
+        </nav>
     </header>
-    <section class="search">
-        <form class="search--form">
-            <label for="search--query">Search</label>
-            <input type="text" name="search-query" id="search--query" placeholder="Type your query here...">
-        </form>
-    </section>
-    <nav class="category-nav">
-        <ul>
-            <li class="category category-general">general</li>
-            <li class="category category-entertainment">entertainment</li>
-            <li class="category category-tech">technology</li>
-            <li class="category category-sport">sport</li>
-            <li class="category category-sport">cycling</li>
-        </ul>
-    </nav>
+
     <section class='news'>
         <nav class="page-nav">
             <button class="prev">&larr;</button>
