@@ -51,6 +51,7 @@ const displayErrorToUser = err => {
 
 // Filter data to prevent stories without description or image loading
 const cleanData = data => {
+  console.log(data);
   return data.articles.filter(
     article => article.description !== null && article.urlToImage !== null
   );
