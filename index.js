@@ -47,6 +47,14 @@ const displayErrorToUser = err => {
   alert(err);
 };
 
+// Filter data to prevent stories without description or image loading
+const cleanData = data => {
+  console.log(data.articles);
+  return data.articles.filter(
+    article => article.description !== null && article.urlToImage !== null
+  );
+};
+
 // Content creation functions
 
 const createArticle = articleData => {
@@ -72,18 +80,18 @@ const createArticle = articleData => {
 
 const createArticles = data => {
   const newsWrapper = document.createElement('div');
-  data.articles.forEach(story => {
+  data.forEach(story => {
     const newsArticle = createArticle(story);
     newsWrapper.appendChild(newsArticle);
   });
-
   return newsWrapper;
 };
 
 const addArticlesToFeed = data => {
   const newsFeed = document.querySelector('section.news');
   const ref = document.querySelector('section.news nav:first-child');
-  const stories = createArticles(data);
+  const feed = cleanData(data);
+  const stories = createArticles(feed);
   newsFeed.insertBefore(stories, ref);
   document.querySelector('.page-total').textContent =
     data.totalResults / params.pageSize;
@@ -130,7 +138,6 @@ const nextPage = document.querySelector('.page-nav .next');
 nextPage.addEventListener('click', e => {
   const currentPageNum = document.querySelector('.page-current');
   const totalPageNum = document.querySelector('.page-total');
-  console.log({ currentPageNum });
   e.preventDefault();
   +currentPageNum.textContent < +totalPageNum.textContent
     ? params.pageNum++
@@ -177,12 +184,6 @@ searchInput.addEventListener('focus', e => {
 // -----------
 
 // Personal features
-
-// Santise data to prevent incomlete stories loading
-
-const cleanData = data => {
-  return data.articles.filter(article.title !== null);
-};
 
 // Prevent image loading on mobile view, not just hide with CSS
 
