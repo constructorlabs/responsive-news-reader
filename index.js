@@ -21,6 +21,8 @@ const init = () => {
   getNews(params);
 };
 
+// Fetch functions
+
 const setURL = params => {
   return `${params.base}${params.endpoint}?apiKey=${params.apiKey}&q=${
     params.query
@@ -60,19 +62,16 @@ const createArticle = articleData => {
   const article = document.createElement('article');
   article.classList.add('news__article');
   const elapsedTime = getTimeSinceArticlePublication(articleData.publishedAt);
-  article.innerHTML = `  <h2 class='news__headline'>${articleData.title}</h2>
-          <p class="news__date">Published ${elapsedTime} ago</p>
-                                <img class='news__image' src="${
-                                  articleData.urlToImage
-                                }" alt="${articleData.title}">
-                                <p class="news__story">${
-                                  articleData.description
-                                }</p>
-                                <p class="news__publication">Read the full story at <a href="${
-                                  articleData.url
-                                }" class="news__source">${
-    articleData.source.name
-  }</a></p>`;
+  article.innerHTML = `
+          <h2 class='news__headline'>${articleData.title}</h2>
+          <p class="news__date">Published ${elapsedTime} ago</p>            
+          <img class='news__image' src="${articleData.urlToImage}" alt="${
+    articleData.title
+  }>"
+          <p class="news__story">${articleData.description}</p>
+          <p class="news__publication">Read the full story at <a href="${
+            articleData.url
+          }" class="news__source">${articleData.source.name}</a></p>`;
 
   return article;
 };
@@ -93,8 +92,9 @@ const addArticlesToFeed = data => {
   const feed = cleanData(data);
   const stories = createArticles(feed);
   newsFeed.insertBefore(stories, ref);
-  document.querySelector('.page-total').textContent =
-    data.totalResults / params.pageSize;
+  document.querySelector('.page-total').textContent = Math.floor(
+    data.totalResults / params.pageSize
+  );
 };
 
 // Content helper functions
@@ -107,7 +107,6 @@ const getTimeSinceArticlePublication = date => {
   let mins = Math.floor((Date.now() - new Date(date).valueOf()) / 60000);
   let hours = mins / 60;
   let days = hours / 24;
-  let weeks = days / 7;
   let elapsedTime = '';
   if (days >= 1) {
     return (elapsedTime += `${Math.floor(days)} ${pluralUnits(days, 'day ')}`);
@@ -182,17 +181,47 @@ searchInput.addEventListener('focus', e => {
   searchInput.value = '';
 });
 
-// -----------
+// Add dateline to header
+
+const todayDate = new Date();
+const options = {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+};
+
+document.querySelector('.hero__date').textContent = todayDate.toLocaleString(
+  'en-UK',
+  options
+);
+
+// Category select
+
+const categories = document.querySelectorAll('.category');
+categories.forEach(category => {
+  category.addEventListener('click', e => {
+    const topic = e.target.textContent;
+    console.log(topic);
+    if (topic === 'cycling') {
+      params.query = 'cycling bicycle cycle';
+      params.endpoint = 'everything';
+      params.country = '';
+      params.category = '';
+    } else {
+      params.category = topic;
+      params.query = '';
+      params.endpoint = 'top-headlines';
+      params.country = 'gb';
+    }
+    clearNewsFeed();
+    getNews(params);
+  });
+});
 
 // Personal features
 
 // Prevent image loading on mobile view, not just hide with CSS
-
-// Category select - inc Cyling News
-
-// pretty URLs
-
-// secure apiKey transmission
 
 // Let's get this party started!
 
