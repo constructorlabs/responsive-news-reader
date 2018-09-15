@@ -1,3 +1,7 @@
+window.addEventListener('resize', e => {
+  console.log(window.innerWidth);
+});
+
 // Initialise url parameters
 
 const params = {
@@ -5,7 +9,7 @@ const params = {
   endpoint: 'top-headlines',
   apiKey: 'f29390555fbc483ba17e7ec1cb19af1a',
   country: 'gb',
-  category: 'entertainment',
+  category: '',
   query: '',
   pageSize: 1,
   pageNum: 1
@@ -13,24 +17,37 @@ const params = {
 
 //---------------------------//
 
-const setURL = params => {
-  return `${params.base}${params.endpoint}?apiKey=${params.apiKey}&country=${
-    params.country
-  }&category=${params.category}&pageSize=${params.pageSize}&page=${
-    params.pageNum
-  }`;
+const init = () => {
+  getNews(params);
 };
 
-fetch(setURL(params))
-  .then(response => {
-    return response.json();
-  })
-  .then(data => {
-    addArticlesToFeed(data.articles);
-  })
-  .catch(err => {
-    displayErrorToUser('Server failed to return data');
-  });
+const setURL = params => {
+  console.log(
+    `${params.base}${params.endpoint}?apiKey=${params.apiKey}&q=${
+      params.query
+    }&country=${params.country}&category=${params.category}&pageSize=${
+      params.pageSize
+    }&page=${params.pageNum}`
+  );
+  return `${params.base}${params.endpoint}?apiKey=${params.apiKey}&q=${
+    params.query
+  }&country=${params.country}&category=${params.category}&pageSize=${
+    params.pageSize
+  }&page=${params.pageNum}`;
+};
+
+const getNews = params => {
+  fetch(setURL(params))
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      addArticlesToFeed(data.articles);
+    })
+    .catch(err => {
+      displayErrorToUser('Server failed to return data');
+    });
+};
 
 // Error function
 const displayErrorToUser = err => {
@@ -108,31 +125,69 @@ const getTimeSinceArticlePublication = date => {
 
 // Pagination
 
+const clearNewsFeed = () => {
+  document
+    .querySelector('section.news')
+    .removeChild(document.querySelector('section.news div'));
+};
+
 const nextPage = document.querySelector('.page-nav .next');
 nextPage.addEventListener('click', e => {
   e.preventDefault();
   params.pageNum++;
-  document
-    .querySelector('section.news')
-    .removeChild(document.querySelector('section.news div'));
+  clearNewsFeed();
+  getNews(params);
+  document.querySelector('.page-num').textContent = `Page ${params.pageNum}`;
+});
 
-  fetch(setURL(params))
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      addArticlesToFeed(data.articles);
-    })
-    .catch(err => {
-      displayErrorToUser('Server failed to return data');
-    });
+const prevPage = document.querySelector('.page-nav .prev');
+prevPage.addEventListener('click', e => {
+  e.preventDefault();
+  params.pageNum > 1 ? params.pageNum-- : false;
+  clearNewsFeed();
+  getNews(params);
   document.querySelector('.page-num').textContent = `Page ${params.pageNum}`;
 });
 
 // Search
 
+const searchForm = document.querySelector('form.search--form');
+searchForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const query = searchForm.lastElementChild.value;
+  console.log(query);
+  // do something with input value
+  params.query = query;
+  params.endpoint = 'everything';
+  params.country = '';
+  clearNewsFeed();
+  getNews(params);
+
+  //reset the search input
+  // searchForm.lastElementChild.value = '';
+  // searchForm.lastElementChild.placeholder = 'Type your query here...';
+});
+
+const searchInput = document.querySelector('#search--query');
+searchInput.addEventListener('focus', e => {
+  searchInput.placeholder = '';
+  searchInput.value = '';
+});
+
 // -----------
+
+// Personal features
+
+// Santise data to prevent incomlete stories loading
+
+// Prevent image loading on mobile view, not just hide with CSS
 
 // Category select - inc Cyling News
 
-// Give me cats!
+// pretty URLs
+
+// secure apiKey transmission
+
+// Let's get this party started!
+
+init();
