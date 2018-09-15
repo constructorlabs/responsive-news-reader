@@ -4,7 +4,7 @@ const sectionButtonsNode = document.querySelector(".content__section__buttons");
 const displayJSONNode = document.querySelector(".display__url");
 const countryMenuNode = document.querySelector(".country");
 const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
-
+let queryType = "";
 /*
 ======================================================
 FETCH DATA
@@ -68,6 +68,7 @@ DISPLAY DATA
 
 function displayDataOnPage(body, url) {
     articleNode.innerHTML = "";
+    displaySearchMessage(url)
     body.articles.forEach(function(article) {
         const node = document.createElement("li");
         node.innerHTML = articleTemplate(article)
@@ -86,7 +87,7 @@ const createCountriesMenu = function() {
     countryMenuNode.appendChild(menuNode);
     countryMenuNode.addEventListener('change', function(event){
         event.preventDefault();
-        const countryURL = queryAPI(event.target.value);
+        const countryURL = queryAPI("top-headlines", event.target.value, "", "");
         loadAPI(countryURL);
     });
 }
@@ -117,7 +118,8 @@ loadAPI(queryAPI("everything", "", "", "Donald+Trump"));
 */
 
 const navBar = document.querySelector(".content__nav");
-const navButton = document.querySelector(".header__nav__button")
+const navButton = document.querySelector(".header__nav__button");
+const navSections = document.querySelector(".header__nav__sections a");
 const navSearch = document.querySelector(".search");
 
 // search from top nav
@@ -125,18 +127,29 @@ navButton.addEventListener("click", function(event){
     event.preventDefault();
     let searchQuery = navSearch.value.split(" ").join("+");
     loadAPI(queryAPI("everything", "", "", searchQuery));
-
 });
 
+// display "search results for:"
+const displaySearchMessage = function(url) {
+    if (url.indexOf("everything?") >= 0) {
+        // console.log(url)
+        let searchNode = document.createElement("li");
+        searchNode.innerHTML = "Your search results for: xxx";
+        articleNode.appendChild(searchNode);
+    } else {
+        if (typeof searchNode === "object") searchNode.innerHTML = "";
+    }
+}
+
 // collapse main nav
-// let state = 1;
-// navButton.addEventListener("click", function(event){
-//     event.preventDefault();
-//     navBar.style.display = state ? "flex" : "none";
-//     navButtonIcon = state ? "x" : "+";
-//     navButton.innerHTML = `<a href="#">${navButtonIcon}</a>`;
-//     state = !state;
-// });
+let state = 1;
+navSections.addEventListener("click", function(event){
+    event.preventDefault();
+    navBar.style.display = state ? "flex" : "none";
+    navSearchIcon = state ? "x" : "+";
+    navSections.innerHTML = `${navSearchIcon}`;
+    state = !state;
+});
 
 
 
