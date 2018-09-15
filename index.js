@@ -202,7 +202,6 @@ const categories = document.querySelectorAll('.category');
 categories.forEach(category => {
   category.addEventListener('click', e => {
     const topic = e.target.textContent;
-    console.log(topic);
     if (topic === 'cycling') {
       params.query = 'cycling bicycle cycle';
       params.endpoint = 'everything';
