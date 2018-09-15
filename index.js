@@ -161,8 +161,7 @@ const searchForm = document.querySelector('form.search--form');
 searchForm.addEventListener('submit', e => {
   e.preventDefault();
   const query = searchForm.lastElementChild.value;
-  console.log(query);
-  // do something with input value
+  // process input value
   if (query !== '') {
     params.query = query;
     params.endpoint = 'everything';
