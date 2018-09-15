@@ -35,7 +35,7 @@ function generateFetchURL(publicationList) {
   })
 }
 
-generateFetchURL(console.log(fullURL));
+generateFetchURL(console.log(publicationList));
 
 //filter event 
 // let checkboxArray = document.querySelectorAll(".news--filter input");
