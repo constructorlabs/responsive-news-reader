@@ -1,11 +1,14 @@
 // Initialise url parameters
+
 const params = {
   base: 'https://newsapi.org/v2/',
   endpoint: 'top-headlines',
   apiKey: 'f29390555fbc483ba17e7ec1cb19af1a',
   country: 'gb',
-  category: 'general',
-  query: ''
+  category: 'entertainment',
+  query: '',
+  pageSize: 1,
+  pageNum: 1
 };
 
 //---------------------------//
@@ -13,7 +16,9 @@ const params = {
 const setURL = params => {
   return `${params.base}${params.endpoint}?apiKey=${params.apiKey}&country=${
     params.country
-  }&category=${params.category}`;
+  }&category=${params.category}&pageSize=${params.pageSize}&page=${
+    params.pageNum
+  }`;
 };
 
 fetch(setURL(params))
@@ -103,12 +108,26 @@ const getTimeSinceArticlePublication = date => {
 
 // Pagination
 
-const addPagination = () => {
-  const nextPage = document.createElement('button');
-  nextPage.textContent = 'More stories';
+const nextPage = document.querySelector('.page-nav .next');
+nextPage.addEventListener('click', e => {
+  e.preventDefault();
+  params.pageNum++;
+  document
+    .querySelector('section.news')
+    .removeChild(document.querySelector('section.news div'));
 
-  return nextPage;
-};
+  fetch(setURL(params))
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      addArticlesToFeed(data.articles);
+    })
+    .catch(err => {
+      displayErrorToUser('Server failed to return data');
+    });
+  document.querySelector('.page-num').textContent = `Page ${params.pageNum}`;
+});
 
 // Search
 
