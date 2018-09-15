@@ -14,20 +14,21 @@ fetch(req)
 
     function displayMobileArticle(body) {
         body.articles.forEach(article=> {
-            if (article.content) {
+            if (article.description) {
                 const divNode = document.createElement('div');
-                divNode.className = 'article-div';
                 if (article.urlToImage) {
-                    divNode.innerHTML = `<div><h2 class="title">${article.title}</h2></div>
-                    <div><h4 class="date">${article.publishedAt}</h4></div>
-                    <div><img src="${article.urlToImage}"></div>
+                    divNode.className = 'article-div-w-img';
+                    divNode.innerHTML = `<div class="title"><h2>${article.title}</h2></div>
+                    <div  class="date"><h4>${article.publishedAt}</h4></div>
+                    <div class="img"><img src="${article.urlToImage}"></div>
                     <div class="content"><p>${article.description}</p></div>
-                    <div><a href="${article.url}">Read all about it</a></div>`;
+                    <div class="link"><a href="${article.url}">Read all about it</a></div>`;
                 } else {
-                    divNode.innerHTML = `<div><h2 class="title">${article.title}</h2></div>
-                    <div><h4 class="date">${article.publishedAt}</h4></div>
-                    <div><p>${article.description}</p></div>
-                    <div><a href="${article.url}">Read all about it</a></div>`;;
+                    divNode.className = 'article-div';
+                    divNode.innerHTML = `<div class="title"><h2>${article.title}</h2></div>
+                    <div class="date"><h4>${article.publishedAt}</h4></div>
+                    <div class="content"><p>${article.description}</p></div>
+                    <div class="link"><a href="${article.url}">Read all about it</a></div>`;;
                 }
                 const parentNode = document.querySelector('#newsfeed');
                 parentNode.appendChild(divNode);

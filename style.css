@@ -70,9 +70,15 @@ h2 {
   margin: 0;
 }
 
-.article-div{
+.article-div, .article-div-w-img {
   background-color: #F7FBF9;
   margin: 1em;
+}
+
+footer {
+  text-align: right;
+  margin: 1em;
+  font-size: 70%;
 }
 
 @media(min-width :768px) {
@@ -82,9 +88,35 @@ h2 {
     justify-content: space-between;
   }
   
-  img{
-    display: block;
-    width: 50%;
+  .article-div-w-img {
+    display: flex;
+    flex-flow: wrap;
+  }
+   .title, .date, .link{
+    width: 100vw;
   }
 
+  .article-div-w-img > .content, .img {
+    width: 46vw;
+
+  }
+
+  img{
+    display: block;
+    height: auto;
+    max-width: 97%;
+  }
+
+  .link {
+    text-align: right;
+  }
+
+  .article-div {
+    display: flex;
+    flex-flow: wrap;
+  }
+
+  .article-div > .content {
+    width: 100vw;
+  }
 }
