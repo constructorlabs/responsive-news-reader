@@ -1,0 +1,205 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  background: #cccccc;
+  margin:0;
+  
+}
+
+.app {
+  text-align: center;
+  display:flex;
+  flex-direction: column;
+
+}
+
+.masterhead{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+ 
+}
+
+@font-face {
+  font-family: 'squealerembossed';
+  src: url('squealerembossed-webfont.woff2') format('woff2'),
+  url('squealerembossed-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.masterheader__logo{
+  font-family: 'squealerembossed';
+  text-align: center;
+  justify-content: center;
+  font-size: 70px;
+}
+
+
+.content{
+
+  display: flex;
+  flex-direction: column;
+
+}
+
+.content__nav{
+  flex:1;
+  
+  
+}
+.history{
+ 
+  display: flex;
+  flex-direction: row;
+
+}
+
+.history__items{
+
+color: blue;
+}
+.clear{
+cursor: pointer;
+color: red;
+margin-left: 10px;
+}
+.searched{
+  cursor: pointer;
+}
+
+.content__body{
+  flex:4
+}
+.article1{
+
+background: #e6e6e6;
+}
+.article2{
+background: #cccccc
+}
+
+.article__img{
+  display: none;
+}
+
+.content__sidebar{
+  display: none;
+  flex:1
+}
+.no1200{
+  display: none;
+}
+
+.footer{
+margin-top: 5px;
+margin-bottom: 5px;
+display: flex;
+flex-direction: row;
+}
+
+.footer__prev{
+  display: none;
+  background: #cccccc;
+  flex:2;
+  cursor: pointer;
+
+}
+
+.footer__next{
+  display: none;
+  background: #a6a6a6;
+  flex:2;
+  cursor: pointer;
+}
+
+@media(min-width: 768px){
+  .masterhead {
+    display:flex;
+    flex-direction: row;
+  }
+  .no1200{
+    display: none;
+  }
+  .history{
+ 
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer,
+  .content {
+    display:flex;
+    flex-direction: row;
+  }
+
+  .content__nav {
+    flex:2;
+  }
+
+  .content__body{
+    flex:4;
+  }
+
+  .article__img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    height: 300px;
+    width: 300px;
+  }
+
+  .footer__prev,
+  .footer__next {
+    flex: 1;
+  }
+
+}
+
+@media (min-width: 960px) {
+  .content__sidebar{
+    flex: 1;
+    display: block;
+  }
+  .content__nav{
+    flex:1;
+  }
+  .content__body{
+    flex:5;
+  }
+
+  .article__img{
+    display: block;
+  }
+  .no1200{
+    display: none;
+  }
+}
+
+@media(min-width: 1200px) {
+  .content__sidebar{
+    flex: 2;
+    display: block;
+  }
+  .content__nav{
+    flex:1;
+  }
+  .content__body{
+    flex:4;
+  }
+
+  .article__img{
+    display: block;
+  }
+  .no1200{
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .app{
+    display: none;
+  }
+}
