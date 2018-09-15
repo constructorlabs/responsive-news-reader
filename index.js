@@ -1,7 +1,7 @@
 const parentNode = document.querySelector(".content__body");
 const articleNode = document.querySelector(".article__list");
 const sectionButtonsNode = document.querySelector(".content__section__buttons");
-const displayJSONNode = document.querySelector(".display__url");
+const displayJSONNode = document.querySelector(".content__footer");
 const countryMenuNode = document.querySelector(".country");
 const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
 
@@ -31,7 +31,7 @@ FORMAT DATA FOR ARTICLES
 */
 
 const articleTemplate = article => {
-    const keys = Object.keys(article);
+    // const keys = Object.keys(article);
     // ["title", "description", "content"].forEach(function(key){
     //     const convertedText = (article[key] !== null) ? highlightFoundWords(article[key]) : "";
     //     article[key] = convertedText;
@@ -39,15 +39,19 @@ const articleTemplate = article => {
     const title = (article.title !== null) ? `<li><strong>${article.title}</strong></li>` : "";
     const convertedDescription = (article.description !== null) ? highlightFoundWords(article.description) : null;
     const description = (article.description !== null) ? `<li>${convertedDescription}</li>` : "";
-    const content = (article.content !== null) ? `<li>${article.content}</li>` : "";
-    const author = (article.author !== null) ? `<cite>Author: ${article.author}</cite>` : "";
-    const source = (article.source.name !== null) ? `<cite>Source: ${article.source.name}</cite>` : "";
-    const url = (article.url !== null) ? `<a href="${article.url}" target="_blank">READ FULL STORY</a>` : "";
+    // const content = (article.content !== null) ? `<li>${article.content}</li>` : "";
+    const author = (article.author !== null) ? `${article.author}` : "";
+    const source = (article.source.name !== null) ? `${article.source.name}` : "";
+    const separator = (author && source) ? ", " : "";
+    const publishedBy = `<li><cite>Published by: ${author}${separator}${source}</cite></li>`;
+    const readMoreURL = (article.url !== null) ? `<li><a href="${article.url}" target="_blank">READ FULL STORY...</a></li>` : "";
     const urlToImage = (article.urlToImage !== null) ? `<a href="${article.url}" target="_blank"><img src="${article.urlToImage}" class="article__image__src"></a>` : "";
+    const publishedAt = (article.publishedAt !== null) ? `Time: ${convertDate(article.publishedAt)}` : "";
+
     return `
     <div>
         <span class="article__header">
-            <a href="${url}" target="_blank">${article.title}</a>
+            <a href="${article.url}" target="_blank">${title}</a>
         </span>
     </div>
     <div class="article__main">
@@ -56,12 +60,10 @@ const articleTemplate = article => {
         </div>
         <div class="article__text">
             <ul>
-                <li>${title}</li>
-                <li>${description}</li>
-                <li>${content}</li>
-                <li>${author}</li>
-                <li>${source}</li>
-                <li>${url}</li>
+                ${description}
+                ${publishedBy}
+                ${publishedAt}
+                ${readMoreURL}
             </ul>
         </div>
     </div>
@@ -125,8 +127,8 @@ NAVIGATION SEARCH AND BUTTONS
 
 const navBar = document.querySelector(".content__nav");
 const navButton = document.querySelector(".header__nav__button");
-const navSections = document.querySelector(".header__nav__sections a");
 const navSearch = document.querySelector(".search");
+// const navSections = document.querySelector(".header__nav__sections a");
 
 // search from top nav
 navButton.addEventListener("click", function(event){
@@ -175,15 +177,25 @@ const highlightFoundWords = function (descriptionText) {
     }
 }
 
+const convertDate = function (string) {
+    const date = new Date(string);
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return `${formatTime(date.getHours())}:${formatTime(date.getMinutes())}, ${date.getDate()} ${ months[date.getMonth()]} ${date.getFullYear()}`
+}
+
+const formatTime = function (n) {
+    return n <10 ? "0" + n : n;
+}
+
 // collapse main nav
-let state = 1;
-navSections.addEventListener("click", function(event){
-    event.preventDefault();
-    navBar.style.display = state ? "flex" : "none";
-    navSearchIcon = state ? "x" : "+";
-    navSections.innerHTML = `${navSearchIcon}`;
-    state = !state;
-});
+// let state = 1;
+// navSections.addEventListener("click", function(event){
+//     event.preventDefault();
+//     navBar.style.display = state ? "flex" : "none";
+//     navSearchIcon = state ? "x" : "+";
+//     navSections.innerHTML = `${navSearchIcon}`;
+//     state = !state;
+// });
 
 // documentation: 
 // https://newsapi.org/sources
