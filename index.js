@@ -1,5 +1,6 @@
 let itemId = 1;
 
+
 // adds a listener to the search submit button
 function formListener () {
 	const formElement = document.querySelector("form");
@@ -45,6 +46,12 @@ function clickArticle(articleNode, url) {
 // clears existing articles from page in preparation for a new search or new page
 function clearArticles() {
 	const mainNode = document.querySelector('.articles');
+	mainNode.innerHTML = "";
+}
+
+// clears publishers
+function clearPublishers() {
+	const mainNode = document.querySelector('.publisher__list');
 	mainNode.innerHTML = "";
 }
 
@@ -136,12 +143,14 @@ function createArticles(body) {
 };
 
 // api request to news api. Returns json and calls createArticles function
-function getArticles(page=1, excludedDomainsStr='', i) {
+function getArticles(page=1, excludedDomainsStr='', filterDomains="") {
+	console.log(filterDomains);
 	var url = 'https://newsapi.org/v2/everything?' +
 		'q=' + search  +
 		'&page=' + page +
 		'&apiKey=280f7af9f5c448c4a3598861960c947a&sortBy=publishedAt' + 
-		'+&excludeDomains=' + excludedDomainsStr;
+		'+&excludeDomains=' + excludedDomainsStr + '&domains=' + filterDomains;
+	console.log(url);
 	var req = new Request(url);
 	fetch(req)
 		.then(function (response) {
@@ -150,7 +159,9 @@ function getArticles(page=1, excludedDomainsStr='', i) {
 		.then(function (body) {
 			createArticles(body)
 			createExcluded();;
+			publisherCount(body.articles);
 			addPagination(body.totalResults);
+
 		})
 }
 
@@ -181,10 +192,46 @@ function addPagination(totalResults) {
 	}
 }
 
+function publisherCount(articles) {
+	clearPublishers();
+	const publishersNames = [];
+	const publishersObjects = {};
+
+	console.log(articles.length);
+	articles.forEach(article =>  {
+		if (!publishersNames.includes(article.source.name)) {
+			let articleDomain = article.url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
+			publishersNames.push(article.source.name)
+			publishersObjects[article.source.name]= {name:article.source.name,domain:articleDomain,count:1}
+		} else {
+			publishersObjects[article.source.name].count++;
+		}
+	})
+	
+	publishersNames.forEach(publisher => {
+		const parentNode = document.querySelector('.publisher__list');
+		const childNode = document.createElement('div');
+		childNode.textContent = `${publisher} (${publishersObjects[publisher].count})`;
+		parentNode.appendChild(childNode);
+		childNode.addEventListener("click", event => {getArticles(1,"",publishersObjects[publisher].domain)})
+		console.log("208" + publishersObjects[publisher].name);
+
+	})
+
+
+	// console.log(publishersNames);
+	// console.log(publishersObjects);
+	// console.log(555);
+}
+
+const publisherObject = [];
 const excludedDomainsArray = [];
 let search = "uk";
 getArticles();
 formListener();
 // nextListener();
 // addPageLink();
+
+
+
 
