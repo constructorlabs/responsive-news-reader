@@ -4,7 +4,7 @@ const sectionButtonsNode = document.querySelector(".content__section__buttons");
 const displayJSONNode = document.querySelector(".display__url");
 const countryMenuNode = document.querySelector(".country");
 const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
-let queryType = "";
+
 /*
 ======================================================
 FETCH DATA
@@ -32,7 +32,8 @@ FORMAT DATA FOR ARTICLES
 
 const articleTemplate = article => {
     const title = (article.title !== null) ? `<li><strong>${article.title}</strong></li>` : "";
-    const description = (article.description !== null) ? `<li>${article.description}</li>` : "";
+    const convertedDescription = (article.description !== null) ? highlightFoundWords(article.description) : null;
+    const description = (article.description !== null) ? `<li>${convertedDescription}</li>` : "";
     const content = (article.content !== null) ? `<li>${article.content}</li>` : "";
     const author = (article.author !== null) ? `<li><cite>Author: ${article.author}</cite></li>` : "";
     const source = (article.source.name !== null) ? `<li><cite>Source: ${article.source.name}</cite></li>` : "";
@@ -68,18 +69,19 @@ DISPLAY DATA
 
 function displayDataOnPage(body, url) {
     articleNode.innerHTML = "";
-    displaySearchMessage(url)
+    displaySearchMessage(url);
     body.articles.forEach(function(article) {
+        // console.log(body)
         const node = document.createElement("li");
-        node.innerHTML = articleTemplate(article)
+        node.innerHTML = articleTemplate(article);
         articleNode.appendChild(node);
     });
     displayJSONNode.innerHTML = `<a href="${url}" target="_blank">View JSON</a>`;
 }
 
-/*
+/* /////////////////////
 CREATE MENU AND BUTTONS
-*/
+//////////////////////*/
 
 const createCountriesMenu = function() {
     const menuNode = document.createElement("select");
@@ -92,10 +94,11 @@ const createCountriesMenu = function() {
     });
 }
 
-/*
+/* ///////////////////////////////////
 CREATE QUERIES
-*/
+////////////////////////////////////*/
 
+let bodyURL = "";
 const newsURL = "https://newsapi.org/v2/";
 const apiKey = "756ef978eb384d9cb3ecdab2d9bac0da";
 
@@ -103,9 +106,8 @@ const queryAPI = function (type, country="", category="", search="") {
     let validCountry = country ? `country=${country}&` : "";
     let validCategory = category ? `category=${category}&` : "";
     let validSearch = search ? `q=${search}&` : "";
-    let query = `${newsURL}${type}?${validCountry}${validCategory}${validSearch}apiKey=${apiKey}`
-    console.log(query);
-    return query;
+    bodyURL = `${newsURL}${type}?${validCountry}${validCategory}${validSearch}apiKey=${apiKey}`;
+    return bodyURL;
 }
 
 const displayErrorToUser = error => console.log(error);
@@ -113,9 +115,9 @@ const displayErrorToUser = error => console.log(error);
 createCountriesMenu();
 loadAPI(queryAPI("everything", "", "", "Donald+Trump"));
 
-/*
-======================================================
-*/
+/* ///////////////////////////////////
+NAVIGATION SEARCH AND BUTTONS
+////////////////////////////////////*/
 
 const navBar = document.querySelector(".content__nav");
 const navButton = document.querySelector(".header__nav__button");
@@ -132,15 +134,36 @@ navButton.addEventListener("click", function(event){
 // display "search results for:"
 const displaySearchMessage = function(url) {
     if (url.indexOf("everything?") >= 0) {
-        // console.log(url)
-        let searchNode = document.createElement("li");
-        searchNode.innerHTML = "Your search results for: xxx";
+        const searchNode = document.createElement("li");
+        searchNode.innerHTML = `Your search results for: "<span class="highlighted">${convertedSearchArray(url).join(" ")}</span>"`;
         articleNode.appendChild(searchNode);
     } else {
         if (typeof searchNode === "object") searchNode.innerHTML = "";
     }
 }
 
+// convert the URL from search results to an array
+const convertedSearchArray = function (url) {
+    let regex = /\A?q=[^&]*/g;
+    const found = url.match(regex).toString();
+    return found.split("=")[1].split("+");
+}
+
+// highlight found search terms
+const highlightFoundWords = function (descriptionText) {
+    if (bodyURL.indexOf("everything?") >= 0) {
+        const searchResultsArray = convertedSearchArray(bodyURL);
+        const updatedWords = descriptionText.split(" ").map(function(item){
+            const found = searchResultsArray.find(function(searchItem) {
+                return searchItem === item;
+            });
+            return found ? `<span class="highlighted">${found}</span>` : item;
+        });
+        return updatedWords.join(" ");
+    } else {
+        return descriptionText;
+    }
+}
 // collapse main nav
 let state = 1;
 navSections.addEventListener("click", function(event){
@@ -150,48 +173,6 @@ navSections.addEventListener("click", function(event){
     navSections.innerHTML = `${navSearchIcon}`;
     state = !state;
 });
-
-
-
-// source: {
-//     id: null,
-//     name: "Birminghammail.co.uk"
-//     },
-//     author: "James Rodger",
-//     title: "This is why your Wetherspoons food AND drink order is set to get more expensive",
-//     description: "Profit before tax was up 4.3% to £107.2 million, the group's highest profit in its 39-year history",
-//     url: "https://www.birminghammail.co.uk/whats-on/food-drink-news/your-wetherspoons-food-drink-order-15151668",
-//     urlToImage: "https://i2-prod.walesonline.co.uk/incoming/article14267365.ece/ALTERNATES/s1200/1_2jpeg.jpg",
-//     publishedAt: "2018-09-14T11:26:20Z",
-//     content: "JD Wetherspoon's profits..."
-
-// sources: from US, in English
-// loadAPI(`https://newsapi.org/v2/sources?language=en&country=us&apiKey=756ef978eb384d9cb3ecdab2d9bac0da`);
-
-// everything: q=trump+(fake+news)
-//loadAPI(`https://newsapi.org/v2/everything?q=trump+(fake+news)&language=en&apiKey=756ef978eb384d9cb3ecdab2d9bac0da`);
-
-
-// const buttons = {
-//     'top-headlines': ['category', 'country', 'q'],
-//     'sources': ['language','country'],
-//     'everything': ['q']
-// }
-// const createSectionButton = function (url, title){
-//     let buttonNode = document.createElement("button");
-//     buttonNode.innerHTML = title;
-//     sectionButtonsNode.appendChild(buttonNode);
-//     buttonNode.addEventListener('click', function(event){
-//         event.preventDefault();
-//         loadAPI(url);
-//     });
-// }
-
-// const headlinesUS = queryHeadlines("us");
-// createSectionButton(headlinesUS, "US Headlines");
-// const ukMusic = queryEverything("music");
-// createSectionButton(ukMusic, "Music UK");
-
 
 // documentation: 
 // https://newsapi.org/sources
