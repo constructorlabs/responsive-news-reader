@@ -3,22 +3,25 @@ const parentNode = document.querySelector(".news--area--feed");
 const baseUrl = "https://newsapi.org/v2/top-headlines?apiKey=93238bcda39e4404852697d364b77971";
 
 // news sources
-const publicationList = {
+let publicationList = {
   "bbc-news": true,
   "daily-mail": true,
   "mirror": true
 }
 // create an array from object using key values
 let publicationArray = Object.keys(publicationList);
-console.log(publicationArray);
+let filteredArray = publicationArray.filter(function(pub) {
+    return publicationList[pub] === true;
+});
+console.log(filteredArray);
 
-const sourceList = `&sources=${publicationArray}`;
-const fullURL = `${baseUrl}${sourceList}`;
+const publicationUrl = `&sources=${filteredArray}`;
+const fullURL = `${baseUrl}${publicationUrl}`;
 
 
 function displayDataOnPage(newsStories) {
   const newsArray = newsStories.articles;
-  console.log(newsStories.articles);
+  // console.log(newsStories.articles);
   
   // add news blocks (as articles)
     newsArray.forEach(function(newsitem) {
@@ -31,23 +34,22 @@ function displayDataOnPage(newsStories) {
     })  
 
   // filter  
-    // let checkboxArray = document.querySelectorAll(".news--filter input");
-    // console.log(checkboxArray)
+    let checkboxArray = document.querySelectorAll(".news--filter input");
+    console.log(checkboxArray)
     
-    // checkboxArray.forEach(function(input) {
-    //     input.addEventListener("change", event => {
-    //         console.log(event.target.value);
+    checkboxArray.forEach(function(input) {
+        input.addEventListener("change", event => {
+            console.log(event.target.value);
             
-    //         if (publicationList[event.target.value]) {
-    //             publicationList[event.target.value] = false
-    //             filteredArray.push(event.target.value);
-    //         }
+            // if (publicationList[event.target.value]) {
+            //     publicationList[event.target.value] = false
+            //     filteredArray.push(event.target.value);
+            // }
             
-    //         console.log(filteredArray)
+            // console.log(filteredArray)
 
-    //     })
-    // })
-
+        })
+    })
 
 }
 
