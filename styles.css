@@ -80,7 +80,7 @@ input[type=text]:focus {
 
 .header__nav__button {
     text-decoration: none;
-    padding: 0 0 0.3em 0;
+    padding: 0 0 0.7em 0;
     border: 0.4em;
     font-size: 1.5em;
     vertical-align: middle;
@@ -91,7 +91,7 @@ input[type=text]:focus {
     color: #ffffff;
     padding: 0 0.4em 0 0.4em;
     border: 1em;
-    opacity:0.6;
+    opacity: 0.7;
 }
 
 .header__nav__button a:hover {
@@ -165,7 +165,7 @@ input[type=text]:focus {
 .article__main {
     display: flex;
     justify-content: flex-start;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .article__main li {
