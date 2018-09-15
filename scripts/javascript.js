@@ -3,12 +3,16 @@
 
 // news sources object
   let publicationList = {
-    "bbc-news": false,
     "daily-mail": false,
-    "mirror": false
+    "mirror": false,
+    "metro": false,
+    "the-telegraph": false,
+    "financial-times": false,
+    "bbc-news": false,
   }
+  let checkboxArray = document.querySelectorAll(".news--filter input");
 
-function generateFetchURL(publicationList) {
+// function generateFetchURL(publicationList) {
   
   // baseUrl and default
   const baseUrl = "https://newsapi.org/v2/top-headlines?apiKey=93238bcda39e4404852697d364b77971";
@@ -33,12 +37,10 @@ function generateFetchURL(publicationList) {
       return fullURL = `${baseUrl}${defaultArrayUrl}`;
     }
   })
-}
+// }
 
-generateFetchURL(console.log(publicationList));
 
 //filter event 
-// let checkboxArray = document.querySelectorAll(".news--filter input");
 // checkboxArray.forEach(function(input) {
 //   input.addEventListener("change", function(generateFetchURL) {
 //       // new assigned value to match object key
@@ -64,8 +66,13 @@ function displayDataOnPage(newsStories) {
     newsArray.forEach(function(newsitem) {
 
         const node = document.createElement("article");
-        node.innerHTML = `${newsitem.source.name} (source logo)
-        <b>${newsitem.title}:</b> ${newsitem.description}`;
+        node.innerHTML = `<figure class="news--article-image"><img src="${newsitem.urlToImage}"></figure>
+        <section class="news--article-content">
+        <header class="${newsitem.source.name}"><h2>${newsitem.title}</h2></header>
+        <h3>${newsitem.description}</h3>
+        <p>${newsitem.content}</p>
+        <p><a href="${newsitem.url}" title="Visit news article: ${newsitem.title}">Read full article</a>
+        </section>`;
         parentNode.appendChild(node);
 
     })  
@@ -74,19 +81,19 @@ function displayDataOnPage(newsStories) {
 function displayErrorToUser() {}
 
 // function goFetch(fullURL) {
-//   fetch(fullURL) // by default fetch makes a GET request
-//     .then(function(response) {
-//       return response.json();
-//     })
-//     .then(function(body) {
-//       //console.log(body);
-//       displayDataOnPage(body);
-//     })
-//     .catch(function(error) {
-//       displayErrorToUser("Server failed to return data");
+  fetch(fullURL) // by default fetch makes a GET request
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(body) {
+      //console.log(body);
+      displayDataOnPage(body);
+    })
+    .catch(function(error) {
+      displayErrorToUser("Server failed to return data");
 
-//       // need filter to NOT SHOW any news story with empty values. if any value is empty do no show
-//     });
+      // need filter to NOT SHOW any news story with empty values. if any value is empty do no show
+    });
 // }
   
 // goFetch();
