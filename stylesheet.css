@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Karla;
+  min-height: 100vh;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
+  background: hotpink;
+}
+
+.mainhead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  background: lightgreen;
+}
+
+.mainhead__links li {
+  float: left;
+  list-style: none;
+  margin-right: 10px;
+}
+
+.maincontent {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  text-align: center;
+  background: lemonchiffon;
+}
+
+.maincontent__body {
+  background: whitesmoke;
+  overflow: auto;
+}
+
+.results__body {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.maincontent__nav {
+  list-style: none;
+  justify-content: space-between;
+}
+
+.li__nav {
+  margin: 10px 0;
+}
+
+.mainfooter {
+  display: flex;
+  justify-content: space-around;
+}
+
+.mainfooter__item {
+  flex: 1;
+
+  padding: 10px;
+  text-align: center;
+}
+
+.mainfooter__item--link {
+  background: yellow;
+}
+
+.news__image {
+  max-width: auto;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .maincontent {
+    flex-direction: row;
+  }
+  .maincontent__nav {
+    flex: 2;
+  }
+  .maincontent__body {
+    flex: 4;
+  }
+
+  .mainfooter__item {
+    padding: 20px;
+  }
+
+  .results__body {
+    flex: 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+  }
+
+  .news__image {
+    max-width: 400px;
+    display: block;
+    text-align: center;
+  }
+}
+
+@media (min-width: 960px) {
+  .maincontent {
+    flex-direction: row;
+  }
+  .maincontent__nav {
+    flex: 2;
+  }
+  .maincontent__body {
+    flex: 4;
+  }
+
+  .mainfooter__item {
+    padding: 30px;
+  }
+
+  .imageparent {
+    display: block;
+    align-content: center;
+    text-align: center;
+  }
+
+  .news__image {
+    max-width: 500px;
+    display: block;
+  }
+}
