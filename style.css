@@ -30,6 +30,7 @@ body {
 img {
     width:100%;
     height:auto;
+    max-width:300px;
     }
 
 nav {
@@ -64,8 +65,9 @@ header {
 main {
     display: flex;
     flex-direction: column;
-    margin: 1em;
+    margin: 1em 1em 0 1em;
 }
+
 
 .article {
     display: flex;
@@ -102,6 +104,7 @@ main {
     display:flex;
     flex-direction:row;
     flex:1;
+    margin:0 0 1em 0;
 }
 
 .pagination__page {
@@ -235,9 +238,9 @@ p {
     .excludedDomainsDiv {
        flex:3;
        flex-direction:column;
-       padding:10px;
+       padding:10px 10px 0 10px;
        background: white;
-       margin-left:10px;
+       margin:0 0 1em 10px;
     }
 
     .articles {
