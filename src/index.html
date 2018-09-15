@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>News Reader</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Catamaran:700');
+        @import url('https://fonts.googleapis.com/css?family=Catamaran:400');
+        @import url('https://fonts.googleapis.com/css?family=Catamaran:100');
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="news-app">
+
+        <header class="header">
+            <h1>NEWS READER</h1>
+            <div class="header__nav">
+                <div class="header__nav__input">
+                    <input type="text" class="search" name="search" placeholder="Search">
+                </div>
+                <div class="header__nav__button">
+                    <a href="">&#128269;</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <nav class="content__nav">
+                <div>
+                    <form class="country">
+                        Worldwide News:
+                    </form>
+                </div>
+            </nav>
+
+            <main class="content__body">
+                <div class="content__section__buttons"></div>
+                <ul class="article__list"></ul>
+            </main>
+
+            <aside class="content__aside">
+                Aside content
+            </aside>
+
+            <footer class="content__footer">
+                Footer content
+            </footer>
+        </div>
+    </div>
+    <script src="countries-object.js"></script>
+    <script src="sources-object.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
