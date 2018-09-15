@@ -11,7 +11,7 @@ const params = {
   country: 'gb',
   category: '',
   query: '',
-  pageSize: 5,
+  pageSize: 8,
   pageNum: 1
 };
 
@@ -67,7 +67,7 @@ const createArticle = articleData => {
           <p class="news__date">Published ${elapsedTime} ago</p>            
           <img class='news__image' src="${articleData.urlToImage}" alt="${
     articleData.title
-  }>"
+  }">
           <p class="news__story">${articleData.description}</p>
           <p class="news__publication">Read the full story at <a href="${
             articleData.url
@@ -120,10 +120,6 @@ const getTimeSinceArticlePublication = date => {
 
   return (elapsedTime += `${mins} ${pluralUnits(mins, 'min ')}`);
 };
-
-// UI interactivity functions
-
-// Filter data to only return stories with description
 
 // Pagination
 
@@ -228,10 +224,6 @@ categories.forEach(category => {
     getNews(params);
   });
 });
-
-// Personal features
-
-// Prevent image loading on mobile view, not just hide with CSS
 
 // Let's get this party started!
 
