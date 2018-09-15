@@ -1,14 +1,12 @@
 // News API key: 9ed005ef4eb94baf913fce701c69972f
 
-//TODO: pagination, stylization, excludeDomains/blocklist
+//TODO: stylization, excludeDomains/blocklist
 
 //Object contains possible URLS for fetch requests
 const apiRequests = {
   usTop20:  'https://newsapi.org/v2/top-headlines?country=us&apiKey=9ed005ef4eb94baf913fce701c69972f',
 
   ukTop20: 'https://newsapi.org/v2/top-headlines?country=gb&apiKey=9ed005ef4eb94baf913fce701c69972f',
-
-  displayTop20: true,
 
 //function takes search string, and if specified a date range
   searchURL: function(userString, daterange, page){
@@ -56,6 +54,9 @@ const pageHandlers = {
     const dateRangeElement = document.querySelector(".date-range")
     searchFormElement.addEventListener("submit", event => {
       event.preventDefault();
+      if (searchTextElement.value === ""){
+        return
+      }
       const dateRange = formatDate(dateRangeElement.value)
       const searchString = apiRequests.searchURL(searchTextElement.value, dateRange)
       newsDisplayElement.innerHTML = ""
@@ -111,18 +112,27 @@ function createStoryPanel(article){
   const headerElement = document.createElement("div")
   headerElement.className = "story-header"
 
-  const headlineElement = document.createElement("h4")
+  const headerLeftElement = document.createElement("div")
+  headerLeftElement.className = "story-header-left"
+
+  const publicationInfoElement = document.createElement("span")
+  publicationInfoElement.className = "publication-info"
+
+  const headlineElement = document.createElement("h2")
   headlineElement.className = "headline"
   headlineElement.textContent = article.title
 
-  const publicationNameElement = document.createElement("h6")
+  const publicationNameElement = document.createElement("h4")
   publicationNameElement.textContent = article.source.name
 
-  const publicationDateElement = document.createElement("h6")
-  publicationDateElement.textContent = article.publishedAt
+  const publicationDateElement = document.createElement("h4")
+  publicationDateElement.textContent = convertDateForDisplay(article.publishedAt)
 
   const storyImageElement = document.createElement("img")
   storyImageElement.setAttribute("src", article.urlToImage)
+  if (storyImageElement.src === "http://127.0.0.1:3000/null"){
+    storyImageElement.setAttribute("src", "../images/No_Image_Available.jpg")
+  }
   storyImageElement.className = "story-image"
 
   const descriptionElement = document.createElement("p")
@@ -132,11 +142,17 @@ function createStoryPanel(article){
   linkElement.setAttribute("href", article.url)
   linkElement.textContent = "See full story"
 
-  headerElement.appendChild(headlineElement)
+  publicationInfoElement.appendChild(publicationNameElement)
+  publicationInfoElement.appendChild(publicationDateElement)
+
+  headerLeftElement.appendChild(headlineElement)
+  headerLeftElement.appendChild(publicationInfoElement)
+
+  headerElement.appendChild(headerLeftElement)
   headerElement.appendChild(storyImageElement)
+
   storyDivElement.appendChild(headerElement)
-  storyDivElement.appendChild(publicationNameElement)
-  storyDivElement.appendChild(publicationDateElement)
+
 
   storyDivElement.appendChild(descriptionElement)
   storyDivElement.appendChild(linkElement)
@@ -153,6 +169,13 @@ function formatDate(monthsAgo){
   }else{
     return null
   }
+}
+
+//formats date for display
+
+function convertDateForDisplay(date){
+  const inputDate = new Date(date)
+  return inputDate.toLocaleString()
 }
 
 

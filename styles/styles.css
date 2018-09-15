@@ -21,10 +21,24 @@ header{
   overflow-y: auto;
 }
 
+.news-display{
+  background-color: grey;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+
+}
+
 .pagination{
   display: none;
 }
 
+.headline{
+  margin-right: 1em;
+
+}
 
 
 .story-div-element{
@@ -32,16 +46,25 @@ header{
   margin: 1em;
   border: black 1px solid;
   padding: 0.5em;
-  min-width: 90vw;
+  width: 90vw;
 }
 
 .story-header{
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .story-image{
   display: none;
+}
+
+
+.publication-info{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 2em;
 }
 
 
@@ -51,7 +74,7 @@ header{
     display: inline;
     width: 40vw;
     height: auto;
-    align-self: center
+    align-self: flex-end;
   }
 
 
