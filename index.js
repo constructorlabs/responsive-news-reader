@@ -1,10 +1,22 @@
-const setCategory = cat => {
-  return `https://newsapi.org/v2/top-headlines?country=gb&category=${cat}&apiKey=f29390555fbc483ba17e7ec1cb19af1a`;
+// Initialise url parameters
+const params = {
+  base: 'https://newsapi.org/v2/',
+  endpoint: 'top-headlines',
+  apiKey: 'f29390555fbc483ba17e7ec1cb19af1a',
+  country: 'gb',
+  category: 'general',
+  query: ''
 };
 
-console.log(setCategory('entertainment'));
+//---------------------------//
 
-fetch(setCategory('entertainment'))
+const setURL = params => {
+  return `${params.base}${params.endpoint}?apiKey=${params.apiKey}&country=${
+    params.country
+  }&category=${params.category}`;
+};
+
+fetch(setURL(params))
   .then(response => {
     return response.json();
   })
@@ -55,8 +67,9 @@ const createArticles = data => {
 
 const addArticlesToFeed = data => {
   const newsFeed = document.querySelector('section.news');
+  const ref = document.querySelector('section.news nav:first-child');
   const stories = createArticles(data);
-  newsFeed.appendChild(stories);
+  newsFeed.insertBefore(stories, ref);
 };
 
 // Content helper functions
@@ -86,6 +99,8 @@ const getTimeSinceArticlePublication = date => {
 
 // UI interactivity functions
 
+// Filter data to only return stories with description
+
 // Pagination
 
 const addPagination = () => {
@@ -97,8 +112,8 @@ const addPagination = () => {
 
 // Search
 
-// Category select
+// -----------
 
-// Filter data to only return stories with description
+// Category select - inc Cyling News
 
 // Give me cats!
