@@ -3,6 +3,7 @@ const articleNode = document.querySelector(".article__list");
 const sectionButtonsNode = document.querySelector(".content__section__buttons");
 const displayJSONNode = document.querySelector(".display__url");
 const countryMenuNode = document.querySelector(".country");
+const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
 
 /*
 ======================================================
@@ -25,7 +26,7 @@ const loadAPI = function (url) {
 
 /*
 ======================================================
-FETCH DATA FOR ARTICLES
+FORMAT DATA FOR ARTICLES
 ======================================================
 */
 
@@ -34,15 +35,18 @@ const articleTemplate = article => {
     const description = (article.description !== null) ? `<li>${article.description}</li>` : "";
     const content = (article.content !== null) ? `<li>${article.content}</li>` : "";
     const author = (article.author !== null) ? `<li><cite>Author: ${article.author}</cite></li>` : "";
+    const source = (article.source.name !== null) ? `<li><cite>Source: ${article.source.name}</cite></li>` : "";
+    const url = (article.url !== null) ? `<a href="${article.url}" target="_blank">READ FULL STORY...</a>` : "";
+    const urlToImage = (article.urlToImage !== null) ? `<a href="${article.url}" target="_blank"><img src="${article.urlToImage}" class="article__image__src"></a>` : "";
     return `
     <div>
         <span class="article__header">
-            <a href="${article.url}" target="_blank">${article.source.name}</a>
+            <a href="${article.url}" target="_blank">${title}</a>
         </span>
     </div>
     <div class="article__main">
         <div class="article__image">
-            <a href="${article.url}" target="_blank"><img src="${article.urlToImage}" class="article__image"></a>
+            ${urlToImage}
         </div>
         <div class="article__text">
             <ul>
@@ -50,11 +54,17 @@ const articleTemplate = article => {
                 ${description}
                 ${content}
                 ${author}
+                ${source}
+                ${url}
             </ul>
         </div>
     </div>
     `;
 }
+
+/*
+DISPLAY DATA
+*/
 
 function displayDataOnPage(body, url) {
     articleNode.innerHTML = "";
@@ -63,7 +73,7 @@ function displayDataOnPage(body, url) {
         node.innerHTML = articleTemplate(article)
         articleNode.appendChild(node);
     });
-    displayJSONNode.innerHTML = `View JSON: <a href="${url}" target="_blank">${url}</a>`;
+    displayJSONNode.innerHTML = `<a href="${url}" target="_blank">View JSON</a>`;
 }
 
 /*
@@ -76,7 +86,7 @@ const createCountriesMenu = function() {
     countryMenuNode.appendChild(menuNode);
     countryMenuNode.addEventListener('change', function(event){
         event.preventDefault();
-        const countryURL = queryHeadlines(event.target.value);
+        const countryURL = queryAPI(event.target.value);
         loadAPI(countryURL);
     });
 }
@@ -88,35 +98,47 @@ CREATE QUERIES
 const newsURL = "https://newsapi.org/v2/";
 const apiKey = "756ef978eb384d9cb3ecdab2d9bac0da";
 
-const queryHeadlines = function (country, category="") {
-    // categories are: business entertainment general health science sports technology
-    let validCategory = category ? `&category=${category}` : "";
-    return `${newsURL}top-headlines?country=${country}${validCategory}&apiKey=${apiKey}`;
-}
-const queryEverything = function (subject) {
-    return `${newsURL}everything?q=${subject}&apiKey=${apiKey}`;
+const queryAPI = function (type, country="", category="", search="") {
+    let validCountry = country ? `country=${country}&` : "";
+    let validCategory = category ? `category=${category}&` : "";
+    let validSearch = search ? `q=${search}&` : "";
+    let query = `${newsURL}${type}?${validCountry}${validCategory}${validSearch}apiKey=${apiKey}`
+    console.log(query);
+    return query;
 }
 
 const displayErrorToUser = error => console.log(error);
 
 createCountriesMenu();
-loadAPI(queryHeadlines("gb"));
+loadAPI(queryAPI("everything", "", "", "Donald+Trump"));
 
 /*
 ======================================================
 */
 
-const navButton = document.querySelector(".header__nav-button")
 const navBar = document.querySelector(".content__nav");
-let state = 1;
+const navButton = document.querySelector(".header__nav__button")
+const navSearch = document.querySelector(".search");
 
+// search from top nav
 navButton.addEventListener("click", function(event){
     event.preventDefault();
-    navBar.style.display = state ? "flex" : "none";
-    navButtonIcon = state ? "x" : "+";
-    navButton.innerHTML = `<a href="#">${navButtonIcon}</a>`;
-    state = !state;
+    let searchQuery = navSearch.value.split(" ").join("+");
+    loadAPI(queryAPI("everything", "", "", searchQuery));
+
 });
+
+// collapse main nav
+// let state = 1;
+// navButton.addEventListener("click", function(event){
+//     event.preventDefault();
+//     navBar.style.display = state ? "flex" : "none";
+//     navButtonIcon = state ? "x" : "+";
+//     navButton.innerHTML = `<a href="#">${navButtonIcon}</a>`;
+//     state = !state;
+// });
+
+
 
 // source: {
 //     id: null,
@@ -129,6 +151,13 @@ navButton.addEventListener("click", function(event){
 //     urlToImage: "https://i2-prod.walesonline.co.uk/incoming/article14267365.ece/ALTERNATES/s1200/1_2jpeg.jpg",
 //     publishedAt: "2018-09-14T11:26:20Z",
 //     content: "JD Wetherspoon's profits..."
+
+// sources: from US, in English
+// loadAPI(`https://newsapi.org/v2/sources?language=en&country=us&apiKey=756ef978eb384d9cb3ecdab2d9bac0da`);
+
+// everything: q=trump+(fake+news)
+//loadAPI(`https://newsapi.org/v2/everything?q=trump+(fake+news)&language=en&apiKey=756ef978eb384d9cb3ecdab2d9bac0da`);
+
 
 // const buttons = {
 //     'top-headlines': ['category', 'country', 'q'],

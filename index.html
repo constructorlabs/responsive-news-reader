@@ -19,8 +19,13 @@
 
         <header class="header">
             <h1>NEWS READER</h1>
-            <div class="header__nav-button">
-                <a href="#">+</a>
+            <div class="header__nav">
+                <div class="header__nav__search">
+                    <input type="text" class="search">
+                </div>
+                <div class="header__nav__button">
+                    <a href="">&#128269;</a>
+                </div>
             </div>
         </header>
 
@@ -36,8 +41,7 @@
                 <div class="display__url"></div>
                 <div>
                     <form class="country">
-                        Top Headlines Worldwide:
-                        <!-- Category: <input type="text" class="category">-->
+                        Worldwide News:
                     </form>
                 </div>
                 <div class="content__section__buttons" style="padding-top:1em;"></div>
@@ -54,6 +58,7 @@
         </div>
     </div>
     <script src="countries-object.js"></script>
+    <script src="sources-object.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
