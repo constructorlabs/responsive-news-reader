@@ -22,6 +22,18 @@ html {
   padding:0.2em;
 }
 
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .main {
+  padding-top: 80px;
+}
+
 /* Style the search field */
 form.search input[type=text] {
   padding: 10px;
@@ -72,13 +84,32 @@ h2 {
 
 .article-div, .article-div-w-img {
   background-color: #F7FBF9;
-  margin: 1em;
+  margin: 2em 1em 1em 1em;
 }
 
 footer {
   text-align: right;
   margin: 1em;
   font-size: 70%;
+}
+
+#myBtn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 2em; 
+  right: 1em; 
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; 
+  outline: none; 
+  background-color: #A2B6DB;
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; 
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+}
+
+#myBtn:hover {
+  background-color: #BBD1E1; /* Add a dark-grey background on hover */
 }
 
 @media(min-width :768px) {
@@ -118,5 +149,10 @@ footer {
 
   .article-div > .content {
     width: 100vw;
+  }
+
+  #myBtn {
+    bottom: 3em; 
+    right: 10em; 
   }
 }
