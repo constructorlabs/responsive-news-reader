@@ -1,9 +1,5 @@
-const getCountries = function () {
-    return Object.keys(countries).map(function(key){
-        return `<option value="${key}">${countries[key]}</option>\n`;
-    });
-}
 const countries = {
+    0: "",
     gb: 'United Kingdom', 
     ar: 'Argentina',
     au: 'Australia',

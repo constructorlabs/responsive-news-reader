@@ -6,7 +6,8 @@ const articleNode = document.querySelector(".article__list");
 const sectionButtonsNode = document.querySelector(".content__section__buttons");
 const displayJSONNode = document.querySelector(".content__footer");
 const countryMenuNode = document.querySelector(".country");
-const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
+const categoriesMenuNode = document.querySelector(".category");
+const categories = ["", "business", "entertainment", "general", "health", "science", "sports", "technology"];
 
 /* ======================================================
 FETCH DATA */
@@ -82,8 +83,33 @@ const createCountriesMenu = function() {
     countryMenuNode.appendChild(menuNode);
     countryMenuNode.addEventListener('change', function(event){
         event.preventDefault();
-        const countryURL = queryAPI("top-headlines", event.target.value, "", "");
-        loadAPI(countryURL);
+        categoriesMenuNode[0].selectedIndex = 0;
+        const url = queryAPI("top-headlines", event.target.value, "", "");
+        loadAPI(url);
+    });
+}
+
+const createCategoriesMenu = function() {
+    const menuNode = document.createElement("select");
+    menuNode.innerHTML = getCategories().join("");
+    categoriesMenuNode.appendChild(menuNode);
+    categoriesMenuNode.addEventListener('change', function(event){
+        event.preventDefault();
+        const url = queryAPI("top-headlines", "", event.target.value, "");
+        countryMenuNode[0].selectedIndex = 0;
+        loadAPI(url);
+    });
+}
+
+const getCountries = function () {
+    return Object.keys(countries).map(function(key){
+        return `<option value="${key}">${countries[key]}</option>\n`;
+    });
+}
+
+const getCategories = function () {
+    return categories.map(function(item){
+        return `<option value="${item}">${item}</option>\n`;
     });
 }
 
@@ -95,7 +121,6 @@ const newsURL = "https://newsapi.org/v2/";
 const apiKey = "756ef978eb384d9cb3ecdab2d9bac0da";
 
 const queryAPI = function (type, country="", category="", search="") {
-    console.log("hi");
     let validCountry = country ? `country=${country}&` : "";
     let validCategory = category ? `category=${category}&` : "";
     let validSearch = search ? `q=${search}&` : "";
@@ -113,7 +138,7 @@ const navButton = document.querySelector(".header__nav__button");
 const navSearch = document.querySelector(".search");
 const searchFormNode = document.querySelector(".header__form");
 const messageNode = document.querySelector(".content__message__wrapper");
-// const navSections = document.querySelector(".header__nav__sections a");
+const imageDisplayNode = document.querySelector(".nav__image__display");
 
 // search from top nav - click search button for results
 searchFormNode.addEventListener("submit", function(event){
@@ -125,13 +150,25 @@ searchFormNode.addEventListener("submit", function(event){
 // load search results from 'submit' event
 navSearch.addEventListener("submit", function(event){
     event.preventDefault();
+    // console.log(111);
+    // countryMenuNode[0].selectedIndex = 0;
+    // categoriesMenuNode[0].selectedIndex = 0;
     let searchQuery = navSearch.value.split(" ").join("+");
     loadAPI(queryAPI("everything", "", "", searchQuery));
 });
 
+// toggle show / hide images
+imageDisplayNode.addEventListener("change", function(event){
+    event.preventDefault();    
+    state = event.target.checked ? "block" : "none";
+    const articleNodes = document.querySelectorAll("div.article__image");
+    articleNodes.forEach(img => img.style.display = state);
+});
+
 // display message "search results for:"
 const displaySearchMessage = function(url) {
-    messageNode.style.display = "block";
+    messageNode.style.display = "none";
+    messageNode.innerHTML = "";
     if (url.indexOf("everything?") >= 0) {
         const searchNode = document.createElement("div");
         searchNode.innerHTML = `Search results &gt; "<span class="highlighted">${convertedSearchArray(url).join(" ")}</span>"`;
@@ -178,4 +215,5 @@ const convertDate = function (string) {
 /* /////////////////////////////////////////////////////////////////
 INITIALIZE FIRST PAGE */
 createCountriesMenu();
-loadAPI(queryAPI("top-headlines", "uk", "", ""));
+createCategoriesMenu();
+loadAPI(queryAPI("everything", "", "", "London+travel"));

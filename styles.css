@@ -124,6 +124,10 @@ input[type=text]:focus {
     opacity: 1;
 }
 
+.nav__image__display {
+    padding-left: 1.5em;
+}
+
 /* ///////////////
 // MAIN CONTENT //
 ////////////////*/
@@ -158,9 +162,15 @@ input[type=text]:focus {
 .content__country__wrapper {
     /* background-color: rgb(255, 212, 139); */
     background-color: #a4cad5;
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
     width: 100%;
     padding: 1em;
+}
+
+.category {
+    padding-left: 1.5em;
 }
 
 .content__message__wrapper {
@@ -261,7 +271,6 @@ input[type=text]:focus {
     background: #ffffff;
     color: black;
     padding: 1rem;
-    display: flex;
     flex: 3;
 }
 
@@ -275,6 +284,7 @@ input[type=text]:focus {
     font-weight: normal;
     border-radius: 0.3rem;
     list-style: none;
+    height: 60%
 }
 
 .article__text a:hover {
@@ -282,9 +292,9 @@ input[type=text]:focus {
     color: white;
 }
 
-.article__text div  {/
-    padding: 2em 0;
-    border: 2em 0;
+.article__text div  {
+    padding: 0.5em 0;
+    border: 0;
 }
 
 .display__url {
