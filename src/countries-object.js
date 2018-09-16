@@ -4,6 +4,7 @@ const getCountries = function () {
     });
 }
 const countries = {
+    all: 'Worldwide',
     gb: 'United Kingdom', 
     ar: 'Argentina',
     au: 'Australia',

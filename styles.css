@@ -14,6 +14,7 @@ body {
 h1 {
     margin: 0;
     font-family: Georgia, Times, 'Times New Roman', serif;
+    line-height: 2rem
 }
 
 .news-app {
@@ -140,7 +141,8 @@ input[type=text]:focus {
 
 .content__footer {
     flex: 1;
-    text-align: center;
+    text-align: left;
+    padding: 1em;
 }
 
 .key {
@@ -152,9 +154,12 @@ input[type=text]:focus {
 }
 
 .highlighted {
-    background-color:rgb(255, 234, 141);
+    /* Changed on Sunday */
+    background-color: rgb(255, 232, 191);
     font-weight: bold;
-    padding: 0.1em;
+    padding: 0.2em;
+    border: 1px solid #ffc062;
+    border-radius: 0.2rem;
 }
 
 .article__list {
@@ -166,25 +171,27 @@ input[type=text]:focus {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
+    /* ADD MARGIN-BOTTOM TO MAIN if you want to separate articles */
+    margin-bottom: 2rem;
 }
 
 .article__main li {
     padding: 0.3em 0;
 }
 
-.article__main li a {
+/* Sunday morning .article__main li a {
     background-color: #ff9900;
     color: white;
     font-weight: normal;
     line-height: 1em;
     text-decoration: none;
     padding: 0.3em 0.6em;
-}
+} */
 
-.article__main li a:hover {
+/* Sunday morning .article__main li a:hover {
     background-color: #ffc062;
     color: rgb(120, 46, 0);
-}
+} */
 
 .article__header {
     display: block;
@@ -192,9 +199,12 @@ input[type=text]:focus {
     background: rgb(245, 244, 241);
     color: black;
     padding: 1rem 1rem;
-    margin: 1rem 0 0 0;
-    border-top: 3px solid rgb(235, 223, 204);
+    /* MEL CHANGED (was margin: 1rem 0 0 0;) */
+    margin: 0;
+    /* MEL REMOVED border-top: 3px solid rgb(235, 223, 204);*/
+    
 }
+
 
 .article__header a {
     color: black;
@@ -215,8 +225,9 @@ input[type=text]:focus {
 }
 
 .article__image__src {
-  /* width: 100%;
-  border: 0; */
+    /* ADDED by Mel display: block - to make the a element behave as a block element and properly 'contain' the image. It's naturally an inline element.*/
+    display: block;
+    width: 100%;
 }
 
 .article__text {
@@ -237,8 +248,21 @@ input[type=text]:focus {
     list-style: none;
 }
 
-a.article__text ul li {
+.article__text ul li a {
+    /* changed Sunday morning */
     text-decoration: none;
+    padding: 0.7rem;
+    line-height: 3rem; 
+    background-color: #ffc062;
+    color: rgb(120, 46, 0);
+    font-weight: normal;
+    border-radius: 0.3rem;
+}
+
+.article__text ul li a:hover {
+    /* changed Sunday morning */
+    background-color: #ff9900;
+    color: white;
 }
 
 .display__url {

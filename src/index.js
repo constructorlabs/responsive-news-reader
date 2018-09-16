@@ -36,7 +36,8 @@ const articleTemplate = article => {
     //     const convertedText = (article[key] !== null) ? highlightFoundWords(article[key]) : "";
     //     article[key] = convertedText;
     // });
-    const title = (article.title !== null) ? `<li><strong>${article.title}</strong></li>` : "";
+    const convertedTitle = (article.title !== null) ? highlightFoundWords(article.title) : null;
+    const title = (article.title !== null) ? `<li><strong>${convertedTitle}</strong></li>` : "";
     const convertedDescription = (article.description !== null) ? highlightFoundWords(article.description) : null;
     const description = (article.description !== null) ? `<li>${convertedDescription}</li>` : "";
     // const content = (article.content !== null) ? `<li>${article.content}</li>` : "";
@@ -116,7 +117,7 @@ const queryAPI = function (type, country="", category="", search="") {
     return bodyURL;
 }
 
-const displayErrorToUser = error => console.log(error);
+const displayErrorToUser = error => articleNode.innerHTML = error;
 
 createCountriesMenu();
 loadAPI(queryAPI("everything", "", "", "Donald+Trump"));
@@ -128,10 +129,18 @@ NAVIGATION SEARCH AND BUTTONS
 const navBar = document.querySelector(".content__nav");
 const navButton = document.querySelector(".header__nav__button");
 const navSearch = document.querySelector(".search");
+const searchFormNode = document.querySelector(".header__form");
 // const navSections = document.querySelector(".header__nav__sections a");
 
-// search from top nav
-navButton.addEventListener("click", function(event){
+// search from top nav - click search button for results
+searchFormNode.addEventListener("submit", function(event){
+    event.preventDefault();
+    let searchQuery = navSearch.value.split(" ").join("+");
+    loadAPI(queryAPI("everything", "", "", searchQuery));
+});
+
+// search from top nav - press ENTER for results
+navSearch.addEventListener("submit", function(event){
     event.preventDefault();
     let searchQuery = navSearch.value.split(" ").join("+");
     loadAPI(queryAPI("everything", "", "", searchQuery));
@@ -179,12 +188,9 @@ const highlightFoundWords = function (descriptionText) {
 
 const convertDate = function (string) {
     const date = new Date(string);
+    const formatTime = n => n <10 ? "0" + n : n;
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     return `${formatTime(date.getHours())}:${formatTime(date.getMinutes())}, ${date.getDate()} ${ months[date.getMonth()]} ${date.getFullYear()}`
-}
-
-const formatTime = function (n) {
-    return n <10 ? "0" + n : n;
 }
 
 // collapse main nav
