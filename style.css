@@ -47,7 +47,7 @@ h1 {
   display: flex;
   flex:1;
   justify-content: flex-start;
-  font-size: 30px;
+  font-size: 40px;
   margin-left: 4.5vw;
 
   
@@ -59,6 +59,7 @@ h1 {
   justify-content: center;
   flex-direction: row;
   align-items: center;
+  
 }
 
 .searchClass{
@@ -104,6 +105,20 @@ h1 {
   text-decoration: none;
 }
 
+.searchClass input#search{
+  width: 300px;
+  height: 50px;
+  background: #2b303b;
+  border: none;
+  font-size: 10pt;
+  float: left;
+  color: #63717f;
+  padding-left: 45px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
 
 .infoG{
     display:none;
@@ -115,9 +130,7 @@ h1 {
     display:flex;
     flex: 1;
     position: relative; 
-    
-    
-    
+    margin-left: 1vw;
     
   }
 
@@ -134,14 +147,17 @@ h1 {
    margin-right: 7vw;
    width: 90vw;
    
+   
   }
 
   #headline img{
   
-  max-width: 1000px;
+  max-width: 1200px;
   max-height: 500px;
   margin-right: 7vw;
   width: 90vw;
+  background-image: url("https://chrisphillers.000webhostapp.com/placeholder1.jpg");
+
   
   }
 
@@ -324,13 +340,14 @@ padding-top:5px;
 /* Large devices (desktops, 960px and up) */
 @media (min-width: 960px) {
 
-
+ 
   
   .heading {
     display: flex;
+    flex:1;
     justify-content: center;
     flex-direction: row;
-    align-items: center;
+    align-items: baseline;
   }
   
   .searchClass{
@@ -338,6 +355,7 @@ padding-top:5px;
     display: flex;
     flex:1;
     justify-content: flex-end;
+    flex-direction: row;
     margin-right: 3vw;
   }
   
@@ -346,6 +364,7 @@ padding-top:5px;
     display: flex;
     flex:1;
     justify-content: flex-end;
+    flex-direction: row;
 
 
   /* .heading {
@@ -382,7 +401,7 @@ padding-top:5px;
 #headline {
   display:flex;
   flex: 1;
-  /* flex-basis: 70%; */
+  flex-basis: 70%;  
 } 
 
 #headline h2 {
@@ -419,6 +438,7 @@ padding-top:5px;
   flex-basis: 30%;
   justify-content: flex-start;
   flex-direction: column;
+  justify-content: space-around;
   
     
 }
@@ -431,8 +451,9 @@ padding-top:5px;
  .graphic {
     display:flex;
     flex: 1;
-    justify-content: flex-start;
+    
     flex-direction: column;
+    justify-content: space-around;
     
 
     /* border-left-width: 30px;
@@ -448,13 +469,14 @@ padding-top:5px;
   .graphic ul {
     display:flex;
     flex: 1;
-  
+    justify-content: space-around;
+    
     
   } 
 
   #one {
     display:flex;
-   
+    flex-grow: 1;
    
     height: 10px;
     background-color: red;
@@ -466,7 +488,7 @@ padding-top:5px;
   
   #two{
     display:flex;
-    
+    flex-grow: 1;
    
     height: 10px;
     background-color: yellow;
@@ -477,7 +499,7 @@ padding-top:5px;
 
   #three {
     display:flex;
-   
+    flex-grow: 1;
     
     height: 10px;
     background-color: red;
