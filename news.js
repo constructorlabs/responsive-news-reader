@@ -9,9 +9,11 @@ const parentNode = document.getElementById("newz"); // find the <ul in the html 
      topNews.articles.forEach(content => {
         const spanNode = document.createElement("li"); // make fresh <li>
         spanNode.innerHTML =                            // news contents
-        `<img src="${content.urlToImage}" alt="news image">
+        `<a href="${content.url}">
+        <img src="${content.urlToImage}" alt="news image">
+        <h3>${content.source.name}</h3>
         <h2>${content.title}</h2>
-        <p>${content.description}</p>`;
+        <p>${content.description}</p></a>`;
         parentNode.appendChild(spanNode);           // pushing to the <ul>
     });
 }
@@ -63,7 +65,7 @@ const inputInfo = document.querySelector('.searchClass') //INPUT? NECESSARY????
         displayErrorToUser(`${error} ahhhh server problem`);
     });
 }
- getData('https://newsapi.org/v2/top-headlines?country=gb&apiKey=534d9b30f7bd4185b60cba8d406e11ec') 
+ getData('https://newsapi.org/v2/top-headlines?country=gb&pageSize=100&apiKey=534d9b30f7bd4185b60cba8d406e11ec') 
 
 
 
@@ -79,9 +81,15 @@ function displayDataOnHead(topNews){
     topNews.articles.forEach(content => {
         const spanNode2 = document.createElement("li"); // make fresh <li>
         spanNode2.innerHTML =                            // news contents
-        `<img src="${content.urlToImage}" alt="news image">
-        <h2>${content.title}</h2>`;
+        `<a href="${content.url}">
+        <img src="${content.urlToImage}" alt="news image">
+        <h2>${content.title}</h2></a>`;
     
+
+        
+
+
+
         parentNode2.appendChild(spanNode2);           // pushing to the <ul>
     });
 }
