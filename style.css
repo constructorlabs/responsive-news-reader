@@ -1,19 +1,15 @@
 
-/* .image-span{
-    color: red;
-} */
+
+* {
+  box-sizing: border-box;
+}
+
 body {
     text-align: center;
+    margin: 0;
+    font-family: Arial;
 }
 
-.top-content {
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    background-color:red;
-
-}
 
 img{
     width: 40vh;
@@ -21,10 +17,25 @@ img{
 }
 
 
+.btn-more {
+  display: inline-block;
+  text-transform: uppercase;
+  color: #0e2f44;
+  font-size: 0.8rem;
+  border: 1px solid #0e2f44;
+  margin: 10px 0;
+  padding: 5px 15px;
+  text-decoration: none;
+}
 
-/* button:hover {
+.btn-more:hover{
+  background-color: #0e2f44;
+  color: #fff;
+  transition: 0.4s;
+  text-decoration: underline;
+}
 
-} */
+
 ul {
     display: flex;
     justify-content: center;
@@ -35,7 +46,7 @@ li {
     
 }
 
-.arrows{
+/* .arrows{
    width: 20px;
    height: 18px;
    border-color: #000;
@@ -58,26 +69,26 @@ li {
    transform: rotate(-135deg);
    right: 10px;
    margin-right: 10vh;
-}
+} */
 
 .publishedAt {
     font-size: 10px;
 }
 
+.top-content {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color:red;
 
-* {
-    box-sizing: border-box;
-  }
-  body{
-    margin: 0;
-    font-family: Arial;
-  }
-
-
+}
 
 
 
 
+
+/* Navbar */
 
 nav {
     background-color: black;
@@ -139,7 +150,12 @@ nav {
   }
   
 
-  @media screen and (max-width: 470px) { 
+
+
+
+
+/* media queries */
+  @media screen and (max-width: 749px) { 
     .container-burger {    
       display: block;
     }
@@ -147,6 +163,7 @@ nav {
       flex-direction: column;
       align-items: flex-start;
       padding: .5em 0;
+      /* max-height: 16vh; */
     }
     nav ul {
       display: none;    
@@ -159,3 +176,13 @@ nav {
       padding: 0.8em
     }
   }
+
+  
+
+  /* ipad screen */
+  @media screen and (min-width: 750px){
+  
+
+
+  }
+
