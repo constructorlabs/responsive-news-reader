@@ -60,14 +60,11 @@ let publicationList = {
   "daily-mail": false,
   "mirror": false,
   "metro": false,
-  "the-telegraph": false,
-  "financial-times": false,
-  "bbc-news": false,
 }
 
 const generateFetchURL = function (publicationList) {
   // default url array
-  const defaultArray = ["daily-mail","mirror","metro","the-telegraph","financial-times","bbc-news"];
+  const defaultArray = ["daily-mail","mirror","metro"];
 
   // create an array from object using key values
   let publicationArray = Object.keys(publicationList);
