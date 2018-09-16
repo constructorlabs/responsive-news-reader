@@ -10,6 +10,7 @@
         @import url('https://fonts.googleapis.com/css?family=Catamaran:700');
         @import url('https://fonts.googleapis.com/css?family=Catamaran:400');
         @import url('https://fonts.googleapis.com/css?family=Catamaran:100');
+        @import url('https://fonts.googleapis.com/css?family=Handlee|Itim|Mukta|Muli');     
     </style>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -18,17 +19,16 @@
     <div class="news-app">
 
         <header class="header">
-            <!-- <img src="images/eyes.png" class="header__logo"> -->
-            <h1>NEWS READER</h1>
+            <div class="header__logo__wrapper">
+                <img src="images/eyes-transparent.png" class="header__logo">
+                <p class="header__logo__text">news reader</p>
+            </div>
             <div class="header__nav">
                 <form class="header__form">
                     <div class="header__nav__input">
-                        <input type="text" class="search" name="search" placeholder="Search">
+                        <input type="text" class="search" name="search" placeholder="&#128269; Search">
                     </div>
                 </form>
-                <div class="header__nav__button">
-                    <a href="">&#128269;</a>
-                </div>
             </div>
         </header>
 
@@ -37,6 +37,10 @@
                 <div>
                     <form class="country">
                         Top News Headines:
+                    </form>
+                </div>
+                <div>
+                    <form class="content___message">
                     </form>
                 </div>
             </nav>
