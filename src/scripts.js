@@ -48,11 +48,11 @@ const apiRequests = {
 
 //Object contains functions attached to buttons and page features
 const pageHandlers = {
+
   changeCountry: function(){
     const countryButtonElement = document.querySelector(".country-button")
       countryButtonElement.addEventListener("click", event => {
         paginationElement.style.display = "none";
-        newsDisplayElement.innerHTML = ""
         countryButtonElement.textContent === "Top UK Stories"
           ? ( countryButtonElement.textContent = "Top US Stories",
               fetchNews(apiRequests.ukTop20))
@@ -61,29 +61,20 @@ const pageHandlers = {
       })
     },
 
-  search: function(){
-    const searchFormElement = document.querySelector(".search-form")
-    const searchTextElement = document.querySelector(".search-text")
-    const dateRangeElement = document.querySelector(".date-range")
-    searchFormElement.addEventListener("submit", event => {
+  search: function(event){
       event.preventDefault();
       if (searchTextElement.value === ""){
         return
       }
       const dateRange = formatDate(dateRangeElement.value)
-      newsDisplayElement.innerHTML = ""
       paginationElement.style.display = "inline"
-
       apiRequests.updateURL("q", searchTextElement.value)
       apiRequests.updateURL("from", dateRange)
-      const searchString = apiRequests.getURL()
-      fetchNews(searchString)
-
+      fetchNews(apiRequests.getURL())
       searchTextElement.value = ""
       pageHandlers.checkPage()
+    },
 
-    })
-  },
 
   checkPage: function(){
     apiRequests.customParameters.page.val === 1
@@ -94,40 +85,13 @@ const pageHandlers = {
 
   paginationControl: function(event){
     let currentPage = apiRequests.customParameters.page.val
-    if (event.target.value === "next"){
-      currentPage ++
-    }else{
-      currentPage --
-    }
+    event.target.value === "next"
+      ? currentPage ++
+      : currentPage --
     apiRequests.updateURL("page", currentPage)
-    const requestedPage = apiRequests.getURL()
-    newsDisplayElement.innerHTML = ""
-    fetchNews(requestedPage)
+    fetchNews(apiRequests.getURL())
     pageHandlers.checkPage()
-  //   nextPageElement.addEventListener("click", event => {
-  //     let currentPage = apiRequests.customParameters.page.val
-  //     if (event.target.value === "next"){
-  //       currentPage ++
-  //     }else{
-  //       currentPage --
-  //     }
-  //     apiRequests.updatePageURL(currentPage)
-  //     const requestedPage = apiRequests.getURL()
-  //     newsDisplayElement.innerHTML = ""
-  //     fetchNews(requestedPage)
-  //     this.checkPage()
-  //   })
-  //
-  //   prevPageElement.addEventListener("click", event => {
-  //     let currentPage = apiRequests.customParameters.page.val
-  //     currentPage --
-  //     apiRequests.updatePageURL(currentPage)
-  //     const requestedPage = apiRequests.getURL()
-  //     newsDisplayElement.innerHTML = ""
-  //     fetchNews(requestedPage)
-  //     this.checkPage()
-  //
-  // })
+
 
 }
 
@@ -217,9 +181,33 @@ const newsDisplayElement = document.querySelector(".news-display")
 const paginationElement = document.querySelector(".pagination")
 const nextPageElement = document.querySelector(".next-page")
 const prevPageElement = document.querySelector(".back-page")
+const searchFormElement = document.querySelector(".search-form")
+const searchTextElement = document.querySelector(".search-text")
+const dateRangeElement = document.querySelector(".date-range")
+const advancedSearchElement = document.querySelector(".advanced-search")
+const advancedSearchMenu = document.querySelector(".advanced-search-options")
+const advancedSearchForm = document.querySelector(".advanced-search-form")
+const languageSelector = document.querySelector(".language-select")
+const sortBySelector = document.querySelector(".sort-by-select")
+searchFormElement.addEventListener("submit", pageHandlers.search)
 prevPageElement.addEventListener("click", pageHandlers.paginationControl)
 nextPageElement.addEventListener("click", pageHandlers.paginationControl)
 
+advancedSearchElement.addEventListener("click", event => {
+  console.log("click")
+  advancedSearchMenu.style.display === "none"
+    ? advancedSearchMenu.style.display = "block"
+    : advancedSearchMenu.style.display = "none"
+})
+
+advancedSearchForm.addEventListener("submit", event => {
+  event.preventDefault()
+  apiRequests.updateURL("language", languageSelector.value)
+  apiRequests.updateURL("sortBy", sortBySelector.value )
+})
+
+
+
+
 fetchNews(apiRequests.usTop20)
 pageHandlers.changeCountry()
-pageHandlers.search()

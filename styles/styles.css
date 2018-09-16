@@ -24,6 +24,18 @@ header{
   overflow-y: auto;
 }
 
+.advanced-search-options{
+  display: none;
+  width: 100vw;
+  height:80px;
+  background-color: white;
+}
+
+.advanced-search-form{
+  display: flex;
+  flex-direction: row;
+}
+
 .news-display{
   background: #E9EEF2 url("../images/backdrop.png") repeat-x;
 
