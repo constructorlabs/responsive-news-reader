@@ -8,47 +8,38 @@ const apiRequests = {
 
   ukTop20: 'https://newsapi.org/v2/top-headlines?country=gb&apiKey=9ed005ef4eb94baf913fce701c69972f',
 
+
+//object contains stored parameters for searches
   customParameters : {
-    searchString: {val: null, string: ""},
+    q: {val: null, string: ""},
 
-    dateRange: {val: null, string: ""},
+    from: {val: null, string: ""},
 
-    excludedDomains: {val: null, string: ""},
+    excludeDomains: {val: null, string: ""},
 
-    lang: {val: null, string: ""},
+    language: {val: null, string: ""},
 
-    page: {val: 1, string: ""}
+    page: {val: 1, string: ""},
+
+    sortBy: {val: null, string: ""}
   },
 
+
+//getURL provides a url for API with specified parameters above
   getURL: function(){
-    const customURL = `https://newsapi.org/v2/everything?q=${this.customParameters.searchString.string}${this.customParameters.dateRange.string}${this.customParameters.excludedDomains.string}${this.customParameters.page.string}${this.customParameters.lang.string}&apiKey=9ed005ef4eb94baf913fce701c69972f`
+    const customURL = `https://newsapi.org/v2/everything?${this.customParameters.q.string}${this.customParameters.from.string}${this.customParameters.excludeDomains.string}${this.customParameters.page.string}${this.customParameters.language.string}${this.customParameters.sortBy.string}&apiKey=9ed005ef4eb94baf913fce701c69972f`
         return customURL
   },
 
-  updateSearchURL: function(userString){
-    this.customParameters.searchString.string = userString
+  updateURL: function(parameter, update){
+    this.customParameters[parameter].val = update
+    if (parameter === "q"){
+      this.customParameters[parameter].string = `${parameter}=${update}`
+    }else{
+      this.customParameters[parameter].string = `&${parameter}=${update}`
+    }
   },
 
-  updatePageURL: function(inputPage){
-    this.customParameters.page.val = inputPage
-    this.customParameters.page.string = `&page=${inputPage}`
-  },
-
-  updateDateURL: function(daterange){
-    this.customParameters.dateRange.val
-    this.customParameters.dateRange.string = `&from=${daterange}`
-  },
-
-  updateBlockURL: function(){
-    const blockedString = this.blockList.join(",")
-    this.customParameters.excludedDomains.string = `&excludeDomains=${blockedString}`
-  },
-
-  updateLangURL: function(language){
-    this.customParameters.lang.string = `&language=${language}`
-
-
-  },
 
   blockList: []
 
@@ -82,12 +73,14 @@ const pageHandlers = {
       const dateRange = formatDate(dateRangeElement.value)
       newsDisplayElement.innerHTML = ""
       paginationElement.style.display = "inline"
-      apiRequests.updateSearchURL(searchTextElement.value)
-      apiRequests.updateDateURL(dateRange)
+
+      apiRequests.updateURL("q", searchTextElement.value)
+      apiRequests.updateURL("from", dateRange)
       const searchString = apiRequests.getURL()
       fetchNews(searchString)
+
       searchTextElement.value = ""
-      this.checkPage()
+      pageHandlers.checkPage()
 
     })
   },
@@ -99,27 +92,42 @@ const pageHandlers = {
   },
 
 
-  paginationControl: function(){
-    nextPageElement.addEventListener("click", event => {
-      let currentPage = apiRequests.customParameters.page.val
+  paginationControl: function(event){
+    let currentPage = apiRequests.customParameters.page.val
+    if (event.target.value === "next"){
       currentPage ++
-      apiRequests.updatePageURL(currentPage)
-      const requestedPage = apiRequests.getURL()
-      newsDisplayElement.innerHTML = ""
-      fetchNews(requestedPage)
-      this.checkPage()
-    })
-
-    prevPageElement.addEventListener("click", event => {
-      let currentPage = apiRequests.customParameters.page.val
+    }else{
       currentPage --
-      apiRequests.updatePageURL(currentPage)
-      const requestedPage = apiRequests.getURL()
-      newsDisplayElement.innerHTML = ""
-      fetchNews(requestedPage)
-      this.checkPage()
-
-  })
+    }
+    apiRequests.updateURL("page", currentPage)
+    const requestedPage = apiRequests.getURL()
+    newsDisplayElement.innerHTML = ""
+    fetchNews(requestedPage)
+    pageHandlers.checkPage()
+  //   nextPageElement.addEventListener("click", event => {
+  //     let currentPage = apiRequests.customParameters.page.val
+  //     if (event.target.value === "next"){
+  //       currentPage ++
+  //     }else{
+  //       currentPage --
+  //     }
+  //     apiRequests.updatePageURL(currentPage)
+  //     const requestedPage = apiRequests.getURL()
+  //     newsDisplayElement.innerHTML = ""
+  //     fetchNews(requestedPage)
+  //     this.checkPage()
+  //   })
+  //
+  //   prevPageElement.addEventListener("click", event => {
+  //     let currentPage = apiRequests.customParameters.page.val
+  //     currentPage --
+  //     apiRequests.updatePageURL(currentPage)
+  //     const requestedPage = apiRequests.getURL()
+  //     newsDisplayElement.innerHTML = ""
+  //     fetchNews(requestedPage)
+  //     this.checkPage()
+  //
+  // })
 
 }
 
@@ -162,14 +170,13 @@ function createStoryPanel(article){
   headerElement.appendChild(headerLeftElement)
   headerElement.appendChild(storyImageElement)
 
-
   storyDivElement.appendChild(headerElement)
-
-
   storyDivElement.appendChild(descriptionElement)
   storyDivElement.appendChild(linkElement)
   newsDisplayElement.appendChild(storyDivElement)
 }
+
+
 
 //formats date for search
 function formatDate(monthsAgo){
@@ -210,8 +217,9 @@ const newsDisplayElement = document.querySelector(".news-display")
 const paginationElement = document.querySelector(".pagination")
 const nextPageElement = document.querySelector(".next-page")
 const prevPageElement = document.querySelector(".back-page")
+prevPageElement.addEventListener("click", pageHandlers.paginationControl)
+nextPageElement.addEventListener("click", pageHandlers.paginationControl)
 
 fetchNews(apiRequests.usTop20)
 pageHandlers.changeCountry()
 pageHandlers.search()
-pageHandlers.paginationControl()
