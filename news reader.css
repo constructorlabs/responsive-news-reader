@@ -10,8 +10,15 @@ body {
   flex-direction: column;
   justify-content: space-around;
   padding: 10%;
+  padding-top: 5%;
 }
 
+.header{
+  font-size: 2.5vh;
+}
+h2{
+  font-size: 2.5vh;
+}
 .articleList{
 
   flex-direction: column;
@@ -19,14 +26,37 @@ body {
   height: 100vh;
   display: flex;
   flex-flow: row wrap;
-
 }
 
 ul{
   list-style-type: none;
   margin: 0;
   padding: 0;
+  padding-bottom:40px;
+
+}
+
+li{
+  padding: 0;
+  padding-bottom: 8px;
 }
 .title{
   font-size: 2.5vh;
+}
+.description{
+  font-size: 2.3vh;
+}
+
+@media(max-width:768px){
+  img{
+    display: none;
+  }
+}
+
+@media(max-width:960px){
+
+}
+
+@media (max-width: 1200px) {
+
 }
