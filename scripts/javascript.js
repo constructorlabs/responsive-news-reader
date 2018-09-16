@@ -2,7 +2,6 @@ const baseUrl = "https://newsapi.org/v2/top-headlines?apiKey=93238bcda39e4404852
 const parentNode = document.querySelector(".news--area--feed");
 
 let checkboxArray = document.querySelectorAll(".news--filter input");
-let userOpted = false;
 
 /* 
 --------------
@@ -29,17 +28,17 @@ DISPLAY DATA ON PAGE
 --------------------
 */
 
-function displayDataOnPage(newsStories) {
-
+function displayDataOnPage(newsStories){
+  
   const newsArray = newsStories.articles;
   // console.log(newsStories.articles);
   // add news blocks (as articles)
     newsArray.forEach(function(newsitem) {
 
         const node = document.createElement("article");
-        node.innerHTML = `<figure class="news--article-image" style="background-image: url(${newsitem.urlToImage});" ></figure>
+        node.innerHTML = `<figure class="news--article-image" style="background-image: url(${newsitem.urlToImage});" ><span class="${newsitem.source.name}"></span></figure>
         <section class="news--article-content">
-        <header class="${newsitem.source.name}"><h2>${newsitem.title}</h2></header>
+        <header><h2>${newsitem.title}</h2></header>
         <h3>${newsitem.description}</h3>
         <p>${newsitem.content}</p>
         <p><a href="${newsitem.url}" title="Visit news article: ${newsitem.title}">Read full article</a>
@@ -78,27 +77,17 @@ const generateFetchURL = function (publicationList) {
   let filteredPublicationUrl = `&sources=${filteredArray}`;
   let fullURL = "";
   
-  if (userOpted === true) {
-    // RETURN VALUES - fullURL
-    fullURL = `${baseUrl}${filteredPublicationUrl}`;
-  } else {
+  // check if filteredArray has values
+  if (filteredArray.length == 0 ) {
     fullURL = `${baseUrl}${defaultArrayUrl}`;
+  } else {
+    fullURL = `${baseUrl}${filteredPublicationUrl}`;
   }
   // CHANGE filteredArray GOOD
-  // console.log(filteredArray); 
+  console.log(filteredArray); 
+  console.log(filteredArray.length); 
 
   goFetch(fullURL)
-
-  // Try a different way of doing this - this is not influenced by the event
-  // checkboxArray.forEach(function (checkbox) {   
-  //   if (checkbox.checked === true) {
-  //     // RETURN VALUES - fullURL
-  //     return fullURL = `${baseUrl}${filteredPublicationUrl}`;
-  //   }
-  //   else {
-  //     return fullURL = `${baseUrl}${defaultArrayUrl}`;
-  //   }
-  // })
 }
 
 /*
@@ -107,21 +96,19 @@ CREATE CHECKBOX FILTER
 ----------------------
 */
 const createCheckboxFilter = function() {
-  // Reset UserOpted to false
-  userOpted = false;
   checkboxArray.forEach(function(input) {
     input.addEventListener("change", function(event) {
         // new assigned value to match object key
         // assign object value if checked is true
         if (event.target.checked === true) {
           publicationList[event.target.value] = true;
-          userOpted = true;
+          // displayDataOnPage();
         }
         else {
           publicationList[event.target.value] = false;
         }
         // CHANGE publicationList object GOOD
-        // console.log(publicationList);
+        console.log(publicationList);
         generateFetchURL(publicationList);
       })
   })
