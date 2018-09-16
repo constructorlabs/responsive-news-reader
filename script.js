@@ -9,7 +9,7 @@ function append(parent, element) {
 
 
 function getTopStory(pageNumber){
-    const topStoryUrl = `https://newsapi.org/v2/top-headlines?country=us&pageSize=1&apiKey=288a1247b5a34780a74f689bdc7e1b83&page=${pageNumber}`;
+    const topStoryUrl = `https://newsapi.org/v2/top-headlines?country=gb&pageSize=1&apiKey=287554a05efe4127bd911a0a216a7b64&page=${pageNumber}`;
     fetch(topStoryUrl)
     .then(response => {
         return response.json()
@@ -24,12 +24,12 @@ function getTopStory(pageNumber){
             const link = createNode("a")
             const swiper = createNode("p")
             const published = createNode("p")
-            header.textContent = article.title
+            header.innerHTML = `<h1 class="article-header">${article.title}</h1>`
             mainImg.setAttribute("src", article.urlToImage || 'http://placekitten.com/200/300')
             span.innerHTML = `</p><span class ="image-span">${article.description || `Nothing to display`}</span></p>`
             link.innerHTML = `<p><a class ="btn-more" href=${article.url} target="_blank">Read More<a/></p>`
             published.innerHTML = `<p class="publishedAt">${article.published || `Posted Today`}</p>`
-            swiper.innerHTML = `<p class="swipe">swipe for latest News</p>`
+            // swiper.innerHTML = `<p class="swipe">swipe for latest News</p>`
             append(topStoryDiv, header)
             append(topStoryDiv, mainImg)
             append(topStoryDiv, published)
@@ -46,7 +46,13 @@ function nextSlide(){
     getTopStory(pageNumber);
 }
 
-let slideInterval = setInterval(nextSlide,3000);
+const topStoryDiv = document.querySelector("#main");
+let pageNumber = 1;
+getTopStory(1); //reset page back page 1
+
+
+// let slideInterval = setInterval(nextSlide,3000);
+
 // const urls = {
 //     apiKey: "287554a05efe4127bd911a0a216a7b64",
 //     topBbcNews: "https://newsapi.org/v2/top-headlines -G \
@@ -74,20 +80,10 @@ let slideInterval = setInterval(nextSlide,3000);
 
 
 
-
-
-
-
-
-const topStoryDiv = document.querySelector("#main");
-let pageNumber = 1;
-getTopStory(1); //reset page back page 1
-
-
-
 const techNewsDiv = document.querySelector(".techNews")
-const techUrl = `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=288a1247b5a34780a74f689bdc7e1b83&${pageNumber}`
-fetch(techUrl)
+const techUrl = `https://newsapi.org/v2/top-headlines?sources=techcrunch&pageSize=3&apiKey=287554a05efe4127bd911a0a216a7b64`
+function content(url){
+fetch(url)
 .then(response => {
     return response.json()
 })
@@ -95,7 +91,7 @@ fetch(techUrl)
     console.log(body)
     const techNews = body.articles
         return techNews.map(article => {
-            techNewsDiv.innerHTML="";
+            // techNewsDiv.innerHTML="";
             const mainImg = createNode("img")
             const header = createNode("h1")
             const span = createNode("span")
@@ -107,38 +103,36 @@ fetch(techUrl)
             span.innerHTML = `</p><span class ="image-span">${article.description || `Nothing to display`}</span></p>`
             link.innerHTML = `<p><a  class ="btn-more" href=${article.url} target="_blank">Read More<a/></p>`
             published.innerHTML = `<p class="publishedAt">${article.published || `Posted Today`}</p>`
-            swiper.innerHTML = `<p class="swipe">swipe for Latest Tech News</p>`
+           
             append(techNewsDiv, header)
             append(techNewsDiv, mainImg)
             append(techNewsDiv, published)
-            append(techNewsDiv, swiper)
+            
             append(techNewsDiv, span)
             append(techNewsDiv, link)
         })
 })
+}
+
+content(techUrl)
 
 
 
 // search function
-// function newSearch(word){
-//     return fetch(`https://newsapi.org/v2/everything?q=${word}&apiKey=a62b82adc88947479824b7f88a2c44db`)
-//     .then(function(response){
-//      return response.json();
-//     })
-//     .then(function(data){
-//      createNews(data)
-//     })
-//     }
+function searchNews(){
+    let keyword = '"' + document.querySelector("#search_input").value.replace(" ","")
+    + '"';
 
-// const submit = document.querySelector('.fa fa-search');
-// submit.addEventListener('click', function(event){
-//  if (searchInput.value !== "") {
-//    body.innerHTML = "";
-//    event.preventDefault()
-//  console.log(searchInput.value)
-//  newSearch(searchInput.value)
-//  }
-// })
+    let apiKey = "287554a05efe4127bd911a0a216a7b64";
+
+    let sortBy = "publishedAt";
+
+    let newsUrl = `https://newsapi.org/v2/everything?q=${keyword}&pageSize=3&sortBy=${sortBy}&apiKey=${apiKey}`;
+
+    techNewsDiv.innerHTML="";
+    content(newsUrl);
+}
+
 
 
 

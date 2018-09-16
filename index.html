@@ -12,7 +12,7 @@
 
 <body>
     <div class="container">
-    <nav class="item1">  
+    <nav>  
         <div class="container-burger" id="burger_menu">
           <div class="line1"></div>
           <div class="line2"></div>
@@ -22,27 +22,30 @@
             <h1>News To You</h1><i class="fas fa-newspaper"></i>
         </div>
         <ul id="main-menu">
-          <li><a><input placeholder="Search News"><i class="fa fa-search"></i></a></li>
-          <li><a href="#techNews">Tech News</a></li>
-          <li><a href="">Link</a></li>
-          <li><a href="">Link</a></li>
-          <li><a href="">Link</a></li>
+          <li><a><input id="search_input" type="textbox" placeholder="Search.."/>
+            <button id="search_submit" onclick="searchNews()">Search News</button></a></li>
+          <li><a href="">Top Stories</a></li>
+          <li><a href="#techNews">Trending News</a></li>
+          <li><a href="">Entertainment</a></li>
+          <li><a href="">Have A Story?</a></li>
         </ul>  
       </nav>
 
-    <div class="top-content item2">
+    <div class="top-content">
         <h1 >Today's Top Stories</h1>
         <ul>
             <li><button>UK News</button></li>
             <li><button>USA News</button></li>
         </ul>
-        <div class="arrows prev"></div>
-        <div class="arrows next"></div>
+        <!-- <div class="arrows prev"></div>
+        <div class="arrows next"></div> -->
         <div id="main"></div>
     </div>
 
-    <h1 id="techNews">Latest Tech News</h1>
-    <div class="techNews item3"></div>
+    <h1 id="techNews">Trending News</h1>
+    <div class="techNews">
+        
+    </div>
 
 </div>
 

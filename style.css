@@ -12,6 +12,7 @@ body {
 
 
 img{
+    
     width: 40vh;
     height: 30vh;
 }
@@ -180,9 +181,20 @@ nav {
   
 
   /* ipad screen */
-  @media screen and (min-width: 750px){
+  @media screen and (min-width: 780px){
+    img{
+      display:flex;
+      height:4s0vh;
+      width:60vh;
+      margin-left: 5vh;
+      
+    }
+
+    .article-header{
+      /* font-size: 1.75rem; */
   
-
-
+     display: inline-block; 
+     
+    }
   }
 
