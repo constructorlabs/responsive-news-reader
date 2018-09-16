@@ -1,7 +1,8 @@
 body {
     font-family: "PT Sans", sans-serif;
-    background-color: #FDFDFD;
-    margin: 0;`
+    background-color: #F0FFF0;
+    margin: 0;
+    width: 100vw;
 }
 
 li {
@@ -23,9 +24,8 @@ a:hover {
     display: flex;
     flex-direction: column;
     min-width: 100vw;
-    margin-left: 10px;
-    margin-right: 10px;
-
+    /* margin-left: 10px; */
+    /* margin-right: 10px; */
 }
 
 .header {
@@ -44,7 +44,42 @@ a:hover {
     width: 30%;
 }
 
-.content {
+.content_body {
+    /* display: flex; */
+}
+
+.search_form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 5px solid maroon;
+}
+
+.search_box {
+    margin-right: 10px;
+    min-height: 30px;
+    min-width: 40vw;
+    font-size: 100%;
+}
+
+.search_button {
+    height: 30px;
+    width: 20vw;
+    font-size: 14px;
+    background-color: #FDFDFD;
+    color: maroon;
+    transition: 0.1s;
+}
+
+.search_button:hover {
+  background-color: maroon;
+  color: #FDFDFD;
+}
+
+.news_content {
     min-width: 90vw;
 }
 
@@ -93,12 +128,17 @@ a:hover {
     margin-bottom: 5px;
 }
 
+.news_sidebar {
+    display: none;
+}
+
 .button_container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    min-width: 100vw;
 }
 
 .load_more_button {
@@ -130,7 +170,7 @@ a:hover {
         max-width: 90vw;
     }
 
-    .content {
+    .news_content {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -173,5 +213,49 @@ a:hover {
 }
 
 @media (min-width: 960px) {
+
+    
+    .content_body{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .article_box {
+        margin-left: 10px;
+        margin-right: 0px;
+        width: 44%;
+        height: 100%;
+    }
+
+    .news_content {
+        order: 2;
+        height: 100%;
+        min-width: 80vw;
+        justify-content: space-evenly;
+    }
+
+    .news_sidebar {
+        display: flex;
+        flex-direction: column;
+        order: 1;
+        margin-left: 10px;
+    }
+
+    .feature_box {
+        background-color: #006989;
+        border: 1px solid black;
+        margin-top: 10px; 
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .sidebar_source_list {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
 
 }
