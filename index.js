@@ -37,7 +37,7 @@ const getContent = () => {
 // Displays the news articles retrieved from getContent
 const displayContent = (content) => {
     // Sets how many news cards are added to the page
-    setLayout(20);
+    setLayout(articlesPerPage);
     const parentNode = document.querySelector(`.news-container-page-${apiValues.page}`);
     const newsItemContainer = parentNode.querySelectorAll('.news-item__container');
     console.log(parentNode);
@@ -55,6 +55,7 @@ const displayContent = (content) => {
         dateText.textContent = content.articles[counter].publishedAt;
         sourceText.textContent = content.articles[counter].source.name;
         imgSrc.src = content.articles[counter].urlToImage;
+        item.href = content.articles[counter].url;
 
         counter++;
     });
@@ -67,10 +68,10 @@ const setLayout = (articlesPerPage) => {
     document.querySelector('.container').appendChild(newPage);
 
     for (let i = 0; i < articlesPerPage; i++) {
-        const newArticle = document.createElement('div');
+        const newArticle = document.createElement('a');
         newArticle.className = 'news-item__container';
         newArticle.innerHTML =
-            '<img class="image" src="images/test.jpg" />\
+        '<img class="image" src="images/test.jpg" />\
         <div class="news-item__text">\
             <div class="headline">Volkswagen to end production of iconic Beetle</div>\
             <h3 class="description">The company announced that it would end global production in July next year</h3>\
