@@ -8,32 +8,47 @@ const apiRequests = {
 
   ukTop20: 'https://newsapi.org/v2/top-headlines?country=gb&apiKey=9ed005ef4eb94baf913fce701c69972f',
 
-//function takes search string, and if specified a date range
-  searchURL: function(userString, daterange, page){
-    this.displayTop20 = false
-    if (daterange === null){
-      this.currentSearchURL = `https://newsapi.org/v2/everything?q=${userString}&page=1&sortBy=popularity&apiKey=9ed005ef4eb94baf913fce701c69972f`
-      return this.currentSearchURL
-    }else{
-      this.currentSearchURL = `https://newsapi.org/v2/everything?q=${userString}${daterange}&page=1&sortBy=popularity&apiKey=9ed005ef4eb94baf913fce701c69972f`
-      return this.currentSearchURL
-    }
+
+  customParameters : {
+    searchString: {val: null,
+                   string: null},
+
+    dateRange: {val: null,
+                string: null},
+
+    excludedDomains: {val: null,
+                      string: ""},
+
+    page: {val: 1,
+           string: ""}
   },
 
-  pageChange: function(inputPage){
-    const currentURL = this.currentSearchURL
-    const pageRegex = /page=(\d)/
-    this.currentPage = inputPage
-    return currentURL.replace(pageRegex, `page=${inputPage}`)
+  getURL: function(){
+    const customURL = `https://newsapi.org/v2/everything?q=${this.customParameters.searchString.string}${this.customParameters.dateRange.string}${this.customParameters.excludedDomains.string}${this.customParameters.page.string}&apiKey=9ed005ef4eb94baf913fce701c69972f`
+        this.currentSearchURL = customURL
+        return customURL
   },
 
+  updateSearchURL: function(userString){
+    this.customParameters.searchString.string = userString
+  },
 
-  currentSearchURL: null,
+  updatePageURL: function(inputPage){
+    this.customParameters.page.val = inputPage
+    this.customParameters.page.string = `&page=${inputPage}`
+  },
 
-  currentPage: 1,
+  updateDateURL: function(daterange){
+    this.customParameters.dateRange.val
+    this.customParameters.dateRange.string = `&from=${daterange}`
+  },
+
+  updateBlockURL: function(){
+    const blockedString = this.blockList.join(",")
+    this.customParameters.excludedDomains.string = `&excludeDomains=${blockedString}`
+  },
 
   blockList: []
-
 
 }
 
@@ -63,18 +78,20 @@ const pageHandlers = {
         return
       }
       const dateRange = formatDate(dateRangeElement.value)
-      const searchString = apiRequests.searchURL(searchTextElement.value, dateRange)
       newsDisplayElement.innerHTML = ""
-      searchTextElement.value = ""
       paginationElement.style.display = "inline"
+      apiRequests.updateSearchURL(searchTextElement.value)
+      apiRequests.updateDateURL(dateRange)
+      const searchString = apiRequests.getURL()
       fetchNews(searchString)
+      searchTextElement.value = ""
       this.checkPage()
 
     })
   },
 
   checkPage: function(){
-    apiRequests.currentPage === 1
+    apiRequests.customParameters.page.val === 1
       ? prevPageElement.disabled = true
       : prevPageElement.disabled = false
   },
@@ -82,28 +99,27 @@ const pageHandlers = {
 
   paginationControl: function(){
     nextPageElement.addEventListener("click", event => {
-      let currentPage = apiRequests.currentPage
+      let currentPage = apiRequests.customParameters.page.val
       currentPage ++
-      const requestedPage = apiRequests.pageChange(currentPage)
+      apiRequests.updatePageURL(currentPage)
+      const requestedPage = apiRequests.getURL()
       newsDisplayElement.innerHTML = ""
       fetchNews(requestedPage)
       this.checkPage()
     })
 
     prevPageElement.addEventListener("click", event => {
-      let currentPage = apiRequests.currentPage
+      let currentPage = apiRequests.customParameters.page.val
       currentPage --
-      const requestedPage = apiRequests.pageChange(currentPage)
+      apiRequests.updatePageURL(currentPage)
+      const requestedPage = apiRequests.getURL()
       newsDisplayElement.innerHTML = ""
       fetchNews(requestedPage)
       this.checkPage()
-    })
 
-  },
+  })
 
-
-
-
+}
 
 }
 
@@ -159,7 +175,7 @@ function formatDate(monthsAgo){
     const newDate = new Date
     newDate.setMonth(newDate.getMonth() - monthsAgo);
     const isoDate = newDate.toISOString().slice(0,10)
-    return `&from=${isoDate}`
+    return `${isoDate}`
   }else{
     return null
   }
