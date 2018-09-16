@@ -96,8 +96,8 @@ function searchNews() {
 
 
 
-
-
+const ukButton = document.querySelector("#ukButton")
+const usaButton = document.querySelector("#usaButton")
 const topStoryDiv = document.querySelector("#main");
 const trendNewsDiv = document.querySelector(".trendingNews")
 const techUrl = `https://newsapi.org/v2/top-headlines?sources=techcrunch&pageSize=3&apiKey=287554a05efe4127bd911a0a216a7b64`
@@ -105,7 +105,7 @@ let pageNumber = 1;
 const contentH1 = document.querySelector("#trendNews")
 getTopStory(1); //reset page back page 1
 content(techUrl)
-// let slideInterval = setInterval(nextSlide,5000);
+let slideInterval = setInterval(nextSlide,4000);
 
 
 //menu toggle
