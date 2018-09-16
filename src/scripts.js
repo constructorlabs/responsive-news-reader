@@ -27,9 +27,14 @@ const apiRequests = {
     return currentURL.replace(pageRegex, `page=${inputPage}`)
   },
 
+
   currentSearchURL: null,
 
-  currentPage: 1
+  currentPage: 1,
+
+  blockList: []
+
+
 }
 
 
@@ -94,7 +99,7 @@ const pageHandlers = {
       this.checkPage()
     })
 
-  }
+  },
 
 
 
@@ -102,45 +107,33 @@ const pageHandlers = {
 
 }
 
+function assignElement(elementType, elementClassName, elementTextContent){
+  const output = document.createElement(elementType)
+  output.className = elementClassName
+  output.textContent = elementTextContent
+  return output
+}
 
 
 //creates each story panel from fetch response
 function createStoryPanel(article){
-  const storyDivElement = document.createElement("div")
-  storyDivElement.className = "story-div-element"
-
-  const headerElement = document.createElement("div")
-  headerElement.className = "story-header"
-
-  const headerLeftElement = document.createElement("div")
-  headerLeftElement.className = "story-header-left"
-
-  const publicationInfoElement = document.createElement("span")
-  publicationInfoElement.className = "publication-info"
-
-  const headlineElement = document.createElement("h2")
-  headlineElement.className = "headline"
-  headlineElement.textContent = article.title
-
-  const publicationNameElement = document.createElement("h4")
-  publicationNameElement.textContent = article.source.name
-
-  const publicationDateElement = document.createElement("h4")
-  publicationDateElement.textContent = convertDateForDisplay(article.publishedAt)
-
-  const storyImageElement = document.createElement("img")
+  const storyDivElement = assignElement("div", "story-div-element")
+  const headerElement = assignElement("div", "story-header")
+  const headerLeftElement = assignElement("div", "story-header-left")
+  const publicationInfoElement = assignElement("span", "publication-info")
+  const headlineElement = assignElement("h2", "headline", article.title)
+  const publicationNameElement = assignElement("h4", "publication-name", article.source.name)
+  const publicationDateElement = assignElement("h4", "publication-date", convertDateForDisplay(article.publishedAt))
+  const storyImageElement = assignElement("img", "story-image")
   storyImageElement.setAttribute("src", article.urlToImage)
   if (storyImageElement.src === "http://127.0.0.1:3000/null"){
     storyImageElement.setAttribute("src", "../images/No_Image_Available.jpg")
   }
-  storyImageElement.className = "story-image"
 
-  const descriptionElement = document.createElement("p")
-  descriptionElement.textContent = article.description
-
-  const linkElement = document.createElement("a")
+  const descriptionElement = assignElement("p", "description-element", article.description)
+  const linkElement = assignElement("a", "full-story-link", "See full story")
   linkElement.setAttribute("href", article.url)
-  linkElement.textContent = "See full story"
+
 
   publicationInfoElement.appendChild(publicationNameElement)
   publicationInfoElement.appendChild(publicationDateElement)
@@ -150,6 +143,7 @@ function createStoryPanel(article){
 
   headerElement.appendChild(headerLeftElement)
   headerElement.appendChild(storyImageElement)
+
 
   storyDivElement.appendChild(headerElement)
 
@@ -185,6 +179,7 @@ function fetchNews(apiAddress){
       return response.json()
     })
     .then(body => {
+      newsDisplayElement.innerHTML = ""
       body.articles.forEach(article => {
         createStoryPanel(article)
       })
