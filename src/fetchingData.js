@@ -1,13 +1,3 @@
-/*
-  _____                 ______                _   _                   _ _ _         
-  / ____|               |  ____|              | | (_)                 | (_) |        
- | |     ___  _ __ ___  | |__ _   _ _ __   ___| |_ _  ___  _ __   __ _| |_| |_ _   _ 
- | |    / _ \| '__/ _ \ |  __| | | | '_ \ / __| __| |/ _ \| '_ \ / _` | | | __| | | |
- | |___| (_) | | |  __/ | |  | |_| | | | | (__| |_| | (_) | | | | (_| | | | |_| |_| |
-  \_____\___/|_|  \___| |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|\__,_|_|_|\__|\__, |
-                                                                                __/ |
-                                                                               |___/ 
-*/
 //Pagination
 let pageNum = 1;
 let todayGMT = new Date();
@@ -47,7 +37,7 @@ const refreshButton = document.querySelector(".refresh");
 refreshButton.addEventListener("click", refreshFeed);
 
 const loadMoreButton = document.querySelector(".loadNext");
-loadMoreButton.addEventListener("click", updatedUrl);
+loadMoreButton.addEventListener("click", loadMore);
 
 const topButton = document.querySelector(".up");
 topButton.addEventListener("click", backUp);
@@ -67,8 +57,11 @@ navList.addEventListener("click", function(event) {
   }
 });
 
+//Now this is what I call 'core functionality'.
 function trumpify() {
   console.log("present");
+  const title = document.querySelector(".page__title");
+  title.textContent = "Grabber by the p***y";
   const articles = document.querySelectorAll(".article__whole");
   console.log(articles[1].childNodes);
   articles.forEach(article => {
@@ -77,7 +70,7 @@ function trumpify() {
     article.style.backgroundImage = "url('images/flag.png')";
   });
 }
-
+//Probably should be in own JSON file.
 function randomPraise() {
   let praise = [
     "Trump did nothing wrong.",
@@ -111,18 +104,19 @@ function backUp() {
 }
 
 function refreshFeed() {
+  const title = document.querySelector(".page__title");
+  title.textContent = "Grabber";
   //Clear the feed.
   const feed = document.querySelector(".articles__wrapper");
   feed.innerHTML = "";
   //Fill the feed.
-
   grabData();
 }
 
-function updatedUrl() {
+function loadMore() {
   pageNum++;
   let period = convertedToISO;
-  let pageChange = pageNum + 1;
+  let pageChange = pageNum++;
   let updated = `https://newsapi.org/v2/everything?q=trump&language=en&from=${period}&sortby=popularity&apiKey=2b19d03fc1cf4cd7b62ac5bb15c98827&page=${pageChange}`;
   grabData(updated);
 }
@@ -130,7 +124,6 @@ function updatedUrl() {
 function passArticlesForCreation(jsonData) {
   for (let i = 0; i < jsonData.articles.length; i++) {
     createListElement(jsonData.articles[i]);
-    //console.log(jsonData.articles[i]);
   }
 }
 
@@ -206,23 +199,3 @@ function populateNewsFeed(article) {
 //PROGRAM START
 document.addEventListener("DOMContentLoaded", grabData());
 document.querySelector(".options").style.cursor = "pointer";
-// const refineFeed = document.querySelector(".refine");
-// refineFeed.addEventListener("click", function() {
-//   const refineList = document.querySelector(".dropdown__list");
-// });
-
-/*  _____ _                     _      _        
-  / ____(_)                   (_)    | |       
- | |  __ _ _ __ ___  _ __ ___  _  ___| | _____ 
- | | |_ | | '_ ` _ \| '_ ` _ \| |/ __| |/ / __|
- | |__| | | | | | | | | | | | | | (__|   <\__ \
-  \_____|_|_| |_| |_|_| |_| |_|_|\___|_|\_\___/
-                                               
-                                                */
-
-//Causes putin to pop up when the 'Grabber' logo is hovered.
-// const home = document.querySelector(".home");
-// home.addEventListener("mouseover", function() {
-//   const putin = document.querySelector(".oi__cheeky");
-//   putin.style.display = "inline";
-// });

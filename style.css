@@ -157,6 +157,15 @@ footer {
     flex-direction: row;
     justify-content: space-around;
   }
+  .search {
+    margin-left: 30px;
+    height: 40px;
+    font-size: 1.5em;
+  }
+  .search__button {
+    font-size: 1.5em;
+  }
+
   .refresh {
     transition: all 0.1s ease-in-out;
     align-self: center;
@@ -186,6 +195,7 @@ footer {
     width: auto;
     height: auto;
   }
+
   .up {
     text-align: center;
     display: flex;
@@ -209,8 +219,17 @@ footer {
 }
 
 @media (min-width: 1440px) {
+  .article__whole {
+    padding-left: 100px;
+  }
   .up {
     width: 400px;
     font-size: 1.2em;
+  }
+  .article__describe {
+    max-width: 900px;
+  }
+  .date__pub {
+    justify-content: space-around;
   }
 }
