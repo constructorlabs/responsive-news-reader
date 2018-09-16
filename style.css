@@ -4,7 +4,7 @@
 body {
   font-family: "Roboto Slab", serif;
   box-sizing: border-box;
-
+  margin: 0;
   padding: 0%;
   display: flex;
   flex-direction: column;
@@ -18,6 +18,7 @@ header {
 }
 
 .home {
+  padding-left: 10px;
   text-decoration: none;
 }
 .home:visited {
@@ -29,6 +30,9 @@ header {
   height: 500px;
   width: 500px;
 }*/
+.not__found {
+  display: none;
+}
 
 .oi__cheeky {
   display: none;
@@ -44,7 +48,7 @@ header {
   transition: font-size 0.2s ease-in-out;
 }
 .article__link:hover {
-  font-size: 1.2em;
+  font-size: 1.05em;
 }
 
 .article__link:visited {
@@ -67,37 +71,25 @@ header {
   background: #cfcfcf;
 }
 
-.dropdown__list {
+.options {
   display: none;
+}
+.options > li:hover {
+  color: #858585;
 }
 
 .refresh {
   background: #fff;
   padding: 5px;
-  border: 2px solid #000000;
-  border-radius: 5px;
   font-size: 16pt;
-  transition: all 0.1s ease-in-out;
   height: 50px;
   width: 100%;
-  align-self: center;
-}
-.refresh:hover {
-  transform: scale(1.1);
-}
-.refresh:focus {
-  outline: 0;
+  border-right: 0px;
+  border-left: 0px;
 }
 
-.refine {
-  background: #fff;
-  padding: 5px;
-  border: 2px solid #000000;
-  border-radius: 5px;
-  font-size: 16pt;
-  height: 50px;
-  width: 100%;
-  align-self: center;
+.refresh:focus {
+  outline: 0;
 }
 
 .article__link {
@@ -137,10 +129,27 @@ footer {
   padding: 5px;
   border: none;
   font-size: 16pt;
+  font-weight: bold;
   transition: all 0.1s ease-in-out;
   height: 50px;
   width: 100%;
   align-self: center;
+  font-family: "Roboto Slab", serif;
+}
+.loadNext:hover {
+  background: #c2c2c2;
+}
+
+.up {
+  display: none;
+  background: #fff;
+  border: none;
+  font-family: "Roboto Slab", serif;
+}
+.bottom__row {
+  display: flex;
+  justify-content: center;
+  font-family: "Roboto Slab", serif;
 }
 
 @media (min-width: 768px) {
@@ -148,21 +157,24 @@ footer {
     flex-direction: row;
     justify-content: space-around;
   }
-  .refine {
-    width: 200px;
-    padding: 10px, 15px, 10px, 15px;
-  }
   .refresh {
+    transition: all 0.1s ease-in-out;
+    align-self: center;
+    border: 2px solid black;
+    border-radius: 5px;
     width: 200px;
     padding: 10px, 15px, 10px, 15px;
   }
-  .dropdown__list {
+  .refresh:hover {
+    transform: scale(1.1);
+  }
+  .options {
     display: flex;
     align-self: center;
     list-style: none;
     padding: 0;
   }
-  .dropdown__list > li {
+  .options > li {
     text-decoration: none;
     padding: 10px;
   }
@@ -174,7 +186,31 @@ footer {
     width: auto;
     height: auto;
   }
+  .up {
+    text-align: center;
+    display: flex;
+    margin-right: 20px;
+    transition: margin-bottom 0.2s;
+  }
+  .up:hover {
+    margin-bottom: 10px;
+  }
+  .up:focus {
+    outline: 0;
+  }
+
+  .bottom__row {
+    display: flex;
+    justify-content: space-between;
+  }
+  .author {
+    padding-left: 10px;
+  }
 }
 
 @media (min-width: 1440px) {
+  .up {
+    width: 400px;
+    font-size: 1.2em;
+  }
 }
