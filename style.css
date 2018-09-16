@@ -89,20 +89,7 @@ button {
   margin: 0 0 0.75rem 1rem;
 }
 
-.search {
-  background: rgba(47, 79, 79, 0.5);
-  padding: 0.5rem 0 0.5rem 0.5rem;
-}
-
-.search--form label {
-  display: none;
-}
-
-#search--query {
-  border: none;
-  font-size: 1rem;
-  padding: 0.5rem;
-}
+/* category navigation */
 
 .category-nav {
   background: white;
@@ -128,6 +115,30 @@ button {
   padding: 0.25rem 0.75rem;
   text-transform: capitalize;
 }
+
+.category-nav ul li.current {
+  background: darkslategrey;
+  color: white;
+}
+
+/* search */
+
+.search {
+  background: rgba(47, 79, 79, 0.5);
+  padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+.search--form label {
+  display: none;
+}
+
+#search--query {
+  border: none;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+/* news feed */
 
 .news {
   background: darkslategrey;
@@ -184,12 +195,16 @@ img.news__image {
   margin: 0;
 }
 
-footer {
+.legals {
   background: black;
   color: white;
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
+}
+
+.legals__copyright {
+  margin-bottom: 0;
 }
 
 .legals__credit {
@@ -200,20 +215,24 @@ footer {
   color: white;
 }
 
-.legals__copyright {
-  margin-bottom: 0;
-}
+/* iPad layout */
 
-@media {
+@media (min-width: 768px) {
+  button {
+    height: 3em;
+  }
+
   .hero__title {
     font-size: 4rem;
   }
+
   .hero__title i {
     font-size: 3.6rem;
     top: -0.3rem;
     padding: 0 0.3rem 0 0.1rem;
     position: relative;
   }
+
   .category-nav {
     padding-top: 9rem;
   }
@@ -221,14 +240,27 @@ footer {
   .news div {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 20% 20% 1fr 1fr;
   }
 
-  .news div .news__article:first-child {
+  /* story layout */
+
+  .news__article {
     display: grid;
-    grid-template-rows: 10rem 9rem auto 4rem 3fr 1fr;
-    grid-column: 1 / span 2;
-    grid-row: 1 / span 2;
+    /* grid-template-rows: repeat(2, minmax(min-content max-content)) auto auto auto; */
+    grid-template-rows: repeat(3, min-content) min-content 1fr;
+    /* gird-template-rows: repeat(5, 1fr); */
+  }
+
+  .news__article:nth-child(even) {
+    background: white;
+  }
+
+  .news__headline {
+    margin-bottom: 0.25rem;
+  }
+
+  .news__date {
+    margin: 0.25rem 0;
   }
 
   img.news__image {
@@ -237,24 +269,30 @@ footer {
     object-fit: cover;
   }
 
-  .news div .news__article:first-child img.news__image,
-  .news div .news__article:nth-child(2) img.news__image,
-  .news div .news__article:nth-child(3) img.news__image {
-    grid-row: 1 / span 2;
+  .news__publication {
+    align-self: end;
+    margin: 0;
   }
 
-  .news div .news__article:first-child img.news__image {
-    height: 19rem;
+  /* featured story layout */
+
+  .news div .news__article:first-child {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
   }
 
   .news div .news__article:first-child .news__headline {
     font-size: 2rem;
-    margin: 0.25rem 0 -0.5rem 0;
+    /* margin: 0.25rem 0 0.5rem 0; */
   }
 
   .news div .news__article:first-child .news__date {
     line-height: 0.5;
-    padding: 0.5rem 0 0 0;
+    padding: 0.5rem 0;
+  }
+
+  .news div .news__article:first-child img.news__image {
+    height: 19rem;
   }
 
   .news div .news__article:first-child .news__story {
@@ -262,13 +300,11 @@ footer {
     margin-top: 0;
   }
 
-  .news div .news__article .news__publication {
-    align-self: end;
-  }
+  /* stacked story layout */
 
-  .news div .news__article:nth-child(n + 2) {
-    display: grid;
-    /* align-self: start; */
+  .news div .news__article:nth-child(2) img.news__image,
+  .news div .news__article:nth-child(3) img.news__image {
+    grid-row: 1 / span 2;
   }
 
   .news div .news__article:nth-child(2) .news__story,
@@ -287,12 +323,24 @@ footer {
     margin-top: 0;
   }
 
-  .news div .news__article:nth-child(2) .news__headline,
-  .news div .news__article:nth-child(3) .news__headline {
-    margin-bottom: -0.5rem;
+  .page-nav {
+    justify-content: center;
+    align-content: center;
   }
 
-  button {
-    height: 3em;
+  .page-num {
+    margin: 0 1rem;
+    padding-top: 0.25rem;
+  }
+
+  .legals {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 0.5rem;
+  }
+
+  .legals__copyright,
+  .legals__credit {
+    margin: 0.5rem 0;
   }
 }

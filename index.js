@@ -1,6 +1,6 @@
-window.addEventListener('resize', e => {
-  console.log(window.innerWidth);
-});
+// window.addEventListener('resize', e => {
+//   console.log(window.innerWidth);
+// });
 
 // Initialise url parameters
 
@@ -11,7 +11,7 @@ const params = {
   country: 'gb',
   category: '',
   query: '',
-  pageSize: 8,
+  pageSize: 9,
   pageNum: 1
 };
 
@@ -51,9 +51,9 @@ const displayErrorToUser = err => {
 
 // Filter data to prevent stories without description or image loading
 const cleanData = data => {
-  console.log(data);
   return data.articles.filter(
-    article => article.description !== null && article.urlToImage !== null
+    article =>
+      article.description !== (null || '') && article.urlToImage != null
   );
 };
 
@@ -169,14 +169,22 @@ searchForm.addEventListener('submit', e => {
   }
   //reset the search input
   searchForm.lastElementChild.value = '';
-  searchForm.lastElementChild.placeholder = 'Type your query here...';
+  searchForm.lastElementChild.placeholder = `News about ${query}`;
+
+  searchForm.lastElementChild.addEventListener('blur', e => {
+    searchInput.placeholder = 'Type your search query...';
+    searchInput.value = '';
+  });
 });
 
 const searchInput = document.querySelector('#search--query');
+
 searchInput.addEventListener('focus', e => {
   searchInput.placeholder = '';
   searchInput.value = '';
 });
+
+// const searchInput = document.querySelector('#search--query');
 
 // Add dateline to header
 
@@ -223,6 +231,13 @@ categories.forEach(category => {
     params.pageNum = 1;
     clearNewsFeed();
     getNews(params);
+
+    Array.from(categories)
+      .filter(category => category.classList.contains('current'))
+      .map(category => category.classList.remove('current'));
+    category.classList.add('current');
+
+    console.log(categories);
   });
 });
 
