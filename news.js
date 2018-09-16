@@ -22,7 +22,7 @@ function displayDataOnPage(topNews){
 // Buttons event listener/value to fetch
 
 const buttonSelector = document.querySelector('.buttons');
-buttonSelector.addEventListener("click", function(event){
+buttonSelector.addEventListener("submit", function(event){
     event.preventDefault();
     let url;
     if (event.target.value === 'all-button') {
@@ -36,15 +36,22 @@ buttonSelector.addEventListener("click", function(event){
 });
 
 //search event listener
+let searchFunc = document.querySelector('.searchB');
+let inputInfo = document.querySelector('.searchClass');
+//let inputInfo = document.querySelector('mySearch'); //INPUT? NECESSARY????
+//console.log(searchFunc.value);
+console.log(searchFunc.value);
+console.log(searchFunc);
 
-const searchFunc = document.querySelector('.searchB');
-const inputInfo = document.querySelector('.searchB') //INPUT? NECESSARY????
+console.log(inputInfo.value);
+console.log(inputInfo);
 
-
-searchFunc.addEventListener("click", function(event){ //COMBINE SEARCH AND INPUT??
+searchFunc.addEventListener("submit", function(event){ //COMBINE SEARCH AND INPUT??
     event.preventDefault();
     //WHAT IS VALUE??? GOOGLE IT
+    event.target.value === inputInfo
     let url = `https://newsapi.org/v2/everything?q=${event.target.value}&apiKey=534d9b30f7bd4185b60cba8d406e11ec`
+    
     getData(url);
 })
 
