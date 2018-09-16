@@ -5,7 +5,6 @@ body {
 }
 
 .container {
-    min-width: 100vw;
     margin: 0 auto;
 }
 
@@ -46,7 +45,7 @@ body {
     background: rgba(242, 199, 7, 0.9);
 }
 
-.main {
+.main {;
     margin: 0 auto;
     text-align: center;
     border: 5px solid red;
@@ -56,7 +55,7 @@ body {
 .main__articleNews {
     display: grid;
     grid-template-areas: 'title' 'description' 'image' 'published' 'source';
-    grid-template-rows: auto auto 0 auto auto;
+    grid-template-rows: min-content 1fr 0 min-content min-content;
     background-color: lightyellow;
 }
 
@@ -108,14 +107,11 @@ body {
     .main__articleNews {
         display: grid;
         min-height: min-content;
-        grid-template-areas:
-                'image title'
-                'image description'
-                'image published'
-                'image source';
-        grid-template-rows: auto 1fr auto auto;
-        grid-template-columns: 40% auto ;
+        grid-template-areas: 'title' 'description' 'image' 'published' 'source';
+        grid-template-rows: auto auto auto auto auto;
+        grid-template-columns: auto;
         background-color: lightyellow;
+        padding: 1em;
     }
 
     .main__articleNews__title {
@@ -129,8 +125,9 @@ body {
     .main__articleNews__image {
         grid-area: image;
         width: auto;
-        height: 370px;
-        background-size: contain;
+        min-height: 430px;
+        border: 5px solid red;
+        background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
     }
@@ -143,6 +140,31 @@ body {
         grid-area: source;
     }
 
+}
+
+@media (min-width: 1024px) {
+    body {
+        font-size: 1.2rem;
+    }
+    .main {
+        display: grid;
+        grid-gap: 2em;
+        background: linear-gradient(0deg, rgba(157,255,0,1) 0%, rgba(129,168,12,1) 50%, rgba(218,255,10,1) 100%); /* w3c */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#DAFF0A', endColorstr='#9DFF00',GradientType=0 ); /* ie6-9 */
+    }
+    .main__articleNews {
+        display: grid;
+        min-height: min-content;
+        grid-template-areas: 'image title' 'image description' 'image published' 'image source';
+        grid-template-rows: auto 1fr auto auto;
+        grid-template-columns: 60% auto;
+        grid-column-gap: 1em;
+        padding: 1em;
+    }
+
+    .main__articleNews__image {
+        background-size: cover;
+    }
 }
 
 

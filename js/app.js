@@ -13,22 +13,27 @@ fetch('https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=454852947b27
 
             const articleNews = document.createElement('div');
             articleNews.className = 'main__articleNews';
-
+            console.dir(articleNews);
+            const heightBrowser = articleNews.clientHeight;
+            articleNews.style.height = `${heightBrowser}: px`;
+            console.log(articleNews.style);
             const sectionMainTitle = document.createElement('h2');
             sectionMainTitle.className = 'main__articleNews__title';
             sectionMainTitle.textContent = article.title;
             articleNews.append(sectionMainTitle);
 
             const sectionMainDescription = document.createElement('section');
+            const pElement = document.createElement('p');
             sectionMainDescription.className = 'main__articleNews__description';
-            sectionMainDescription.textContent = article.description;
+
+            pElement.append(article.description);
+            sectionMainDescription.append(pElement);
             const urlContent = article.url;
             const urlContentElement = document.createElement('a');
             urlContentElement.className = 'main__articleNews__content__url';
             urlContentElement.setAttribute('href', urlContent);
             urlContentElement.setAttribute('target', '_blank');
-            urlContentElement.textContent = 'click here for full article';
-            sectionMainDescription.append(document.createElement('br'));
+            urlContentElement.textContent = 'FULL ARTICLE';
             sectionMainDescription.append(urlContentElement);
 
             articleNews.append(sectionMainDescription);
