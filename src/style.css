@@ -1,0 +1,154 @@
+* {
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: auto;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* HEADER */
+
+.app__header {
+  display: flex;
+  flex-direction: column;
+
+  text-align: center;
+  background-color: darkgrey;
+  padding: 20px;
+}
+
+.app__header-logo {
+  font-size: 22px;
+  /* flex: 1; */
+}
+
+.app__header-nav {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+}
+
+.app__header-nav li {
+  margin-right: 15px;
+}
+
+.app__header-nav li a {
+  text-decoration: none;
+  color: #000;
+}
+
+.app__header-nav li a:hover {
+  opacity: 0.7;
+}
+
+@media (min-width: 640px) {
+  .app__header {
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+}
+
+/* CONTENT */
+
+.app__main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
+.app__content-nav {
+  background-color: white;
+  display: block;
+}
+
+.app__content-body {
+  flex: 3;
+
+  background-color: white;
+}
+
+.app__content-sidebar {
+  display: none;
+}
+img {
+  /**display: flex;*/
+  /* align-items: flex-end;
+  flex-wrap: wrap; */
+  width: 30%;
+  height: 30%;
+  margin: 1.66%;
+}
+
+@media (min-width: 640px) {
+  .app__main-content {
+    flex-direction: row;
+  }
+  .app__content-nav {
+    flex: 1;
+    background-color: white;
+  }
+}
+
+@media (min-width: 960px) {
+  .app__main-content {
+    flex-direction: row;
+  }
+  .app__content-sidebar {
+    display: flex;
+    flex: 2;
+
+    background-color: white;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+}
+
+/* FOOTER */
+
+.app__footer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.app__footer-notes,
+.app__footer-address,
+.app__footer-map {
+  flex: 1;
+
+  padding: 20px;
+}
+
+.app__footer-notes {
+  background-color: skyblue;
+}
+.app__footer-address {
+  background-color: skyblue;
+}
+.app__footer-map {
+  background-color: skyblue;
+}
+
+@media (min-width: 640px) {
+  .app__footer {
+    flex-direction: row;
+  }
+  .app__footer-notes,
+  .app__footer-address,
+  .app__footer-map {
+    flex: 1;
+    padding: 20px;
+  }
+}

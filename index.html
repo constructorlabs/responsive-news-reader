@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>RWD</title>
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+
+<body>
+  <div class="app">
+    <header class="app__header">
+      <div class="app__header-logo">NEWS</div>
+      <span>
+        <form class="form" id="form">
+          <div id="form">
+            <span>Search for news here :</span>
+            <input type="text" id="input" placeholder="Enter city name for news...">
+            <button type="submit">Search</button>
+          </div>
+        </form>
+      </span>
+    </header>
+    <main class="app__main-content">
+      <nav class="app__content-nav"></nav>
+      <div class="app__content-body"></div>
+      <div class="app__content-sidebar"></div>
+    </main>
+    <footer class="app__footer">
+      <div class="app__footer-notes"></div>
+      <div class="app__footer-address">&#169;
+        <em>2018</em>
+      </div>
+      <div class="app__footer-map"></div>
+    </footer>
+    <script src="./src/responsive-news.js"></script>
+  </div>
+</body>
+
+</html>
