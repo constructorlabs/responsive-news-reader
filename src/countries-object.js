@@ -4,7 +4,6 @@ const getCountries = function () {
     });
 }
 const countries = {
-    all: 'Worldwide',
     gb: 'United Kingdom', 
     ar: 'Argentina',
     au: 'Australia',
@@ -59,5 +58,6 @@ const countries = {
     ua: 'Ukraine',
     gb: 'United Kingdom', 
     us: 'United States',
-    ve: 'Venuzuela'
+    ve: 'Venuzuela',
+    all: 'Worldwide'
 }

@@ -29,15 +29,15 @@ FORMAT AND DISPLAY ARTICLES */
 
 const articleTemplate = article => {
     const convertedTitle = (article.title !== null) ? highlightFoundWords(article.title) : null;
-    const title = (article.title !== null) ? `<li><strong>${convertedTitle}</strong></li>` : "";
+    const title = (article.title !== null) ? `<div><strong>${convertedTitle}</strong></div>` : "";
     const convertedDescription = (article.description !== null) ? highlightFoundWords(article.description) : null;
-    const description = (article.description !== null) ? `<li>${convertedDescription}</li>` : "";
-    // const content = (article.content !== null) ? `<li>${article.content}</li>` : "";
+    const description = (article.description !== null) ? `<div>${convertedDescription}</div>` : "";
+    // const content = (article.content !== null) ? `<div>${article.content}</div>` : "";
     const author = (article.author !== null) ? `${article.author}` : "";
     const source = (article.source.name !== null) ? `${article.source.name}` : "";
     const separator = (author && source) ? ", " : "";
-    const publishedBy = `<li><cite>Published by: ${author}${separator}${source}</cite></li>`;
-    const readMoreURL = (article.url !== null) ? `<li><a href="${article.url}" target="_blank">READ FULL STORY...</a></li>` : "";
+    const publishedBy = `<div><cite>Published by: ${author}${separator}${source}</cite></div>`;
+    const readMoreURL = (article.url !== null) ? `<div><a href="${article.url}" target="_blank">READ FULL STORY...</a></div>` : "";
     // const urlToImage = (article.urlToImage !== null) ? `<a href="${article.url}" target="_blank"><img src="${article.urlToImage}" class="article__image__src"></a>` : "";
     const urlToImage = (article.urlToImage !== null) ? `<a href="${article.url}" target="_blank" style="background-image:url(${article.urlToImage});" class="article__image__src"></a>` : "";
     const publishedAt = (article.publishedAt !== null) ? `Time: ${convertDate(article.publishedAt)}` : "";
@@ -52,12 +52,10 @@ const articleTemplate = article => {
             </span>
         </div>
         <div class="article__text">
-            <ul>
                 ${description}
                 ${publishedBy}
                 ${publishedAt}
                 ${readMoreURL}
-            </ul>
         </div>
     </div>
     `;
@@ -107,9 +105,6 @@ const queryAPI = function (type, country="", category="", search="") {
 
 const displayErrorToUser = error => articleNode.innerHTML = error;
 
-createCountriesMenu();
-loadAPI(queryAPI("everything", "", "", "Donald+Trump"));
-
 /* /////////////////////////////////////////////////////////////////
 SEARCH FUNCTIONALITY */
 
@@ -117,7 +112,7 @@ const navBar = document.querySelector(".content__nav");
 const navButton = document.querySelector(".header__nav__button");
 const navSearch = document.querySelector(".search");
 const searchFormNode = document.querySelector(".header__form");
-const messageNode = document.querySelector(".content___message");
+const messageNode = document.querySelector(".content__message__wrapper");
 // const navSections = document.querySelector(".header__nav__sections a");
 
 // search from top nav - click search button for results
@@ -136,10 +131,12 @@ navSearch.addEventListener("submit", function(event){
 
 // display message "search results for:"
 const displaySearchMessage = function(url) {
+    messageNode.style.display = "block";
     if (url.indexOf("everything?") >= 0) {
-        const searchNode = document.createElement("li");
-        searchNode.innerHTML = `Your search results for: "<span class="highlighted">${convertedSearchArray(url).join(" ")}</span>"`;
-        articleNode.appendChild(searchNode);
+        const searchNode = document.createElement("div");
+        searchNode.innerHTML = `Search results &gt; "<span class="highlighted">${convertedSearchArray(url).join(" ")}</span>"`;
+        messageNode.style.display = "block";
+        messageNode.appendChild(searchNode);
     } else {
         if (typeof searchNode === "object") searchNode.innerHTML = "";
     }
@@ -152,29 +149,9 @@ const convertedSearchArray = function (url) {
     return found.split("=")[1].split("+");
 }
 
-// highlight words from search query
-// const highlightFoundWords = function (descriptionText) {
-//     if (bodyURL.indexOf("everything?") >= 0) {
-//         const searchResultsArray = convertedSearchArray(bodyURL);
-//         const updatedWords = descriptionText.split(" ").map(function(item){
-//             const found = searchResultsArray.find(function(searchItem) {
-//                 return searchItem === item;
-//             });
-//             return found !== undefined ? `<span class="highlighted">${found}</span>` : item;
-//         });
-//         return updatedWords.join(" ");
-//     } else {
-//         return descriptionText;
-//     }
-// }
-
 const highlightFoundWords = function (descriptionText) {
     if (bodyURL.indexOf("everything?") >= 0) {
         const searchResultsArray = convertedSearchArray(bodyURL);
-        // const updatedWords = descriptionText.split(" ").map(function(hay){
-        //     const found = searchResultsArray.find(needle => hay === needle);
-        //     return found ? `<span class="highlighted">${hay}</span>` : hay;
-        // });
         const descriptionArray = descriptionText.split(" ")
         const updatedWords = searchForMatches(descriptionArray, searchResultsArray);
         return updatedWords.join(" ");
@@ -197,3 +174,8 @@ const convertDate = function (string) {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     return `${formatTime(date.getHours())}:${formatTime(date.getMinutes())}, ${date.getDate()} ${ months[date.getMonth()]} ${date.getFullYear()}`
 }
+
+/* /////////////////////////////////////////////////////////////////
+INITIALIZE FIRST PAGE */
+createCountriesMenu();
+loadAPI(queryAPI("top-headlines", "uk", "", ""));
