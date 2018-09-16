@@ -1,7 +1,9 @@
 const baseUrl = "https://newsapi.org/v2/top-headlines?apiKey=93238bcda39e4404852697d364b77971";
 const parentNode = document.querySelector(".news--area--feed");
+const killCheckbox = document.querySelector(".kill-checkbox");
 
 let checkboxArray = document.querySelectorAll(".news--filter input");
+
 
 /* 
 --------------
@@ -27,26 +29,56 @@ const goFetch = function(fullURL) {
 DISPLAY DATA ON PAGE
 --------------------
 */
+const newsLayout = newsitem => {
+  // fallbacks or empty if data is null 
+  const imageurl =  (newsitem.urlToImage !== null) ? `${newsitem.urlToImage}` : "https://placeholdit.co//i/400x400?&bg=808069&fc=eee8cd&text=Project Image";
+  const source = (newsitem.source.name !== null) ? `<span class="${newsitem.source.name}"></span>` : "";
+  const url = (newsitem.url !== null) ? `${newsitem.url}` : "#";
+  const title = (newsitem.title !== null) ? `${newsitem.title}` : "News article";
+  const description = (newsitem.description !== null) ? `<h3>${newsitem.description}</h3>` : "";
+  const content = (newsitem.content !== null) ? `<p>${newsitem.content.split("[+")[0]}</p>` : "";
+
+  return `
+    <a href="${url}" class="news--article-link">
+    <figure class="news--article-image" style="background-image: url(${imageurl});" ></figure>
+    ${source}
+    </a>
+    <section class="news--article-content">
+    <header><h2>${title}</h2></header>
+    ${description}
+    ${content}
+    <p><a href="${url}" title="Visit news article: ${title}">Read full article</a></p>
+    <div class="kill-checkbox"><label><input type="checkbox" name="ratenews"> Mark as offensive</label></div>
+    </section>`;
+}
 
 function displayDataOnPage(newsStories){
+  parentNode.innerHTML = "";
   
   const newsArray = newsStories.articles;
-  // console.log(newsStories.articles);
-  // add news blocks (as articles)
+    // add news blocks (as articles)
     newsArray.forEach(function(newsitem) {
-
         const node = document.createElement("article");
-        node.innerHTML = `<figure class="news--article-image" style="background-image: url(${newsitem.urlToImage});" ><span class="${newsitem.source.name}"></span></figure>
-        <section class="news--article-content">
-        <header><h2>${newsitem.title}</h2></header>
-        <h3>${newsitem.description}</h3>
-        <p>${newsitem.content}</p>
-        <p><a href="${newsitem.url}" title="Visit news article: ${newsitem.title}">Read full article</a>
-        </section>`;
+        node.innerHTML = newsLayout(newsitem);
         parentNode.appendChild(node);
-
     })  
+
+    createKillCheckbox();
 }
+
+/*
+-------------
+KILL CHECKBOX
+-------------
+*/
+
+const createKillCheckbox = function() {
+  killCheckbox.addEventListener("input", function(event) {
+    console.log(event);
+    if (event.target.checked === true) {}
+  })
+}
+
 
 /*
 ------------------
@@ -84,9 +116,8 @@ const generateFetchURL = function (publicationList) {
     fullURL = `${baseUrl}${filteredPublicationUrl}`;
   }
   // CHANGE filteredArray GOOD
-  console.log(filteredArray); 
-  console.log(filteredArray.length); 
-
+  // console.log(filteredArray); 
+ 
   goFetch(fullURL)
 }
 
@@ -108,7 +139,7 @@ const createCheckboxFilter = function() {
           publicationList[event.target.value] = false;
         }
         // CHANGE publicationList object GOOD
-        console.log(publicationList);
+        // console.log(publicationList);
         generateFetchURL(publicationList);
       })
   })
@@ -116,10 +147,11 @@ const createCheckboxFilter = function() {
 /* this function to run generateFetchURL() */
 createCheckboxFilter();
 
+
 /*
----------------------
-ERROR HANDLER - TO DO
----------------------
+-------------
+ERROR HANDLER
+-------------
 */
 function displayErrorToUser() {}
 

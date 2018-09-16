@@ -18,9 +18,6 @@ let publicationArray = Object.keys(publicationList);
 const sourceList = `&sources=${defaultArray}`;
 const fullURL = `${baseUrl}${sourceList}`;
 
-
-
-
 function displayDataOnPage(newsStories) {
   const newsArray = newsStories.articles;
   console.log(newsStories.articles);
