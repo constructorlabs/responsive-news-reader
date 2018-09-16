@@ -8,6 +8,9 @@
   font-weight: 100 900;
 }
 
+/**********/
+/* global */
+
 html {
   box-sizing: border-box;
 }
@@ -39,12 +42,13 @@ button {
 }
 
 em {
-  font-variation-settings: 'ital' 1;
+  font-variation-settings: 'ital' 1; /* set italic for variable font */
 }
 
-.popular {
-  display: none;
-}
+/**********/
+/* mobile */
+
+/* header */
 
 .hero {
   background: rgb(30, 49, 49);
@@ -79,7 +83,7 @@ em {
   display: inline-block;
   margin-left: 0.2rem;
   top: -0.1rem;
-  animation: pulse 0.5s infinite;
+  animation: pulse 0.5s infinite; /* animate logo */
   animation-direction: alternate;
   width: 0.5rem;
 }
@@ -199,6 +203,14 @@ img.news__image {
   font-variation-settings: 'ital' 1;
 }
 
+/* popular stories */
+
+.popular {
+  display: none;
+}
+
+/* page navigation */
+
 .page-nav {
   display: flex;
   justify-content: space-around;
@@ -211,6 +223,8 @@ img.news__image {
   font-weight: 600;
   margin: 0;
 }
+
+/* footer */
 
 .legals {
   background: black;
@@ -261,7 +275,7 @@ img.news__image {
     align-content: space-between;
   }
 
-  /* story layout */
+  /* news articles */
 
   .news__article {
     display: grid;
@@ -291,7 +305,7 @@ img.news__image {
     margin: 0;
   }
 
-  /* featured story layout */
+  /* featured article  */
 
   .news div .news__article:first-child {
     grid-column: 1 / span 2;
@@ -300,7 +314,6 @@ img.news__image {
 
   .news div .news__article:first-child .news__headline {
     font-size: 2rem;
-    /* margin: 0.25rem 0 0.5rem 0; */
   }
 
   .news div .news__article:first-child .news__date {
@@ -317,7 +330,7 @@ img.news__image {
     margin-top: 0;
   }
 
-  /* stacked story layout */
+  /* stacked stories (second and third articles) */
 
   .news div .news__article:nth-child(2) img.news__image,
   .news div .news__article:nth-child(3) img.news__image {
@@ -340,6 +353,8 @@ img.news__image {
     margin-top: 0;
   }
 
+  /* page navigation */
+
   .page-nav {
     justify-content: center;
     align-content: center;
@@ -349,6 +364,8 @@ img.news__image {
     margin: 0 1rem;
     padding-top: 0.25rem;
   }
+
+  /* footer */
 
   .legals {
     flex-direction: row;
@@ -362,10 +379,54 @@ img.news__image {
   }
 }
 
-/***********/
-/* desktop */
+/******************/
+/* Desktop layout */
 
 @media (min-width: 1200px) {
+  /* category nav */
+
+  .category-nav {
+    background: rgb(30, 49, 49);
+    border-bottom: 1px solid darkslategrey;
+    padding: 8.25rem 0.5rem 0 0.5rem;
+  }
+
+  .category-nav ul {
+    background: white;
+  }
+
+  .category-nav ul li {
+    background: rgba(47, 79, 79, 0.5);
+    border-radius: 0;
+    border-right: 1px solid lightslategray;
+    flex-grow: 1;
+    margin: 0;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .category-nav ul li:last-child {
+    border-right: none;
+  }
+
+  /* search */
+
+  .search {
+    background: darkslategrey;
+  }
+
+  .search--form {
+    grid-column: 2 / span 2;
+    /* justify-self: end; */
+  }
+
+  #search--query {
+    border: none;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    width: 100%;
+  }
+
   /* layout */
 
   .news,
@@ -405,7 +466,6 @@ img.news__image {
     padding-bottom: 0.25rem;
   }
 
-  /********************/
   /* sidebar of shame */
 
   .popular {
@@ -434,12 +494,13 @@ img.news__image {
 
   .news aside.popular div {
     display: block;
-    /* overflow: hidden; */
   }
 
   .popular div .news__article:first-child {
     display: none;
   }
+
+  /* page navigation */
 
   .page-nav,
   .category-nav ul {
@@ -447,49 +508,7 @@ img.news__image {
     justify-content: start;
   }
 
-  /* search */
-
-  .search {
-    background: darkslategrey;
-  }
-
-  .search--form {
-    grid-column: 2 / span 2;
-    /* justify-self: end; */
-  }
-
-  #search--query {
-    border: none;
-    font-size: 0.8rem;
-    padding: 0.5rem;
-    width: 100%;
-  }
-
-  /* category nav */
-
-  .category-nav {
-    background: rgb(30, 49, 49);
-    border-bottom: 1px solid darkslategrey;
-    padding: 8.25rem 0.5rem 0 0.5rem;
-  }
-
-  .category-nav ul {
-    background: white;
-  }
-
-  .category-nav ul li {
-    background: rgba(47, 79, 79, 0.5);
-    border-radius: 0;
-    border-right: 1px solid lightslategray;
-    flex-grow: 1;
-    margin: 0;
-    text-align: center;
-    font-size: 1rem;
-  }
-
-  .category-nav ul li:last-child {
-    border-right: none;
-  }
+  /* footer */
 
   .legals {
     justify-content: center;
