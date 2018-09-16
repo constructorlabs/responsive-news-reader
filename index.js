@@ -223,7 +223,7 @@ searchForm.addEventListener('submit', e => {
   // reset redact
   params.redacted = false;
   // process input value
-  if (query === 'Trump' || query === 'Donald Trump') {
+  if (query === 'Trump' || query === 'trump') {
     params.redacted = true;
   }
   if (query !== '') {
@@ -271,6 +271,7 @@ document.querySelector('.hero__date').textContent = todayDate.toLocaleString(
 // Category select
 
 const categories = document.querySelectorAll('.category');
+
 categories.forEach(category => {
   category.addEventListener('click', e => {
     const topic = e.target.textContent;
@@ -296,6 +297,8 @@ categories.forEach(category => {
       params.country = 'gb';
     }
     params.pageNum = 1;
+    // reset redact
+    params.redacted = false;
     clearNewsFeed();
     getNews(params);
 

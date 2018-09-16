@@ -38,6 +38,10 @@ button {
   font-weight: 600;
 }
 
+em {
+  font-variation-settings: 'ital' 1;
+}
+
 .popular {
   display: none;
 }
@@ -189,6 +193,10 @@ img.news__image {
 .news__publication {
   border-top: 1px dotted black;
   padding-top: 0.25rem;
+}
+
+.news__publication a {
+  font-variation-settings: 'ital' 1;
 }
 
 .page-nav {
