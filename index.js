@@ -1,4 +1,5 @@
 let itemId = 1;
+let hundredArticles = [];
 
 
 // adds a listener to the search submit button
@@ -15,19 +16,21 @@ const formListener = () => {
 
 // api request to news api. Returns json and calls createArticles function
 const getArticles = (page=1, excludedDomainsStr='', filterDomains="") => {
+	console.log('Function : Fetching Articles (getArticles)');
 	var url = 'https://newsapi.org/v2/everything?' +
 		'q=' + search  +
 		'&page=' + page +
-		'&apiKey=280f7af9f5c448c4a3598861960c947a&sortBy=publishedAt' + 
-		'+&excludeDomains=' + excludedDomainsStr + '&domains=' + filterDomains;
+		'&apiKey=280f7af9f5c448c4a3598861960c947a' + 
+		'&excludeDomains=' + excludedDomainsStr + '&domains=' + filterDomains + '&pageSize=100&sortBy=publishedAt&language=en';
 	var req = new Request(url);
 	fetch(req)
 		.then(function (response) {
 			return response.json();
 		})
 		.then(function (body) {
-			createArticles(body)
-			createExcluded();;
+			hundredArticles = body.articles;
+			createArticles(0);
+			createExcluded();
 			publisherCount(body.articles);
 			addPagination(body.totalResults);
 
@@ -36,10 +39,14 @@ const getArticles = (page=1, excludedDomainsStr='', filterDomains="") => {
 
 
 // takes request body and turns it into html to be appended into '.articles'
-const createArticles = (body) => {
+const createArticles = (startArticle) => {
+	console.log('Function : Creating Articles (createArticles)');
 	clearDiv('.articles');
+	// console.log(hundredArticles);
+
+	twentyArticles = hundredArticles.slice(startArticle,startArticle+20);
 	itemId = 0;
-	body.articles.forEach(article => {
+	twentyArticles.forEach(article => {
 		itemId ++
 		const articleNode = document.createElement('div');
 		articleNode.className = "article";
@@ -47,7 +54,6 @@ const createArticles = (body) => {
 		articleNode.innerHTML = articleTemplate(article,articleDomain, itemId);
 		const parentNode = document.querySelector('.articles');
 		parentNode.appendChild(articleNode);
-
 		const excludeDomainSpan = document.createElement('span');
 		excludeDomainSpan.textContent = "Exclude Publisher";
 		excludeDomainSpan.className = "excludeButton";
@@ -55,6 +61,7 @@ const createArticles = (body) => {
 		excludeDomainSpanParent.appendChild(excludeDomainSpan);
 		excludeDomainSpan.addEventListener("click", event => {
 			excludeDomain(articleDomain);
+			console.log(articleDomain);
 		})
 		mouseOverArticle(articleNode)
 		clickArticle(articleNode, article.url);
@@ -63,6 +70,15 @@ const createArticles = (body) => {
 };
 
 const articleTemplate = (article, articleDomain) => {
+	if (!article.urlToImage) {
+		article.urlToImage="images/blank.gif";
+	};
+	if (!article.description) {
+		article.description=" ";
+	};
+
+	dateSlicedAndSplit = (article.publishedAt.slice(0,10).split('-'));
+
 	return `
     <div class="article__title"><a href="${article.url}">${article.title}</a></div>
     <div class="article__content">
@@ -71,7 +87,7 @@ const articleTemplate = (article, articleDomain) => {
     </div>
     <div class="article__meta">
         <div class="article__publication">${article.source.name}<p id="item${itemId}"></p></div>
-        <div class="article__date">${article.publishedAt}</div>
+        <div class="article__date">${dateSlicedAndSplit[2]} - ${dateSlicedAndSplit[1]} - ${dateSlicedAndSplit[0]}</div>
     </div>`
 }
 
@@ -135,7 +151,7 @@ function addPagination(totalResults) {
 		pageLinkNode.innerHTML = i;
 		pageLinkNode.className = "pagination__page";
 		parentNode.appendChild(pageLinkNode);
-		pageLinkNode.addEventListener("click", event => {getArticles(pageLinkNode.innerHTML)});
+		pageLinkNode.addEventListener("click", event => {createArticles((pageLinkNode.innerHTML-1)*20)});
 	}
 }
 
@@ -172,7 +188,9 @@ const publisherCount = (articles) => {
 		publishersNames.push(publisher[0]);
 	})
 
-	publishersNames.forEach(publisher => {
+	let topTenPublishers = publishersNames.slice(0,10);
+
+	topTenPublishers.forEach(publisher => {
 		const parentNode = document.querySelector('.publisher__list');
 		const childNode = document.createElement('div');
 		childNode.textContent = `${publisher} (${publishersObjects[publisher].count})`;
@@ -196,7 +214,6 @@ const mouseOverArticle = (articleNode) => {
 const clearDiv = (divClass) => {
 	const mainNode = document.querySelector(divClass);
 	mainNode.innerHTML = "";
-	console.log(`div cleared: ${divClass}`);
 };
 
 const publisherObject = [];
