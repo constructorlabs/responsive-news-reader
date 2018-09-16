@@ -1,9 +1,42 @@
 //cd79c8caed5c47f4ae25ec30f7cca674 is API key
 
-const topHeadlinesUS = `https://newsapi.org/v2/top-headlines?country=us&apiKey=cd79c8caed5c47f4ae25ec30f7cca674`;
-const topHeadlinesUK = `https://newsapi.org/v2/top-headlines?country=gb&apiKey=cd79c8caed5c47f4ae25ec30f7cca674`;
-const topHeadlinesBrexit = `https://newsapi.org/v2/top-headlines?country=gb&q=brexit&apiKey=cd79c8caed5c47f4ae25ec30f7cca674`;
+//Functions to update page when the load more button is pressed and create url to be fetched. (PAGE NUMBER NOT UPDATING)
 
+function updatePageNumber(button, number) {
+    button.addEventListener("click", function (event){
+        console.log("click");
+        number ++;
+    }) 
+    console.log(number);
+    return number;
+};
+
+
+function createNewsUrl() {
+    const loadMoreButton = document.querySelector("button");
+    let defaultUrl = "https://newsapi.org/v2/everything?q=gb&apiKey=cd79c8caed5c47f4ae25ec30f7cca674&page=";
+    let funPageNumber = 1;
+    funPageNumber = updatePageNumber(loadMoreButton, funPageNumber);
+    console.log(funPageNumber);
+    newsUrl = defaultUrl + funPageNumber;
+    return newsUrl;
+};
+ 
+newsApiUrl = createNewsUrl();
+
+//Fetches news API
+    fetch(newsApiUrl)
+        .then(response => {
+            console.log("promise has been resolved")
+            return response.json();
+        }) 
+        .then(body => {
+            // pullNewsObject(body);
+            createNewsContent(body);
+        });
+
+
+// Exploratory function to examin keys in news JSON object.
 
 function pullNewsObject(news) {
     console.log(news);
@@ -12,6 +45,8 @@ function pullNewsObject(news) {
     })
 };
 
+
+//Create .innerHTML of each news article div.
 
 function articleTemplate (article) {
     let authorVar = "";
@@ -30,6 +65,8 @@ function articleTemplate (article) {
     `
 }
 
+//Appends each div to the content container.
+
 function createNewsContent(news) {
     news.articles.forEach(item => {
         if (item.content !== null && item.source.name !== "Bloomberg") {
@@ -43,12 +80,3 @@ function createNewsContent(news) {
 }
 
 
-fetch(topHeadlinesUK)
-    .then(response => {
-        console.log("promise has been resolved")
-        return response.json();
-    }) 
-    .then(body => {
-        // pullNewsObject(body);
-        createNewsContent(body);
-    });
