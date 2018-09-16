@@ -107,7 +107,6 @@ header {
 }
 
 .article__image {
-  /*Hide on mobile.*/
   display: none;
 }
 
