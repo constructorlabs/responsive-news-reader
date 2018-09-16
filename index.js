@@ -80,6 +80,7 @@ const createArticle = articleData => {
   if (params.redacted === true) {
     articleData.description = redact(articleData.description);
     articleData.title = redact(articleData.title);
+    articleData.urlToImage = trumped(articleData.urlToImage);
   }
   const article = document.createElement('article');
   article.classList.add('news__article');
@@ -331,6 +332,10 @@ const redact = text => {
       }
     })
     .join(' ');
+};
+
+const trumped = img => {
+  return 'http://en.bcdn.biz/Images/2018/6/12/133c8505-d85f-488e-84b3-a0aeb574940d.jpg';
 };
 
 // Start the app and get the news!
