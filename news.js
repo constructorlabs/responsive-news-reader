@@ -9,9 +9,9 @@ const parentNode = document.getElementById("newz"); // find the <ul in the html 
      topNews.articles.forEach(content => {
         const spanNode = document.createElement("li"); // make fresh <li>
         spanNode.innerHTML =                            // news contents
-        `<h2>${content.title}</h2>
-        <p>${content.description}</p>
-        <img src="${content.urlToImage}" class="image" alt="news image" height="42" width="42">`;
+        `<img src="${content.urlToImage}" alt="news image">
+        <h2>${content.title}</h2>
+        <p>${content.description}</p>`;
         parentNode.appendChild(spanNode);           // pushing to the <ul>
     });
 }
@@ -39,8 +39,6 @@ const inputInfo = document.querySelector('.searchClass') //INPUT? NECESSARY????
     let url = `https://newsapi.org/v2/everything?q=${event.target.value}&apiKey=534d9b30f7bd4185b60cba8d406e11ec`
     getData(url);
 })
-
-
 
 
 
@@ -81,9 +79,9 @@ function displayDataOnHead(topNews){
     topNews.articles.forEach(content => {
         const spanNode2 = document.createElement("li"); // make fresh <li>
         spanNode2.innerHTML =                            // news contents
-        `<h2>${content.title}</h2>
-        <p>${content.description}</p>
-        <img src="${content.urlToImage}" class="image" alt="news image" height="42" width="42">`;
+        `<img src="${content.urlToImage}" alt="news image">
+        <h2>${content.title}</h2>`;
+    
         parentNode2.appendChild(spanNode2);           // pushing to the <ul>
     });
 }

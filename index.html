@@ -9,7 +9,8 @@
     <link href="https://fonts.googleapis.com/css?family=Encode+Sans:300,400,700" rel="stylesheet">
 </head>
 <body>
-    <header><h1>End Of Days</h1>
+    <header class="heading">
+        <h1>End Of Days</h1>
         <form>
 <input class="searchClass" type="search" results=5 placeholder="Search me">
 <button class="searchB">Search</button>
@@ -21,17 +22,21 @@
     <ul id="headline">  
     </ul>
     <div class="infoG">
-        <div class="graphic"><p>hi</p></div>
+            <ul id="graphic">  
+            <li id="one"></li>
+            <li id="two"></li> 
+            <li id="three"></li>     
+            </ul>
     </div>
 </div>
 
 <div class="buttons">
 <button value="all-button" class="all-button">All News</button>
-<button value="plague" class="plague-button">The Plague</button>
-<button value="blood">Blood</button>
-<button value="locusts">Locusts</button>
-<button value="trump">Pig</button>
-<button value="nuclear">Nuclear</button>
+<button value="plague" class="all-button">The Plague</button>
+<button value="blood" class="all-button">Blood</button>
+<button value="locusts" class="all-button">Locusts</button>
+<button value="trump" class="all-button">Pig</button>
+<button value="nuclear" class="all-button">Nuclear</button>
 </div>
 
 
@@ -39,7 +44,7 @@
     
 </ul>
 
-<button class="pag-button"></button>
+<!-- <button class="pag-button"></button> -->
 
     
     <script src="news.js"></script>
