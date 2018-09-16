@@ -13,7 +13,8 @@ const params = {
   query: '',
   sortBy: 'publishedAt',
   pageSize: 9,
-  pageNum: 1
+  pageNum: 1,
+  redacted: false
 };
 
 const paramsPop = {
@@ -90,6 +91,10 @@ const cleanData = data => {
 // Content creation functions
 
 const createArticle = articleData => {
+  if (params.redacted === true) {
+    articleData.description = redact(articleData.description);
+    articleData.title = redact(articleData.title);
+  }
   const article = document.createElement('article');
   article.classList.add('news__article');
   const elapsedTime = getTimeSinceArticlePublication(articleData.publishedAt);
@@ -110,7 +115,6 @@ const createArticle = articleData => {
 const createPopArticle = articleData => {
   const article = document.createElement('article');
   article.classList.add('news__article');
-  // const elapsedTime = getTimeSinceArticlePublication(articleData.publishedAt);
   article.innerHTML = `
           <img class='news__image' src="${articleData.urlToImage}">
           <h3 class='news__headline'>${articleData.title}</h3>`;
@@ -142,7 +146,6 @@ const addArticlesToFeed = data => {
   const newsFeed = document.querySelector('section.news');
   const ref = document.querySelector('section.news aside');
   const feed = cleanData(data);
-  console.log(feed);
   const stories = createArticles(feed);
   newsFeed.insertBefore(stories, ref);
   document.querySelector('.page-total').textContent = Math.floor(
@@ -217,7 +220,12 @@ const searchForm = document.querySelector('form.search--form');
 searchForm.addEventListener('submit', e => {
   e.preventDefault();
   const query = searchForm.lastElementChild.value;
+  // reset redact
+  params.redacted = false;
   // process input value
+  if (query === 'Trump' || query === 'Donald Trump') {
+    params.redacted = true;
+  }
   if (query !== '') {
     params.query = query;
     params.endpoint = 'everything';
@@ -295,11 +303,27 @@ categories.forEach(category => {
       .filter(category => category.classList.contains('current'))
       .map(category => category.classList.remove('current'));
     category.classList.add('current');
-
-    console.log(categories);
   });
 });
 
 // Let's get this party started!
+
+const redact = text => {
+  return text
+    .split(' ')
+    .map(word => {
+      if (
+        word.length === 5 ||
+        word.length === 6 ||
+        word.length === 8 ||
+        word.length === 9
+      ) {
+        return `<span>${word}</span>`;
+      } else {
+        return word;
+      }
+    })
+    .join(' ');
+};
 
 init();

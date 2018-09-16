@@ -181,6 +181,11 @@ img.news__image {
   width: 100%;
 }
 
+.news__story span,
+.news__headline span {
+  background: black;
+}
+
 .news__publication {
   border-top: 1px dotted black;
   padding-top: 0.25rem;
