@@ -1,13 +1,10 @@
-// window.addEventListener('resize', e => {
-//   console.log(window.innerWidth);
-// });
-
 // Initialise url parameters
 
 const params = {
   base: 'https://newsapi.org/v2/',
   endpoint: 'top-headlines',
   apiKey: 'f29390555fbc483ba17e7ec1cb19af1a',
+  language: 'en',
   country: 'gb',
   category: '',
   query: '',
@@ -17,25 +14,14 @@ const params = {
   redacted: false
 };
 
-const paramsPop = {
-  base: 'https://newsapi.org/v2/',
-  endpoint: 'everything',
-  apiKey: 'f29390555fbc483ba17e7ec1cb19af1a',
-  country: '',
-  category: '',
-  query: '',
-  sortBy: 'popularity',
-  pageSize: 1,
-  pageNum: 1
-};
 //---------------------------//
 
 const init = () => {
   getNews(params);
-  getPopular();
+  window.innerWidth > 768 ? getPopular() : false; // Only load sidebar stories on tablet and desktop
 };
 
-// Fetch functions
+// Fetch News API data
 
 const setURL = params => {
   return `${params.base}${params.endpoint}?apiKey=${params.apiKey}&q=${
@@ -60,7 +46,7 @@ const getNews = params => {
 
 const getPopular = () => {
   fetch(
-    'https://newsapi.org/v2/everything?language=en&domains=dailymail.co.uk&pageSize=8&sortBy=popularity&apiKey=f29390555fbc483ba17e7ec1cb19af1a'
+    'https://newsapi.org/v2/everything?language=en&domains=dailymail.co.uk&pageSize=8&sortBy=popularity&apiKey=f29390555fbc483ba17e7ec1cb19af1a' // hard-coded URL
   )
     .then(response => {
       return response.json();
@@ -88,7 +74,7 @@ const cleanData = data => {
   );
 };
 
-// Content creation functions
+// Create single news article
 
 const createArticle = articleData => {
   if (params.redacted === true) {
@@ -98,12 +84,13 @@ const createArticle = articleData => {
   const article = document.createElement('article');
   article.classList.add('news__article');
   const elapsedTime = getTimeSinceArticlePublication(articleData.publishedAt);
+  if (window.innerWidth < 768) {
+    articleData.urlToImage = '';
+  }
   article.innerHTML = `
           <h2 class='news__headline'>${articleData.title}</h2>
-          <p class="news__date">Published ${elapsedTime} ago</p>            
-          <img class='news__image' src="${articleData.urlToImage}" alt="${
-    articleData.title
-  }">
+          <p class="news__date">Published ${elapsedTime} ago</p>           
+          <img class='news__image' src="${articleData.urlToImage}" alt="">
           <p class="news__story">${articleData.description}</p>
           <p class="news__publication">Read the full story at <a href="${
             articleData.url
@@ -121,6 +108,8 @@ const createPopArticle = articleData => {
 
   return article;
 };
+
+// Aggregate the individual articles
 
 const createArticles = data => {
   const newsWrapper = document.createElement('div');
@@ -142,6 +131,8 @@ const createPopArticles = data => {
   return popWrapper;
 };
 
+// Append the aggregated articles to the DOM
+
 const addArticlesToFeed = data => {
   const newsFeed = document.querySelector('section.news');
   const ref = document.querySelector('section.news aside');
@@ -149,7 +140,7 @@ const addArticlesToFeed = data => {
   const stories = createArticles(feed);
   newsFeed.insertBefore(stories, ref);
   document.querySelector('.page-total').textContent = Math.floor(
-    data.totalResults / params.pageSize
+    data.totalResults / params.pageSize // Calculate the total number of pages in the feed
   );
 };
 
@@ -162,9 +153,13 @@ const addPopular = data => {
 
 // Content helper functions
 
+// Add conditional 's' to min, day and hour when grater than 1
+
 const pluralUnits = (val, unit) => {
   return val >= 2 ? unit.replace(' ', 's ') : unit;
 };
+
+// Calculate time since publication of news article
 
 const getTimeSinceArticlePublication = date => {
   let mins = Math.floor((Date.now() - new Date(date).valueOf()) / 60000);
@@ -186,6 +181,8 @@ const getTimeSinceArticlePublication = date => {
 
 // Pagination
 
+// Delete current news stories from the DOM
+
 const clearNewsFeed = () => {
   document
     .querySelector('section.news')
@@ -197,7 +194,7 @@ nextPage.addEventListener('click', e => {
   const currentPageNum = document.querySelector('.page-current');
   const totalPageNum = document.querySelector('.page-total');
   e.preventDefault();
-  +currentPageNum.textContent < +totalPageNum.textContent
+  +currentPageNum.textContent < +totalPageNum.textContent // Prevent next page advancing beyond total no. of pages
     ? params.pageNum++
     : false;
   clearNewsFeed();
@@ -208,7 +205,7 @@ nextPage.addEventListener('click', e => {
 const prevPage = document.querySelector('.page-nav .prev');
 prevPage.addEventListener('click', e => {
   e.preventDefault();
-  params.pageNum > 1 ? params.pageNum-- : false;
+  params.pageNum > 1 ? params.pageNum-- : false; // Prevent previous page returning negative page number
   clearNewsFeed();
   getNews(params);
   document.querySelector('.page-current').textContent = params.pageNum;
@@ -220,23 +217,27 @@ const searchForm = document.querySelector('form.search--form');
 searchForm.addEventListener('submit', e => {
   e.preventDefault();
   const query = searchForm.lastElementChild.value;
+
   // reset redact
   params.redacted = false;
+
   // process input value
   if (query === 'Trump' || query === 'trump') {
-    params.redacted = true;
+    params.redacted = true; // redact 'Trump' stories
   }
   if (query !== '') {
     params.query = query;
     params.endpoint = 'everything';
     params.country = '';
-    params.pageNum = 1;
+    params.pageNum = 1; // reset page counter
     clearNewsFeed();
     getNews(params);
   }
-  //reset the search input
+
   searchForm.lastElementChild.value = '';
-  searchForm.lastElementChild.placeholder = `News about ${query}`;
+  searchForm.lastElementChild.placeholder = `News about ${query}`; // Show search query as topic
+
+  //reset the search input if the user clicks on another part of the page
 
   searchForm.lastElementChild.addEventListener('blur', e => {
     searchInput.placeholder = 'Type your search query...';
@@ -244,16 +245,15 @@ searchForm.addEventListener('submit', e => {
   });
 });
 
-const searchInput = document.querySelector('#search--query');
+// reset search input when the user makes consequtive searches
 
+const searchInput = document.querySelector('#search--query');
 searchInput.addEventListener('focus', e => {
   searchInput.placeholder = '';
   searchInput.value = '';
 });
 
-// const searchInput = document.querySelector('#search--query');
-
-// Add dateline to header
+// Add current day and date to header
 
 const todayDate = new Date();
 const options = {
@@ -275,6 +275,7 @@ const categories = document.querySelectorAll('.category');
 categories.forEach(category => {
   category.addEventListener('click', e => {
     const topic = e.target.textContent;
+    // custom category searches based on query sting
     if (topic === 'cycling') {
       params.query = 'cycling bicycle cycle';
       params.endpoint = 'everything';
@@ -285,18 +286,21 @@ categories.forEach(category => {
       params.endpoint = 'everything';
       params.country = '';
       params.category = '';
+      // category 'general' renmaed to 'top stories'
     } else if (topic === 'top stories') {
       params.category = 'general';
       params.query = '';
       params.endpoint = 'top-headlines';
       params.country = 'gb';
     } else {
+      // category search based on API endpoint
       params.category = topic;
       params.query = '';
       params.endpoint = 'top-headlines';
       params.country = 'gb';
     }
-    params.pageNum = 1;
+    params.pageNum = 1; // reset page counter
+
     // reset redact
     params.redacted = false;
     clearNewsFeed();
@@ -309,7 +313,7 @@ categories.forEach(category => {
   });
 });
 
-// Let's get this party started!
+// redact function wraps 5,6,8 & 9 character words in a span for CSS blackout styling
 
 const redact = text => {
   return text
@@ -328,5 +332,7 @@ const redact = text => {
     })
     .join(' ');
 };
+
+// Start the app and get the news!
 
 init();
