@@ -8,24 +8,20 @@ const apiRequests = {
 
   ukTop20: 'https://newsapi.org/v2/top-headlines?country=gb&apiKey=9ed005ef4eb94baf913fce701c69972f',
 
-
   customParameters : {
-    searchString: {val: null,
-                   string: null},
+    searchString: {val: null, string: ""},
 
-    dateRange: {val: null,
-                string: null},
+    dateRange: {val: null, string: ""},
 
-    excludedDomains: {val: null,
-                      string: ""},
+    excludedDomains: {val: null, string: ""},
 
-    page: {val: 1,
-           string: ""}
+    lang: {val: null, string: ""},
+
+    page: {val: 1, string: ""}
   },
 
   getURL: function(){
-    const customURL = `https://newsapi.org/v2/everything?q=${this.customParameters.searchString.string}${this.customParameters.dateRange.string}${this.customParameters.excludedDomains.string}${this.customParameters.page.string}&apiKey=9ed005ef4eb94baf913fce701c69972f`
-        this.currentSearchURL = customURL
+    const customURL = `https://newsapi.org/v2/everything?q=${this.customParameters.searchString.string}${this.customParameters.dateRange.string}${this.customParameters.excludedDomains.string}${this.customParameters.page.string}${this.customParameters.lang.string}&apiKey=9ed005ef4eb94baf913fce701c69972f`
         return customURL
   },
 
@@ -46,6 +42,12 @@ const apiRequests = {
   updateBlockURL: function(){
     const blockedString = this.blockList.join(",")
     this.customParameters.excludedDomains.string = `&excludeDomains=${blockedString}`
+  },
+
+  updateLangURL: function(language){
+    this.customParameters.lang.string = `&language=${language}`
+
+
   },
 
   blockList: []
