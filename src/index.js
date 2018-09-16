@@ -1,7 +1,10 @@
-const parentNode = document.querySelector(".content__body");
+/*
+======================================================
+SET UP 
+======================================================
+*/
+
 const articleNode = document.querySelector(".article__list");
-const sectionButtonsNode = document.querySelector(".content__section__buttons");
-const displayJSONNode = document.querySelector(".content__footer");
 const countryMenuNode = document.querySelector(".country");
 const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
 
@@ -40,7 +43,8 @@ const articleTemplate = article => {
     const title = (article.title !== null) ? `<li><strong>${convertedTitle}</strong></li>` : "";
     const convertedDescription = (article.description !== null) ? highlightFoundWords(article.description) : null;
     const description = (article.description !== null) ? `<li>${convertedDescription}</li>` : "";
-    // const content = (article.content !== null) ? `<li>${article.content}</li>` : "";
+    const content = (article.content !== null) ? `<li>${article.content}</li>` : "";
+    // console.log(content);
     const author = (article.author !== null) ? `${article.author}` : "";
     const source = (article.source.name !== null) ? `${article.source.name}` : "";
     const separator = (author && source) ? ", " : "";
@@ -117,10 +121,6 @@ const queryAPI = function (type, country="", category="", search="") {
     return bodyURL;
 }
 
-const displayErrorToUser = error => articleNode.innerHTML = error;
-
-createCountriesMenu();
-loadAPI(queryAPI("everything", "", "", "Donald+Trump"));
 
 /* ///////////////////////////////////
 NAVIGATION SEARCH AND BUTTONS
@@ -130,23 +130,35 @@ const navBar = document.querySelector(".content__nav");
 const navButton = document.querySelector(".header__nav__button");
 const navSearch = document.querySelector(".search");
 const searchFormNode = document.querySelector(".header__form");
-// const navSections = document.querySelector(".header__nav__sections a");
+const displayJSONNode = document.querySelector(".content__footer");
 
-// search from top nav - click search button for results
-searchFormNode.addEventListener("submit", function(event){
+/* ///////////////////////////////////
+SEARCH FUNCTIONALITY AND BUTTONS
+////////////////////////////////////*/
+
+// search function for search button and text field
+// const loadSearchResults = function(event) {
+//     const searchQuery = navSearch.value.split(" ").join("+");
+//     loadAPI(queryAPI("everything", "", "", searchQuery));
+// }
+console.log(navSearch);
+console.log(searchFormNode);
+
+// top nav search using 'click' event
+searchFormNode.addEventListener("submit", function(event) { 
     event.preventDefault();
-    let searchQuery = navSearch.value.split(" ").join("+");
+    const searchQuery = navSearch.value.split(" ").join("+");
     loadAPI(queryAPI("everything", "", "", searchQuery));
 });
 
-// search from top nav - press ENTER for results
-navSearch.addEventListener("submit", function(event){
+// top nav search using 'submit' event
+navSearch.addEventListener("submit", function(event) { 
     event.preventDefault();
-    let searchQuery = navSearch.value.split(" ").join("+");
+    const searchQuery = navSearch.value.split(" ").join("+");
     loadAPI(queryAPI("everything", "", "", searchQuery));
 });
 
-// display "search results for:"
+// display the text "search results for:"
 const displaySearchMessage = function(url) {
     if (url.indexOf("everything?") >= 0) {
         const searchNode = document.createElement("li");
@@ -157,20 +169,14 @@ const displaySearchMessage = function(url) {
     }
 }
 
-// convert the URL from search results to an array
+// use match function to convert the URL from search results into an array
 const convertedSearchArray = function (url) {
     let regex = /\A?q=[^&]*/g;
     const found = url.match(regex).toString();
     return found.split("=")[1].split("+");
 }
 
-Array.prototype.intersect = function(secondArray) {
-    return this.filter(function(item) {
-        return (secondArray.indexOf(item) != -1);
-    });
-}
-
-// highlight found search terms
+// highlight all matched words from search
 const highlightFoundWords = function (descriptionText) {
     if (bodyURL.indexOf("everything?") >= 0) {
         const searchResultsArray = convertedSearchArray(bodyURL);
@@ -186,6 +192,10 @@ const highlightFoundWords = function (descriptionText) {
     }
 }
 
+/* ///////////////////////////////////
+ARTICLES
+////////////////////////////////////*/
+
 const convertDate = function (string) {
     const date = new Date(string);
     const formatTime = n => n <10 ? "0" + n : n;
@@ -193,17 +203,13 @@ const convertDate = function (string) {
     return `${formatTime(date.getHours())}:${formatTime(date.getMinutes())}, ${date.getDate()} ${ months[date.getMonth()]} ${date.getFullYear()}`
 }
 
-// collapse main nav
-// let state = 1;
-// navSections.addEventListener("click", function(event){
-//     event.preventDefault();
-//     navBar.style.display = state ? "flex" : "none";
-//     navSearchIcon = state ? "x" : "+";
-//     navSections.innerHTML = `${navSearchIcon}`;
-//     state = !state;
-// });
+const displayErrorToUser = error => articleNode.innerHTML = error;
+createCountriesMenu();
+loadAPI(queryAPI("everything", "", "", "Donald+Trump"));
 
-// documentation: 
+/* ///////////////////////////////////
+DOCUMENTATION
+////////////////////////////////////*/
 // https://newsapi.org/sources
 // https://newsapi.org/docs
 // https://newsapi.org/docs/get-started
