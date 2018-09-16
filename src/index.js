@@ -16,7 +16,7 @@ fetch(req)
 
     function displayMobileArticle(body) {
         body.articles.forEach(article=> {
-            const ts = new Date(`${article.publishedAt}`)
+            const ts = new Date(`${article.publishedAt}`);
             const date = ts.toGMTString();
             if (article.description) {
                 const divNode = document.createElement('div');
@@ -96,3 +96,5 @@ function topFunction() {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
+
+// Converting timestamp to time passed since

@@ -123,6 +123,11 @@ footer {
     display: flex;
     flex-flow: wrap;
   }
+
+  .article-div-w-img:hover {
+    background-color: #F9EEF3;
+  }
+
    .title, .date, .link{
     width: 100vw;
   }
