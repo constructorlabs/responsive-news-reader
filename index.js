@@ -38,10 +38,17 @@ const getContent = () => {
 const displayContent = (content) => {
     // Sets how many news cards are added to the page
     setLayout(articlesPerPage);
-    const parentNode = document.querySelector(`.news-container-page-${apiValues.page}`);
+    const parentNode = document.querySelector(`#page-${apiValues.page}`);
     const newsItemContainer = parentNode.querySelectorAll('.news-item__container');
     console.log(parentNode);
     let counter = 0;
+
+    // console.log(content.articles[counter].publishedAt);
+    // const dateNow = Date.now();
+    // const publishedAt = (Date.parse(content.articles[counter].publishedAt));
+    // console.log(dateNow - publishedAt);
+
+
 
     newsItemContainer.forEach(item => {
         const headlineText = item.querySelector('.headline');
@@ -52,26 +59,55 @@ const displayContent = (content) => {
 
         headlineText.textContent = content.articles[counter].title;
         descriptionText.textContent = content.articles[counter].description
-        dateText.textContent = content.articles[counter].publishedAt;
+        dateText.textContent = timeDifference(content.articles[counter].publishedAt);
         sourceText.textContent = content.articles[counter].source.name;
         imgSrc.src = content.articles[counter].urlToImage;
         item.href = content.articles[counter].url;
 
+        console.log(content.articles[counter].publishedAt);
+        console.log(timeDifference(content.articles[counter].publishedAt));
+
+
+
         counter++;
+
     });
+}
+
+// Returns minutes or hours since article was published if less, otherwise returns date
+const timeDifference = (timePublished) => {
+    let msPerMinute = 60000;
+    let msPerHour = msPerMinute * 60;
+    let msPerDay = msPerHour * 24;
+
+    let currentTime = Date.now();
+    let publishedTime = Date.parse(timePublished) - msPerHour;
+    let elapsedTime = currentTime - publishedTime;
+
+    if (elapsedTime < msPerHour) {
+        return Math.round(elapsedTime / msPerMinute) + 'm';
+    }
+    else if (elapsedTime < msPerDay) {
+        return Math.round(elapsedTime / msPerHour) + 'h';
+    }
+    else {
+        return timePublished.substr(0,10);
+    }
 }
 
 // Inserts 1 page with articles into HTML so that content can be displayed on them
 const setLayout = (articlesPerPage) => {
     const newPage = document.createElement('div');
-    newPage.className = `news-container-page-${apiValues.page}`;
+    newPage.className = `news-container`;
+    newPage.id = `page-${apiValues.page}`;
     document.querySelector('.container').appendChild(newPage);
 
     for (let i = 0; i < articlesPerPage; i++) {
         const newArticle = document.createElement('a');
         newArticle.className = 'news-item__container';
+        newArticle.id = `page-${apiValues.page}-article-${i + 1}`;
         newArticle.innerHTML =
-        '<img class="image" src="images/test.jpg" />\
+            '<img class="image" src="images/test.jpg" />\
         <div class="news-item__text">\
             <div class="headline">Volkswagen to end production of iconic Beetle</div>\
             <h3 class="description">The company announced that it would end global production in July next year</h3>\
