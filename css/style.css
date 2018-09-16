@@ -61,14 +61,14 @@ body {
 .main__articleNews {
     display: grid;
     min-height: 100vh;
-    grid-template-areas: 'title' 'description' 'content' 'image' 'published' 'source';
-    grid-template-rows: auto auto 1fr 0 auto auto;
+    grid-template-areas: 'title' 'description' 'image' 'published' 'source';
+    grid-template-rows: auto 1fr 0 auto auto;
     background-color: lightyellow;
 }
 
 .main__articleNews__title {
     grid-area: title;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: bolder;
     border: 5px solid yellow;
 }
@@ -76,6 +76,10 @@ body {
 .main__articleNews__description {
     grid-area: description;
     border: 5px solid black;
+    font-size: 1.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .main__articleNews__content {

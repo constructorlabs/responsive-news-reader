@@ -22,19 +22,29 @@ fetch('https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=454852947b27
             const sectionMainDescription = document.createElement('section');
             sectionMainDescription.className = 'main__articleNews__description';
             sectionMainDescription.textContent = article.description;
+            const urlContent = article.url;
+            const urlContentElement = document.createElement('a');
+            urlContentElement.className = 'main__articleNews__content__url';
+            urlContentElement.setAttribute('href', urlContent);
+            urlContentElement.setAttribute('target', '_blank');
+            urlContentElement.textContent = 'click here for full article';
+            sectionMainDescription.append(document.createElement('br'));
+            sectionMainDescription.append(urlContentElement);
+
             articleNews.append(sectionMainDescription);
 
-            const sectionMainContent = document.createElement('section');
-            sectionMainContent.className = 'main__articleNews__content';
-            let articleContent = article.content;
-            let newar = '';
-            if (articleContent !== null) { //checking if there something in article.content
-                newar = articleContent.replace(/ *\[[^)]*] */g, "");
-            } else {
-                console.log('no ok');
-            }
-            sectionMainContent.textContent = newar;
-            articleNews.append(sectionMainContent);
+            // const sectionMainContent = document.createElement('section');
+            // sectionMainContent.className = 'main__articleNews__content';
+
+            // urlContentElement.className = 'main__articleNews__content__url';
+            // urlContentElement.setAttribute('href', urlContent);
+            // urlContentElement.setAttribute('target', '_blank');
+            // urlContentElement.textContent = 'click here for full article';
+            // sectionMainContent.textContent = `${articleContent}`;
+            // sectionMainContent.append(document.createElement('br'));
+            // sectionMainContent.append(urlContentElement);
+
+            // articleNews.append(sectionMainContent);
 
             const sectionMainImage = document.createElement('figure');
             sectionMainImage.className = 'main__articleNews__image';
