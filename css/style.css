@@ -6,6 +6,22 @@ body {
 
 .container {
     margin: 0 auto;
+    animation: 4s infinite bgcolorchange;
+}
+
+@keyframes bgcolorchange {
+    0% {
+        /*background: linear-gradient(0deg, rgba(157,255,0,1) 0%, rgba(129,168,12,1) 50%, rgba(157,255,0,1) 100%); !* w3c *!*/
+        background-color:yellow;
+    }
+    50% {
+        /*background: linear-gradient(0deg, rgba(129,168,12,1) 0%, rgba(157,255,0,1) 50%, rgba(129,168,12,1) 100%); !* w3c *!*/
+        background-color: greenyellow;
+    }
+    100% {
+        /*background: linear-gradient(0deg, rgba(157,255,0,1) 0%, rgba(129,168,12,1) 50%, rgba(157,255,0,1) 100%); !* w3c *!*/
+        background-color: yellow;
+    }
 }
 
 .header {
@@ -14,8 +30,16 @@ body {
     justify-content: center;
     text-align: center;
     font-size: 2em;
-    background-color: red;
     color: #0026F7;
+}
+
+.header p {
+    font-size: 4em;
+    color: red;
+    padding: 0.3em;
+    margin: 0.3em;
+    background-color: yellow;
+    border-radius: 100px;
 }
 
 .mainNavigation {
@@ -39,6 +63,7 @@ body {
     display: grid;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
 }
 
 .mainNavigation li:hover {
@@ -48,8 +73,8 @@ body {
 .main {;
     margin: 0 auto;
     text-align: center;
-    border: 5px solid red;
     font-size: 1.5em;
+    padding: 0 1em;
 }
 
 .main__articleNews {
@@ -57,7 +82,9 @@ body {
     grid-template-areas: 'title' 'description' 'image' 'published' 'source';
     grid-template-rows: min-content 1fr 0 min-content min-content;
     background-color: lightyellow;
-}
+    border-radius: 40px;
+    grid-gap: 5px;
+;}
 
 .main__articleNews__title {
     grid-area: title;
@@ -76,6 +103,11 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.main__articleNews__description a {
+    text-underline-position: under;
+    padding-bottom: 0.2em;
 }
 
 .main__articleNews__content {
@@ -149,8 +181,6 @@ body {
     .main {
         display: grid;
         grid-gap: 2em;
-        background: linear-gradient(0deg, rgba(157,255,0,1) 0%, rgba(129,168,12,1) 50%, rgba(218,255,10,1) 100%); /* w3c */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#DAFF0A', endColorstr='#9DFF00',GradientType=0 ); /* ie6-9 */
     }
     .main__articleNews {
         display: grid;
