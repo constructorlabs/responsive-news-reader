@@ -69,8 +69,9 @@ fetch(req)
                                 `;
 
 
-          articleList.appendChild(newsDetail);
+          
           i++;
+          document.documentElement.scrollTop = 0;
         }
           return;
         })
