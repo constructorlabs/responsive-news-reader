@@ -79,8 +79,10 @@ h1.main-title {
     .news--article-content {
 
     }   
-    .news--article-image img {
-        display: block
+    .news--article-image {
+        display: block;
+        padding-top: 30%;
+        background-size: contain;
         } 
     }    
 
