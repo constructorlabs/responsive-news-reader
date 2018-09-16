@@ -1,11 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Dancing+Script:400,700');
-@import url('https://fonts.googleapis.com/css?family=Libre+Barcode+128+Text');
-@import url('https://fonts.googleapis.com/css?family=Black+And+White+Picture');
 @import url('https://fonts.googleapis.com/css?family=Caveat');
 
-
 body {
-    font-family: "Dancing Script", sans-serif;
     font-family: 'Caveat', cursive;
     font-size: 2em;
 }
@@ -109,36 +104,41 @@ body {
     }
 
     .main__articleNews {
-        height: 100%;
+        display: grid;
+        min-height: min-content;
+        grid-template-areas:
+                'image title'
+                'image description'
+                'image published'
+                'image source';
+        grid-template-rows: auto auto auto auto;
+        grid-template-columns: 40% auto ;
+        background-color: lightyellow;
     }
 
     .main__articleNews__title {
-        max-height: min-content;
+        grid-area: title;
     }
 
     .main__articleNews__description {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.5em;
-        flex: 4;
+        grid-area: description;
     }
 
     .main__articleNews__image {
-        display: block;
+        grid-area: image;
         width: auto;
-        height: 270px;
-        background-size: cover;
+        height: 370px;
+        background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
     }
 
     .main__articleNews__published {
-        max-height: min-content;
+        grid-area: published;
     }
 
     .main__articleNews__source {
-        max-height: min-content;
+        grid-area: source;
     }
 
 }
