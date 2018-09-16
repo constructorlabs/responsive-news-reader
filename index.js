@@ -1,19 +1,28 @@
 // Sets initial values
-const apiUrl = `https://newsapi.org/v2/everything?sources=bbc-news&apiKey=a346fd18cae743c7a27e0f214df32cbd`;
-let pageNumber = 1;
 let articlesPerPage = 20;
 
+// Holds the API values for generateApiUrl to use to form a URL String
+const apiValues = {
+    url: 'https://newsapi.org/v2/everything?sources=bbc-news',
+    key: 'a346fd18cae743c7a27e0f214df32cbd',
+    search: '',
+    page: 1
+};
+
+// Generates a URL String from the values set in apiValues
+const generateApiUrl = () => {
+    return `${apiValues.url}&q=${apiValues.search}&page=${apiValues.page}&apiKey=${apiValues.key}`;
+}
+
 // Fetches the news articles from News API and returns content to displayContent
-getContent = (pageNumber) => {
-    console.log("Fetching Content");
-    let apiString = apiUrl + `&page=${pageNumber}`;
-    fetch(apiString)
+const getContent = () => {
+    fetch(generateApiUrl())
         .then(function (response) {
             return response.json();
         })
         .then(function (content) {
             console.log(content);
-            displayContent(content, pageNumber);
+            displayContent(content);
         })
         .catch(error => {
             displayErrorToUser('Server failed to return data');
@@ -26,12 +35,12 @@ getContent = (pageNumber) => {
 }
 
 // Displays the news articles retrieved from getContent
-displayContent = (content, pageNumber) => {
+const displayContent = (content) => {
     // Sets how many news cards are added to the page
-    setLayout(20, pageNumber);
-    const parentNode = document.querySelector(`.news-container-page-${pageNumber}`);
+    setLayout(20);
+    const parentNode = document.querySelector(`.news-container-page-${apiValues.page}`);
     const newsItemContainer = parentNode.querySelectorAll('.news-item__container');
-
+    console.log(parentNode);
     let counter = 0;
 
     newsItemContainer.forEach(item => {
@@ -51,29 +60,53 @@ displayContent = (content, pageNumber) => {
     });
 }
 
-// Creates the DIVs for the news articles depending on how many articles per page are set
-setLayout = (articlesPerPage, pageNumber) => {
-    const parentNode = document.querySelector(`.news-container-page-${pageNumber}`);
-    for (i = 1; i < articlesPerPage; i++) {
-        const div = document.querySelector('.news-item__container'),
-            clone = div.cloneNode(true);
-        parentNode.appendChild(clone);
+// Inserts 1 page with articles into HTML so that content can be displayed on them
+const setLayout = (articlesPerPage) => {
+    const newPage = document.createElement('div');
+    newPage.className = `news-container-page-${apiValues.page}`;
+    document.querySelector('.container').appendChild(newPage);
+
+    for (let i = 0; i < articlesPerPage; i++) {
+        const newArticle = document.createElement('div');
+        newArticle.className = 'news-item__container';
+        newArticle.innerHTML =
+            '<img class="image" src="images/test.jpg" />\
+        <div class="news-item__text">\
+            <div class="headline">Volkswagen to end production of iconic Beetle</div>\
+            <h3 class="description">The company announced that it would end global production in July next year</h3>\
+            <div class="news-item-info">\
+                <h5 class="date">07:24</h5>\
+                <h5 class="source">Manchestereveningnews.co.uk</h5>\
+            </div>\
+        </div>'
+
+        newPage.appendChild(newArticle);
     }
 }
 
 // Button listener to clone parent DIV to create another page and set the content
-const button = document.querySelector('button');
+const button = document.querySelector(".more-news-btn");
 button.addEventListener("click", (event) => {
     console.log("button was clicked");
-    pageNumber++;
 
-    const parentNode = document.querySelector('.container')
-    const div = document.querySelector('.news-container-page-1'),
-        clone = div.cloneNode(false);
-    clone.className = `news-container-page-${pageNumber}`;
-    parentNode.appendChild(clone);
-
-    getContent(pageNumber);
+    apiValues.page++;
+    console.log("more page number: " + apiValues.page)
+    console.log("page number " + apiValues.page);
+    getContent(apiValues.page);
 })
 
-getContent(pageNumber);
+// Button Listener for search button
+const searchNews = document.querySelector('.search-form');
+searchNews.addEventListener("submit", event => {
+    event.preventDefault();
+    apiValues.search = document.querySelector(".search-input").value
+    console.log(apiValues.search);
+    searchNews.reset();
+    apiValues.page = 1;
+    const container = document.querySelector(".container");
+    container.innerHTML = "";
+    getContent();
+})
+
+// Calls getContent to get and then display content once page is first loaded
+getContent();
