@@ -108,14 +108,13 @@ main {
 }
 
 .pagination__ul {
-    display:flex;
     flex-direction:row;
     flex:1;
     margin:0 0 1em 0;
+    
 }
 
 .pagination__page {
-    display:flex;
     min-width:50px;
 }
 
@@ -208,6 +207,10 @@ p {
 
   }
 
+  .publishers {
+      display:none;
+  }
+
   .pagination__page {
     display: inline-block;
     padding: 0px 9px;
@@ -238,16 +241,29 @@ p {
 }
 
 @media (min-width: 768px) {
+    .publishers {
+        display: flex;
+        flex-direction:column;
+        padding:10px 10px 0 10px;
+        background: white;
+        margin:0 0 1em 10px;
+    }
+
     main {
         flex-direction: row-reverse;
     }
 
     .excludedDomainsDiv {
-       flex:3;
        flex-direction:column;
        padding:10px 10px 0 10px;
        background: white;
        margin:0 0 1em 10px;
+    }
+
+    .sideOrTopBar {
+        display:flex;
+        flex-direction:column;
+        flex:3;
     }
 
     .articles {
