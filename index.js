@@ -59,7 +59,7 @@ const getNews = params => {
 
 const getPopular = () => {
   fetch(
-    'https://newsapi.org/v2/everything?language=en&domains=dailymail.co.uk&pageSize=7&sortBy=popularity&apiKey=f29390555fbc483ba17e7ec1cb19af1a'
+    'https://newsapi.org/v2/everything?language=en&domains=dailymail.co.uk&pageSize=8&sortBy=popularity&apiKey=f29390555fbc483ba17e7ec1cb19af1a'
   )
     .then(response => {
       return response.json();
@@ -81,7 +81,9 @@ const displayErrorToUser = err => {
 const cleanData = data => {
   return data.articles.filter(
     article =>
-      article.description !== (null || '') && article.urlToImage != null
+      article.description != null &&
+      article.description != '' &&
+      article.urlToImage != null
   );
 };
 
@@ -140,6 +142,7 @@ const addArticlesToFeed = data => {
   const newsFeed = document.querySelector('section.news');
   const ref = document.querySelector('section.news aside');
   const feed = cleanData(data);
+  console.log(feed);
   const stories = createArticles(feed);
   newsFeed.insertBefore(stories, ref);
   document.querySelector('.page-total').textContent = Math.floor(
