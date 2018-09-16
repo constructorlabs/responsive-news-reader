@@ -34,7 +34,7 @@ body {
 }
 
 .header p {
-    font-size: 4em;
+    font-size: 1.5em;
     color: red;
     padding: 0.3em;
     margin: 0.3em;
@@ -130,10 +130,8 @@ body {
 }
 
 @media (min-width: 768px) {
-    .container {
-    }
-
-    .main {
+    .header p {
+        font-size: 2em;
     }
 
     .main__articleNews {
@@ -178,6 +176,11 @@ body {
     body {
         font-size: 1.2rem;
     }
+
+    .header p {
+        font-size: 3em;
+    }
+
     .main {
         display: grid;
         grid-gap: 2em;
