@@ -11,14 +11,27 @@ const params = {
   country: 'gb',
   category: '',
   query: '',
+  sortBy: 'publishedAt',
   pageSize: 9,
   pageNum: 1
 };
 
+const paramsPop = {
+  base: 'https://newsapi.org/v2/',
+  endpoint: 'everything',
+  apiKey: 'f29390555fbc483ba17e7ec1cb19af1a',
+  country: '',
+  category: '',
+  query: '',
+  sortBy: 'popularity',
+  pageSize: 1,
+  pageNum: 1
+};
 //---------------------------//
 
 const init = () => {
   getNews(params);
+  getPopular();
 };
 
 // Fetch functions
@@ -26,9 +39,9 @@ const init = () => {
 const setURL = params => {
   return `${params.base}${params.endpoint}?apiKey=${params.apiKey}&q=${
     params.query
-  }&country=${params.country}&category=${params.category}&pageSize=${
-    params.pageSize
-  }&page=${params.pageNum}`;
+  }&country=${params.country}&category=${params.category}&sortBy=${
+    params.sortBy
+  }&pageSize=${params.pageSize}&page=${params.pageNum}`;
 };
 
 const getNews = params => {
@@ -38,6 +51,21 @@ const getNews = params => {
     })
     .then(data => {
       addArticlesToFeed(data);
+    })
+    .catch(err => {
+      displayErrorToUser('Server failed to return data');
+    });
+};
+
+const getPopular = () => {
+  fetch(
+    'https://newsapi.org/v2/everything?language=en&domains=dailymail.co.uk&pageSize=7&sortBy=popularity&apiKey=f29390555fbc483ba17e7ec1cb19af1a'
+  )
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      addPopular(data);
     })
     .catch(err => {
       displayErrorToUser('Server failed to return data');
@@ -77,6 +105,17 @@ const createArticle = articleData => {
   return article;
 };
 
+const createPopArticle = articleData => {
+  const article = document.createElement('article');
+  article.classList.add('news__article');
+  // const elapsedTime = getTimeSinceArticlePublication(articleData.publishedAt);
+  article.innerHTML = `
+          <img class='news__image' src="${articleData.urlToImage}">
+          <h3 class='news__headline'>${articleData.title}</h3>`;
+
+  return article;
+};
+
 const createArticles = data => {
   const newsWrapper = document.createElement('div');
   data.forEach(story => {
@@ -87,15 +126,32 @@ const createArticles = data => {
   return newsWrapper;
 };
 
+const createPopArticles = data => {
+  const popWrapper = document.createElement('div');
+  data.forEach(story => {
+    const newsArticle = createPopArticle(story);
+    popWrapper.appendChild(newsArticle);
+  });
+
+  return popWrapper;
+};
+
 const addArticlesToFeed = data => {
   const newsFeed = document.querySelector('section.news');
-  const ref = document.querySelector('section.news nav:first-child');
+  const ref = document.querySelector('section.news aside');
   const feed = cleanData(data);
   const stories = createArticles(feed);
   newsFeed.insertBefore(stories, ref);
   document.querySelector('.page-total').textContent = Math.floor(
     data.totalResults / params.pageSize
   );
+};
+
+const addPopular = data => {
+  const popularFeed = document.querySelector('aside.popular');
+  const popFeed = cleanData(data);
+  const popStories = createPopArticles(popFeed);
+  popularFeed.appendChild(popStories);
 };
 
 // Content helper functions

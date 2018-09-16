@@ -38,6 +38,10 @@ button {
   font-weight: 600;
 }
 
+.popular {
+  display: none;
+}
+
 .hero {
   background: rgb(30, 49, 49);
   color: white;
@@ -215,7 +219,8 @@ img.news__image {
   color: white;
 }
 
-/* iPad layout */
+/**********************/
+/* iPad tablet layout */
 
 @media (min-width: 768px) {
   button {
@@ -342,5 +347,105 @@ img.news__image {
   .legals__copyright,
   .legals__credit {
     margin: 0.5rem 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  /* layout */
+
+  .news {
+    background: white;
+  }
+
+  .news,
+  .hero,
+  .category-nav,
+  .search {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .news div,
+  .hero__title,
+  .hero__date {
+    grid-column: 2 / span 7;
+  }
+
+  .popular {
+    background: rgba(47, 79, 79, 0.5);
+    display: block;
+    grid-column: 10 / span 2;
+  }
+
+  .popular h2 {
+    background: rgb(30, 49, 49);
+    color: white;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    padding: 0.5rem 0 0.5rem 1rem;
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .popular h3 {
+    line-height: 1;
+  }
+
+  .news aside.popular div {
+    display: block;
+  }
+
+  .popular div .news__article:first-child {
+    display: none;
+  }
+
+  .page-nav,
+  .category-nav ul {
+    grid-column: 2 / span 10;
+    justify-content: start;
+  }
+
+  /* search */
+
+  .search {
+    background: darkslategrey;
+  }
+
+  .search--form {
+    grid-column: 2 / span 2;
+    /* justify-self: end; */
+  }
+
+  #search--query {
+    border: none;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    width: 100%;
+  }
+
+  /* category nav */
+
+  .category-nav {
+    background: rgb(30, 49, 49);
+    border-bottom: 1px solid darkslategrey;
+    padding: 8.25rem 0.5rem 0 0.5rem;
+  }
+
+  .category-nav ul {
+    background: white;
+  }
+
+  .category-nav ul li {
+    background: rgba(47, 79, 79, 0.5);
+    border-radius: 0;
+    border-right: 1px solid lightslategray;
+    flex-grow: 1;
+    margin: 0;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .category-nav ul li:last-child {
+    border-right: none;
   }
 }
