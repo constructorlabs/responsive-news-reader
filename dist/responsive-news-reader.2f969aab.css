@@ -11,31 +11,62 @@ body {
 .app {
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 nav {
   display: flex;
-  height: 50px;
+  height: 35px;
   color: black;
-  border: 1px;
+  margin-left: 10px;
+}
+
+nav .logo {
+  flex-grow: 1;
+
+  padding: 5px;
+  width: 60px;
+  height: auto;
 }
 
 nav #logo {
-  padding: 10px;
-  width: 200px;
+  height: auto;
+  width: 100%;
 }
 
-nav ul {
-  justify-content: flex-end;
+nav .navBar {
+  flex-grow: 4;
   flex-direction: row;
-  list-style: none;
+  display: flex;
+  font-size: 1em;
   display: flex;
 }
 
-nav li a {
-  flex-grow: 1;
-  padding: 10px;
-  display: block;
+nav .navBar a {
+  padding: 2px;
   color: black;
   text-decoration: none;
+}
+
+nav .homeNav {
+  flex-grow: 1;
+  padding-left: 10px;
+  border-left: 0.5px solid black;
+}
+
+nav .newsNav {
+  flex-grow: 1;
+  border-left: 0.5px solid black;
+}
+
+nav .moreNav {
+  flex-grow: 1;
+  border-left: 0.5px solid black;
+}
+
+nav .searchNav {
+  flex-grow: 2;
   border-left: 0.5px solid black;
 }
 
@@ -44,6 +75,7 @@ header {
   background-color: #bb1919;
   height: 58px;
   color: white;
+  justify-content: space-between;
 }
 
 header a {
@@ -52,32 +84,71 @@ header a {
 }
 
 header h1 {
-  padding: 10px;
+  font-size: 2.3em;
+  font-weight: 400;
 }
+
+header .NEWS {
+  margin: 0 0 0 20px;
+}
+
 header .menu {
   justify-content: flex-end;
+  border: 0.5px solid #d2d2d2;
+  border-radius: 3px;
+  padding: 7px 10px 7px 10px;
+  margin: 7px 10px 10px 0;
+  height: 70%;
+}
+
+header .menu a {
+  padding: 15px 5px 0 5px;
 }
 
 .tab {
   display: flex;
   background-color: #bb1919;
   color: white;
-  justify-content: space-around;
   flex-direction: row;
+  height: 40px;
 }
+.tab .latest-stories {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.tab .most-read {
+  background-color: #900;
+  flex-grow: 1;
+  text-align: center;
+}
+
 .tab h3 {
+  font-size: 1em;
+  font-weight: 300;
+}
+
+.tab h3:hover {
+  text-decoration: underline;
+}
+
+.long-menu {
 }
 
 main {
-  margin: 10px;
 }
 
-main .story-main {
-  padding: 1em 1em 1em 1em;
+main h2 {
+  font-weight: 700;
 }
 
-main .story-main img {
-  width: 100vw;
+main a {
+  color: black;
+  text-decoration: none;
+}
+
+main a:visited {
+  color: grey;
 }
 
 main .story {
@@ -86,6 +157,15 @@ main .story {
 }
 
 main .story img {
+  display: none;
+}
+
+main .story:first-child {
+  border-top: 0px solid black;
+}
+
+main .story:first-child img {
+  display: block;
   max-width: 100%;
   height: auto;
 }
@@ -93,11 +173,54 @@ main .story img {
 footer {
 }
 
-@@media (min-width: 768px;) {
+@media (min-width: 768px) {
+  body {
+  }
   .app {
-    width: 700px;
+    width: 900px;
+    margin: auto;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+  }
+
+  main h2 {
+    font-size: 1em;
+    font-weight: 700;
+  }
+  main p {
+    font-size: 1em;
+  }
+
+  main .story {
+    border: 0px;
+  }
+
+  main .story img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  main .story:first-child {
+    display: block;
+  }
+
+  main .story:first-child img {
+  }
+
+  header .menu {
+    display: none;
   }
 }
 
-@@media (min-width: 960px;) {
+@media (min-width: 960px) {
+  main {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto auto auto;
+  }
 }

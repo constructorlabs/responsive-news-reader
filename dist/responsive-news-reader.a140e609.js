@@ -104,9 +104,20 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   // Override the current require with this new one
   return newRequire;
 })({"index.js":[function(require,module,exports) {
+// elements avilable on page
 var mainNode = document.querySelector("main");
+var switchLanguageButton = document.querySelector("#switch-languages");
+var loadNextPageButton = document.querySelector("#load-next-page");
+var submitSearchButton = document.querySelector("#search");
 
+// Global variabel defaults to pass into API.
+var language = "en";
+var searchTerm = "UK";
+var pageSize = 10;
+
+// Breaking out API object to display
 function displayDataOnPage(newsStories) {
+  console.log(newsStories);
   var articlesArr = newsStories.articles;
   var articleKeys = Object.keys(articlesArr[0]);
   //console.log(articleKeys);
@@ -116,24 +127,14 @@ function displayDataOnPage(newsStories) {
     createStory(article);
   });
 }
-
+// Show if error with API call
 function displayErrorToUser(error) {
   createStory(error);
 }
 
-// fetch news api
-var loadAPI = function loadAPI() {
-  fetch("https://newsapi.org/v2/top-headlines?sortBy=popularity&apiKey=ca8681b5ce9447468962c7f40280c85f&country=gb").then(function (response) {
-    return response.json();
-  }).then(function (body) {
-    displayDataOnPage(body);
-  }).catch(function (error) {
-    displayErrorToUser(error);
-  });
-};
-
-var createTitle = function createTitle(title) {
-  return "<h1>" + title + "</h1>";
+//Create story componenets
+var createTitle = function createTitle(title, url) {
+  return "<a href=\"" + url + "\"><h2>" + title + "</h2></a>";
 };
 
 var createImg = function createImg(image) {
@@ -148,25 +149,59 @@ var createTimeCountry = function createTimeCountry(time, country) {
   var currentDateTime = new Date();
   return "<p>" + time + " | " + country + "</p>";
 };
-
+//Assemble story componenets
 var createStory = function createStory(article) {
   var className = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "story";
 
   var node = document.createElement("div");
-  var storyHTML = "" + createImg(article.urlToImage) + createTitle(article.title) + "\n  " + createDescription(article.description) + createTimeCountry(article.publishedAt, article.country);
+  var storyHTML = "" + createImg(article.urlToImage) + createTitle(article.title, article.url) + "\n  " + createDescription(article.description) + createTimeCountry(article.publishedAt, article.country);
   node.className = className;
   node.innerHTML = storyHTML;
   mainNode.appendChild(node);
-  console.log(storyHTML);
+  //console.log(storyHTML);
 };
 
-//switch countries we are fetching news from
-var switchCountryButton = document.querySelector("#switch-countries");
+// fetch news api
+var loadAPI = function loadAPI(language, searchTerm, pageSize) {
+  mainNode.innerHTML = "";
 
-switchCountryButton.addEventListener("click", function (event) {});
+  fetch("https://newsapi.org/v2/everything?q=" + searchTerm + "&pageSize=" + pageSize + "&language=" + language + "&domains\n=bbc.co.uk&apiKey=ca8681b5ce9447468962c7f40280c85f").then(function (response) {
+    return response.json();
+  }).then(function (body) {
+    displayDataOnPage(body);
+  }).catch(function (error) {
+    displayErrorToUser(error);
+  });
+};
 
-// initiate loading of news api
-loadAPI();
+//// Features that happen on event listen
+
+//Switch the language
+switchLanguageButton.addEventListener("click", function (event) {
+  var currentLanguage = "en";
+  if (currentLanguage === "en") {
+    currentLanguage = "es";
+  }
+
+  if (currentLanguage === "es") {
+    currentLanguage = "en";
+  }
+
+  console.log(currentLanguage);
+  language = currentLanguage;
+  loadAPI(language, searchTerm, pageSize);
+});
+
+// load in 10 more results
+loadNextPageButton.addEventListener("click", function (event) {
+  console.log("Loading more results");
+});
+
+// submit a search query to the API
+submitSearchButton.addEventListener("submit", function (event) {
+  console.log("Search submited");
+  console.log(event);
+});
 },{}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
