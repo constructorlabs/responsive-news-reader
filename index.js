@@ -40,7 +40,9 @@ const getNews = params => {
       addArticlesToFeed(data);
     })
     .catch(err => {
-      displayErrorToUser('Server failed to return data. Please refresh your browser to try again.');
+      displayErrorToUser(
+        'Server failed to return data. Please refresh your browser to try again.'
+      );
     });
 };
 
@@ -334,9 +336,9 @@ const redact = text => {
     .join(' ');
 };
 
-const trumped = img => {
-  return 'http://en.bcdn.biz/Images/2018/6/12/133c8505-d85f-488e-84b3-a0aeb574940d.jpg';
-};
+// const trumped = img => {
+//   return 'http://en.bcdn.biz/Images/2018/6/12/133c8505-d85f-488e-84b3-a0aeb574940d.jpg';
+// };
 
 // Start the app and get the news!
 
