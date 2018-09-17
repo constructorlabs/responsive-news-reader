@@ -21,6 +21,7 @@ nav {
   color: black;
   margin-left: 10px;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 nav .logo {
@@ -35,11 +36,10 @@ nav #logo {
 }
 
 nav .navBar {
+  display: flex;
   flex-direction: row;
-  display: flex;
   font-size: 1em;
-  display: flex;
-  text-align: center;
+  align-items: center;
 }
 
 nav .navBar a {

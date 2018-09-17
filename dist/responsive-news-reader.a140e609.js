@@ -104,20 +104,18 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   // Override the current require with this new one
   return newRequire;
 })({"index.js":[function(require,module,exports) {
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 // elements avilable on page
 var mainNode = document.querySelector("main");
 var switchLanguageButton = document.querySelector("#switch-languages");
 var loadNextPageButton = document.querySelector("#load-next-page");
 var submitSearchButton = document.querySelector("#search-button");
-var formNode = document.querySelector("form");
+var formNode = document.querySelector("footer form");
 var searchInput = document.querySelector("#search-field");
 var searchResults = document.querySelector(".search-results");
 
 // Breaking out API object to display
 function displayDataOnPage(newsStories) {
-  console.log(newsStories);
+  //console.log(newsStories);
   var articlesArr = newsStories.articles;
   var articleKeys = Object.keys(articlesArr[0]);
   //console.log(articleKeys);
@@ -168,14 +166,14 @@ var createStory = function createStory(article) {
 
 // Global variabel defaults to pass into API.
 var language = "en";
-var searchTerm = "UK";
+var searchTerm = "";
 var pageSize = 10;
 
 // fetch news api
 var loadAPI = function loadAPI(language, searchTerm, pageSize) {
   mainNode.innerHTML = "";
   console.log(language, searchTerm, pageSize);
-  fetch("https://newsapi.org/v2/everything?q=" + searchTerm + "&pageSize=" + pageSize + "&language=" + language + "&apiKey=ca8681b5ce9447468962c7f40280c85f").then(function (response) {
+  fetch("https://newsapi.org/v2/everything?q=" + searchTerm + "&pageSize=" + pageSize + "&language=" + language + "&sortBy=popularity&domains=bbc.co.uk,lemonde.fr,guardian.com,nytimes.com,sina.com.cn&apiKey=ca8681b5ce9447468962c7f40280c85f").then(function (response) {
     return response.json();
   }).then(function (body) {
     displayDataOnPage(body);
@@ -188,35 +186,35 @@ var loadAPI = function loadAPI(language, searchTerm, pageSize) {
 
 //Switch the language
 switchLanguageButton.addEventListener("click", function (event) {
-  console.log(event);
-  console.log(language);
-  console.log(typeof language === "undefined" ? "undefined" : _typeof(language));
+  //console.log(event);
+  //console.log(language);
+  //console.log(typeof language);
   if (language === "en") {
-    language = "es";
-  } else if (language === "es") {
+    language = "fr";
+  } else if (language === "fr") {
     language = "en";
   }
 
-  console.log(language);
+  //console.log(language);
   loadAPI(language, searchTerm, pageSize);
 });
 
 // load in 10 more results
 loadNextPageButton.addEventListener("click", function (event) {
-  console.log(event);
-  console.log(pageSize);
+  //console.log(event);
+  //console.log(pageSize);
   pageSize = pageSize + 10;
   loadAPI(language, searchTerm, pageSize);
 });
 
 // submit a search query to the API
-formNode.addEventListener("submit", function (event) {
-  console.log(event);
-  console.log(event);
-  // const searchNode = document.createElement("p");
-  // searchNode.className = "search";
+submitSearchButton.addEventListener("sumbit", function (event) {
+  console.log("form submitted");
+  console.log(event.target);
+  searchText = searchInput.value;
+  console.log(searchText);
   // let searchResut = searchInput;
-  searchTerm = searchInput;
+  searchTerm = searchText;
   loadAPI(language, searchTerm, pageSize);
 });
 
