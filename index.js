@@ -44,7 +44,7 @@ function upDateUrl(number, term) {
 function generateNews(url) {
     fetch(url)
         .then(response => {
-            console.log("promise has been resolved")
+            // console.log("promise has been resolved")
             return response.json();
         }) 
         .then(body => {
@@ -70,13 +70,15 @@ function articleTemplate (article) {
     let authorVar = "";
     let sourceVar = "";
     let imgVar = "";
+    let textVar = "";
     (article.author === null) ? authorVar = "" : authorVar = article.author;
     (article.source.name === null) ? sourceVar = "" : sourceVar = article.source.name;
     (article.urlToImage === null) ? imgVar = "jc-gellidon-714673-unsplash.jpg" : imgVar = article.urlToImage;
+    (article.description === null) ? textVar = article.content : textVar = article.description;
     return `
     <h2 class="article_title">${article.title}</h2>
     <div class="image_container"><img class="article_image" src="${imgVar}"></div>
-    <p class="article_content">${article.content}</p>
+    <p class="article_content">${textVar}</p>
     <ul class="article_author_source_list">
         <li class="author_item">${authorVar}</li>
         <li class="source_item">${sourceVar}</li>
@@ -104,7 +106,7 @@ function createNewsContent(news) {
 function generateSideBar(url) {
     fetch(url)
         .then(response => {
-            console.log("promise has been resolved")
+            // console.log("promise has been resolved")
             return response.json();
         }) 
         .then(body => {
