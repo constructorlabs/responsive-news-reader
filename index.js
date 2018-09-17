@@ -40,7 +40,7 @@ const getNews = params => {
       addArticlesToFeed(data);
     })
     .catch(err => {
-      displayErrorToUser('Server failed to return data');
+      displayErrorToUser('Server failed to return data. Please refresh your browser to try again.');
     });
 };
 
@@ -80,7 +80,7 @@ const createArticle = articleData => {
   if (params.redacted === true) {
     articleData.description = redact(articleData.description);
     articleData.title = redact(articleData.title);
-    articleData.urlToImage = trumped(articleData.urlToImage);
+    // articleData.urlToImage = trumped(articleData.urlToImage);
   }
   const article = document.createElement('article');
   article.classList.add('news__article');

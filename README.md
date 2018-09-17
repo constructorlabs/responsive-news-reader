@@ -36,8 +36,6 @@
 
 - Using `window.innerWidth`, images only load in the tablet and desktop views.
 
-- App handles edge cases (reasonably) gracefully, alerting the user if there is an error with the News API.
-
 ## CSS
 
 - Clean, well commented CSS.
@@ -48,6 +46,10 @@
 
 ## To Do
 
+- Error handling to get App to handle edge cases gracefully, alerting the user if there is an error.
+
 - Sanitise news feed to detect broken image links.
 
 - Give the user the choice of where they get most popular stories from in the sidebar.
+
+- Redact 'Trump' search images. Add a class with CSS brightness filter of either 0 or 1 to randomly black out images.
