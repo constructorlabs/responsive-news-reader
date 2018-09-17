@@ -1,9 +1,6 @@
 const baseUrl = "https://newsapi.org/v2/top-headlines?apiKey=93238bcda39e4404852697d364b77971";
 const parentNode = document.querySelector(".news--area--feed");
-const killCheckbox = document.querySelector(".kill-checkbox");
-
 let checkboxArray = document.querySelectorAll(".news--filter input");
-
 
 /* 
 --------------
@@ -48,9 +45,11 @@ const newsLayout = newsitem => {
     ${description}
     ${content}
     <p><a href="${url}" title="Visit news article: ${title}">Read full article</a></p>
-    <div class="kill-checkbox"><label><input type="checkbox" name="ratenews"> Mark as offensive</label></div>
+   <input class="redcard-checkbox" type="checkbox" name="ratenews"> <label>Red Card!</label>
     </section>`;
 }
+
+
 
 function displayDataOnPage(newsStories){
   parentNode.innerHTML = "";
@@ -62,23 +61,7 @@ function displayDataOnPage(newsStories){
         node.innerHTML = newsLayout(newsitem);
         parentNode.appendChild(node);
     })  
-
-    createKillCheckbox();
 }
-
-/*
--------------
-KILL CHECKBOX
--------------
-*/
-
-const createKillCheckbox = function() {
-  killCheckbox.addEventListener("input", function(event) {
-    console.log(event);
-    if (event.target.checked === true) {}
-  })
-}
-
 
 /*
 ------------------
@@ -157,3 +140,16 @@ function displayErrorToUser() {}
 
 // Initial call to fetch data
 generateFetchURL(baseUrl);
+
+
+const redcardCheckbox = document.querySelectorAll(".redcard-checkbox");
+
+redcardCheckbox.forEach(item => {
+  addEventListener("change", function(event) {
+    console.log(event);
+    if (event.target.checked) {
+      console.log("checkbox!");
+      event.target.parentNode.parentNode.style.backgroundColor = "red";
+    }
+})
+})
