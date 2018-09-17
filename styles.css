@@ -51,7 +51,7 @@ h1 {
 .header__logo__text  {
     font-size: 2em;
     margin: 0;
-    padding: 0.3em 0 0.3em 0.3em;
+    padding: 0.5em 0 0 0.3em;
     font-family: 'Handlee', cursive;
     vertical-align: center;
     color: white;
