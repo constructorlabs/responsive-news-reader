@@ -3,19 +3,28 @@ let articlesPerPage = 20;
 
 // Holds the API values for generateApiUrl to use to form a URL String
 const apiValues = {
-    url: 'https://newsapi.org/v2/everything?sources=bbc-news',
+    url: 'https://newsapi.org/v2/',
     key: 'a346fd18cae743c7a27e0f214df32cbd',
+    category: 'general',
     search: '',
-    page: 1
+    page: 1,
+    sources: 'bbc-news,independent,the-telegraph,metro,the-new-york-times'
 };
 
 // Generates a URL String from the values set in apiValues
 const generateApiUrl = () => {
-    return `${apiValues.url}&q=${apiValues.search}&page=${apiValues.page}&apiKey=${apiValues.key}`;
+    if (apiValues.search !== '') {
+        return `${apiValues.url}everything?q=${apiValues.search}&page=${apiValues.page}&apiKey=${apiValues.key}`;
+    } else if (apiValues.page == 1) {
+        return `${apiValues.url}top-headlines?country=gb&category=${apiValues.category}&apiKey=${apiValues.key}`;
+    } else {
+        return `${apiValues.url}everything?sources=${apiValues.sources}&sortBy=publishedAt&page=${apiValues.page}&apiKey=${apiValues.key}`;
+    }
 }
 
 // Fetches the news articles from News API and returns content to displayContent
 const getContent = () => {
+    console.log(generateApiUrl());
     fetch(generateApiUrl())
         .then(function (response) {
             return response.json();
@@ -43,13 +52,6 @@ const displayContent = (content) => {
     console.log(parentNode);
     let counter = 0;
 
-    // console.log(content.articles[counter].publishedAt);
-    // const dateNow = Date.now();
-    // const publishedAt = (Date.parse(content.articles[counter].publishedAt));
-    // console.log(dateNow - publishedAt);
-
-
-
     newsItemContainer.forEach(item => {
         const headlineText = item.querySelector('.headline');
         const descriptionText = item.querySelector('.description');
@@ -57,20 +59,17 @@ const displayContent = (content) => {
         const sourceText = item.querySelector('.source');
         const imgSrc = item.querySelector('.image');
 
+        if (content.articles[counter].urlToImage === null) {
+            item.style.display = 'none';
+        }
+    
         headlineText.textContent = content.articles[counter].title;
         descriptionText.textContent = content.articles[counter].description
         dateText.textContent = timeDifference(content.articles[counter].publishedAt);
         sourceText.textContent = content.articles[counter].source.name;
         imgSrc.src = content.articles[counter].urlToImage;
         item.href = content.articles[counter].url;
-
-        console.log(content.articles[counter].publishedAt);
-        console.log(timeDifference(content.articles[counter].publishedAt));
-
-
-
         counter++;
-
     });
 }
 
@@ -139,6 +138,54 @@ searchNews.addEventListener("submit", event => {
     apiValues.search = document.querySelector(".search-input").value
     console.log(apiValues.search);
     searchNews.reset();
+    apiValues.page = 1;
+    const container = document.querySelector(".container");
+    container.innerHTML = "";
+    getContent();
+
+})
+
+// Button Listener for nav buttons
+const navUk = document.querySelector('.nav__uk');
+navUk.addEventListener("click", event => {
+    event.preventDefault();
+    apiValues.search = '';
+    apiValues.category = '';
+    apiValues.page = 1;
+    const container = document.querySelector(".container");
+    container.innerHTML = "";
+    getContent();
+})
+
+const navTech = document.querySelector('.nav__tech');
+navTech.addEventListener("click", event => {
+    event.preventDefault();
+    apiValues.search = '';
+    apiValues.category = 'technology';
+    apiValues.page = 1;
+    const container = document.querySelector(".container");
+    container.innerHTML = "";
+    getContent();
+})
+
+// Button Listener for nav buttons
+const navScience = document.querySelector('.nav__science');
+navScience.addEventListener("click", event => {
+    event.preventDefault();
+    apiValues.search = '';
+    apiValues.category = 'science';
+    apiValues.page = 1;
+    const container = document.querySelector(".container");
+    container.innerHTML = "";
+    getContent();
+})
+
+// Button Listener for nav buttons
+const navHealth = document.querySelector('.nav__health');
+navHealth.addEventListener("click", event => {
+    event.preventDefault();
+    apiValues.search = '';
+    apiValues.category = 'health';
     apiValues.page = 1;
     const container = document.querySelector(".container");
     container.innerHTML = "";
