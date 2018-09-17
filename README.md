@@ -39,3 +39,8 @@ Let's create a responsive news reader website. To get the latest news the app wi
 ## README.md
 
 When finished, update this README.md file in your repo. This should explain what the project is, how to run it and how to use it. Someone who is not familiar with the project should be able to look at it and understand what it is and what to do with it. This is quite important as you want to put projects in your portfolio and the information provided here will help a reviewer understand what it is they are looking at.
+
+This project is a responsive news reader which gathers date from the news API.
+Once the page loads the top news content will only show on article at a time using a slideshow function. Below the breaking news section is the trending news section, which shows three articles at a time.
+Users can use the search bar to find related news to their search, this will still only show three latest articles related to the search. The search functionality does not effect the breaking news content
+

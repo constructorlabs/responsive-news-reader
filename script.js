@@ -1,13 +1,15 @@
 // functions
+//function for creating a element
 function createNode(element) {
     return document.createElement(element)
 }
 
+// appendchild function
 function append(parent, element) {
     return parent.appendChild(element)
 }
 
-
+//function for topstory, only one page at a time
 function getTopStory(pageNumber) {
     const topStoryUrl = `https://newsapi.org/v2/top-headlines?country=gb&pageSize=1&apiKey=287554a05efe4127bd911a0a216a7b64&page=${pageNumber}`;
     fetch(topStoryUrl)
@@ -40,12 +42,12 @@ function getTopStory(pageNumber) {
         })
 }
 
-
+//for slideshow of articles on topstory content
 function nextSlide() {
     pageNumber++;
     getTopStory(pageNumber);
 }
-
+//function for  creating trending news
 function content(url) {
     fetch(url)
         .then(response => {
@@ -78,6 +80,7 @@ function content(url) {
         })
 }
 
+//search function, which is through onclick
 function searchNews() {
     let keyword = '"' + document.querySelector("#search_input").value.replace(" ", "") +
         '"';
@@ -96,16 +99,19 @@ function searchNews() {
 
 
 
+//varibles and selectors
+const usaNews = `https://newsapi.org/v2/top-headlines?country=us&pageSize=1&apiKey=287554a05efe4127bd911a0a216a7b64&page=${pageNumber}`;
 const ukButton = document.querySelector("#ukButton")
 const usaButton = document.querySelector("#usaButton")
 const topStoryDiv = document.querySelector("#main");
 const trendNewsDiv = document.querySelector(".trendingNews")
 const techUrl = `https://newsapi.org/v2/top-headlines?sources=techcrunch&pageSize=3&apiKey=287554a05efe4127bd911a0a216a7b64`
-let pageNumber = 1;
+var pageNumber = 1;
 const contentH1 = document.querySelector("#trendNews")
 getTopStory(1); //reset page back page 1
 content(techUrl)
 let slideInterval = setInterval(nextSlide,4000);
+
 
 
 //menu toggle
