@@ -108,6 +108,5 @@ loadNextPageButton.addEventListener("click", function(event) {
 
 // submit a search query to the API
 submitSearchButton.addEventListener("submit", function(event) {
-  console.log("Search submited");
   console.log(event);
 });
