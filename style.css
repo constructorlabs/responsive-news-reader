@@ -1,0 +1,533 @@
+* {
+  box-sizing: border-box;
+  
+}
+
+body{
+   
+  display: flex;
+  /* justify-content: flex-start; */
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Encode Sans', sans-serif;
+  background: antiquewhite;
+  color:black;
+  max-width: 1500px;
+  margin-left: 0;
+  
+
+    }
+
+ul{ 
+  list-style-type: none;
+  padding-left:4vw;
+  
+  
+ }
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+img:hover {
+  background-color:#000;
+    opacity:0.8;
+}
+
+a:active {
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
+
+
+
+h1 {
+  display: flex;
+  flex:1;
+  justify-content: flex-start;
+  font-size: 40px;
+  margin-left: 4.5vw;
+  color:antiquewhite;
+
+  
+  
+}
+
+.heading {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  background-color:black;
+  
+}
+
+.searchClass{
+
+  display: flex;
+  flex:1;
+  justify-content: flex-end;
+  margin-right: 3vw;
+}
+
+
+.searchB{
+  display: flex;
+  flex:1;
+  justify-content: flex-end;
+
+  /* display: inline-block; */
+    border: none;
+   padding-top: 0.5em;
+   padding-bottom: 0.5em;
+    margin: 0;
+    text-decoration: none;
+    background: black;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.searchB:hover {
+  background: antiquewhite;
+  background-image: antiquewhite;
+  background-image: antiquewhite;
+  background-image: antiquewhite;
+  background-image: antiquewhite;
+  color:black;
+  font:bold;
+  text-decoration: none;
+}
+
+.searchClass input#search{
+  width: 300px;
+  height: 50px;
+  background: #2b303b;
+  border: none;
+  font-size: 10pt;
+  float: left;
+  color: #63717f;
+  padding-left: 45px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+
+.infoG{
+    display:none;
+}
+
+ 
+
+  #headline {
+    display:flex;
+    flex: 1;
+    position: relative; 
+    margin-left: 1vw;
+    
+  }
+
+  #headline h2 {
+  position: absolute; 
+   bottom: 0;  
+   /* width: 93.5%; */
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding-top: 2vw;
+   padding-left: 2vw;
+   padding-bottom:2vw;
+   color: white; 
+   max-width: 1000px;
+   margin-right: 7vw;
+   width: 90vw;
+   
+   
+  }
+
+  #headline img{
+  
+  max-width: 1200px;
+  max-height: 500px;
+  margin-right: 7vw;
+  width: 90vw;
+  background-image: url("https://chrisphillers.000webhostapp.com/placeholder1.jpg");
+
+  
+  }
+
+
+  .buttons{
+    display:flex;
+    flex: 1;
+    justify-content: space-between;
+    /* margin-left: 20px; */
+    /* margin-right: 20px; */
+    font-size: 5px;
+    background: black;
+    width: 100%;
+   
+
+  }
+
+
+  .all-button{
+    display: inline-block;
+      border: none;
+     padding-top: 0.5em;
+     padding-bottom: 0.5em;
+      margin: 0;
+      text-decoration: none;
+      background: black;
+      color: #ffffff;
+      font-family: sans-serif;
+      font-size: 1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: background 250ms ease-in-out, 
+                  transform 150ms ease;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+  }
+  
+  .all-button:hover {
+    background: antiquewhite;
+    background-image: antiquewhite;
+    background-image: antiquewhite;
+    background-image: antiquewhite;
+    background-image: antiquewhite;
+    color:black;
+    font:bold;
+    text-decoration: none;
+  }
+  
+
+.graphic {
+  display:none;
+  border-left:black;
+  border-left-width: 3px;
+}
+
+.hero {
+  display:flex;
+  flex: 1;
+  
+  
+}
+
+#newz {
+  display:flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 7vw;
+  
+
+}
+
+#newz h2 {
+
+margin: 0; 
+}
+
+#newz li {
+background-color: antiquewhite;
+}
+
+#newz img {
+
+  width:100%;
+  object-fit: cover;
+  height: 50vw;
+  background-image: url("https://chrisphillers.000webhostapp.com/placeholder1.jpg")
+  /* -webkit-box-shadow: -34px 53px 196px -30px rgba(0,0,0,0.49);
+  -moz-box-shadow: -34px 53px 196px -30px rgba(0,0,0,0.49);
+  box-shadow: -34px 53px 196px -30px rgba(0,0,0,0.49); */
+}
+
+#newz h3 {
+font-size: 15px;
+margin:0;
+padding-bottom: 10px;
+padding-top:5px; 
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+  .hero {
+
+    
+  }
+
+  #headline {
+    display:flex;
+    flex: 1;
+    
+   
+  }
+
+  #headline img{
+    width:90vw;
+    object-fit: cover;
+    position: relative;
+    
+    }
+
+    #headline h2{
+      width:90vw;
+
+    }
+
+  /* #newz {
+  width: 400px;
+    
+  }
+
+  #newz ul {
+    display:flex;
+  flex: 1;
+  flex-wrap: wrap;
+  }
+
+  #newz img{
+
+    height: 250px;
+
+  } */
+
+  #newz {
+    display: flex;
+  flex-flow: row wrap; 
+}
+
+#newz li {
+  flex-grow: 1;
+  width:300px;
+  
+  /* margin: 0.2vw; */
+  padding-right: 1vw;
+  padding-left:1vw;
+  
+  
+}
+#newz img {
+ 
+  height: 200px;
+  width: 300px;
+  background-color:lightblue;
+  
+}
+
+
+.buttons{
+  justify-content: space-around;
+  margin:0;
+  
+
+}
+
+
+
+
+
+}
+
+/* Large devices (desktops, 960px and up) */
+@media (min-width: 960px) {
+
+ 
+  
+  .heading {
+    display: flex;
+    flex:1;
+    justify-content: center;
+    flex-direction: row;
+    align-items: baseline;
+  }
+  
+  .searchClass{
+  
+    display: flex;
+    flex:1;
+    justify-content: flex-end;
+    flex-direction: row;
+    margin-right: 3vw;
+  }
+  
+  
+  .searchB{
+    display: flex;
+    flex:1;
+    justify-content: flex-end;
+    flex-direction: row;
+
+  }
+    #newz img {
+ 
+      height: 200px;
+      width: 300px;
+      
+      
+    }
+
+    #newz li {
+      
+      width:300px;
+    }
+
+  /* .heading {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex: 1;
+    background-color: red;
+  
+  
+  }
+  
+  header h1 {
+    background-color: blue;
+  }
+  
+  .searchClass {
+    background-color: yellow;
+  } */
+
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+
+  .hero {
+  display:flex;
+  flex-direction: row;
+  
+}
+
+#headline {
+  display:flex;
+  flex: 1;
+  flex-basis: 70%;  
+} 
+
+#headline h2 {
+  display:flex;
+  flex: 1;
+  width:65vw;
+  /* flex-basis: 70%; */
+} 
+
+
+
+
+
+#headline img{
+  width:65vw;
+  height: 30vw;
+  object-fit: cover;
+  position: relative;
+  
+}
+
+  .buttons{
+    margin-left: 0px;
+    margin-right: 50px;
+
+  }
+
+
+
+.infoG {
+  display:flex;
+  
+  flex: 1;
+  flex-basis: 30%;
+  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: space-around;
+  
+    
+}
+
+#newz {
+
+
+}
+
+ .graphic {
+    display:flex;
+    flex: 1;
+    
+    flex-direction: column;
+    justify-content: space-around;
+    
+
+    /* border-left-width: 30px;
+    border-left-color: black;
+    margin: 20px;
+    width: 100% */
+    
+    
+    
+  }
+
+
+  .graphic ul {
+    display:flex;
+    flex: 1;
+    justify-content: space-around;
+    
+    
+  } 
+
+  #one {
+    display:flex;
+    flex-grow: 1;
+   
+    height: 10px;
+    background-color: red;
+    width: 100px;
+    margin-bottom:10px;
+    
+    
+  }
+  
+  #two{
+    display:flex;
+    flex-grow: 1;
+   
+    height: 10px;
+    background-color: yellow;
+    width: 30px;
+    margin-bottom:10px;
+    
+  }
+
+  #three {
+    display:flex;
+    flex-grow: 1;
+    
+    height: 10px;
+    background-color: red;
+    width: 30px;
+    margin-bottom:10px;
+    
+  }
+
+
+
+}
+
