@@ -39,10 +39,10 @@ const form =  document.querySelector("form")
 
   form.addEventListener("submit", function(event) {
     event.preventDefault();
-    console.log(event.target.value);
+    console.log(event.target["0"].value);
     // get reference to text input
     // submit its to search
-   search(event.target.value, pageNumber)
+   search(event.target["0"].value, pageNumber)
   })
 }
 
