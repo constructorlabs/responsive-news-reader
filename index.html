@@ -10,30 +10,55 @@
 </head>
 
 <header class="header">
-    <div class='page_control'>
-        <div class="dropdown">
-            <button class="dropbtn">Articles per page</button>
-            <div class="dropdown-content">
-                <a href="#" class='pageSize'>10</a>
-                <a href="#" class='pageSize'>20</a>
-                <a href="#" class='pageSize'>30</a>
-            </div>
+    <div class="top-menu">
+        <i class="fas fa-bars" onclick="openNav()"></i>
+        <a href='#' class="logo">NEWSROOM</a>
+        <div>
+            <i class="fas fa-search" onclick="toggleSearch()"></i>
         </div>
-        
-    </div>    
-    <div>
+    </div>
+    <div class='search-box'>
         <form class="form">
-            <input type='text' class="search" name="search" placeholder="Search...">
-            <i class="fas fa-search"></i>
+            <input type='text' class="search" name="search" placeholder="Search..." style="width: 0px">
         </form>
     </div>
+
+    <div id="sidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div id="container">
+            <div class="inner-container">
+                <div class="toggle">
+                    <p>US</p>
+                </div>
+                <div class="toggle">
+                    <p>UK</p>
+                </div>
+            </div>
+            <div class="inner-container" id='toggle-container'>
+                <div class="toggle">
+                    <p>US</p>
+                </div>
+                <div class="toggle">
+                    <p>UK</p>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="category">General</a>
+        <a href="#" class="category">Business</a>
+        <a href="#" class="category">Science</a>
+        <a href="#" class="category">Technology</a>
+        <a href="#" class="category">Health</a>
+        <a href="#" class="category">Entertainment</a>
+        <a href="#" class="category">Sports</a>
+    </div>  
+
 </header>
 
 <body>
-
+    <div class=page-title>Politics</div>
     <div class='articles'></div>
     
-    <div class='page-nav'>
+    <div class='page-nav' style='display: flex'>
         <a href="#" class="previous">&#8249;</a>
         <a href="#" class="next">&#8250;</a>
     </div>
