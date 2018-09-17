@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+</head>
+
+<body>
+        <nav>
+            <div class="container-burger" id="burger_menu">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+
+            <div class="logo-container">
+                <h1>News To You</h1><i class="fas fa-newspaper"></i>
+            </div>
+            <ul id="main-menu">
+                <li><input id="search_input" type="textbox" placeholder="Search.." />
+                    <button id="search_submit" onclick="searchNews()">Search News</button></li>
+                <li><a href="">Top Stories</a></li>
+                <li><a href="#trendNews">Trending News</a></li>
+                <li><a href="">Entertainment</a></li>
+                <li><a href="">Have A Story?</a></li>
+            </ul>
+        </nav>
+
+        <div class="top-content">
+            <h1>Today's Top Stories</h1>
+            <ul>
+                <li><button class="topButtons" id="ukButton">UK News</button></li>
+                <li><button class="topButtons" id="usaButton">USA News</button></li>
+            </ul>
+            <!-- <div class="arrows prev"></div>
+        <div class="arrows next"></div> -->
+            <div id="main"></div>
+        </div>
+
+        <h1 id="trendNews">Trending News</h1>
+        <div class="trendingNews"></div>
+   
+
+
+    <script src="script.js" async defer></script>
+</body>
+
+</html>
