@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="responsivenewsreader.css">
+    <title>News Reader</title>
+  </head>
+
+  <body>
+    <div class="all">
+
+      <header id="header">
+        <h1>My News!</h1>
+      </header>
+
+  <div class="row">
+      <nav class="navigation">
+         <ul class="ul">
+           <li class="nextTwentyStories"><a href="https://newsapi.org/v2/everything?p=20&apiKey=41a785bcf660443c92ded19ad436a52c">Next 20 Stories:</a></li>
+           <li>
+             <form class="search">
+               <input id="searchText"type="search" name="q" placeholder="Search query">
+               <button id="goButton">GO!</button>
+             </form>
+           </li>
+         </ul>
+       </nav>
+
+    <div class="content">
+       <ul id="articles"></ul>
+       <aside id="aside">
+         <p><a id="facebooksymbol" href="https:www.facebook.com" target="_blank"> <img class="facebook" src="facebook.png"></a></p>
+         <p><a id="twittersymbol" href="https:www.twitter.com" target="_blank"> <img class="twitter" src="twitter.png"></a></p>
+         <p><a id="skynewssymbol" href="https://news.sky.com/uk" target="_blank"> <img class="skynews" src="skynews.png"></a></p>
+       </aside>
+    </div>
+
+    <footer id="footer">Nothing To See Here Yet</footer>
+  </div>
+
+     <script  src="responsivenewsreader.js"></script>
+
+    </div>
+  </body>
+</html>
