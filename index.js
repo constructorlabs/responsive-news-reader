@@ -2,12 +2,10 @@
 const mainNode = document.querySelector("main");
 const switchLanguageButton = document.querySelector("#switch-languages");
 const loadNextPageButton = document.querySelector("#load-next-page");
-const submitSearchButton = document.querySelector("#search");
-
-// Global variabel defaults to pass into API.
-let language = "en";
-var searchTerm = "UK";
-var pageSize = 10;
+const submitSearchButton = document.querySelector("#search-button");
+const formNode = document.querySelector("form");
+const searchInput = document.querySelector("#search-field");
+const searchResults = document.querySelector(".search-results");
 
 // Breaking out API object to display
 function displayDataOnPage(newsStories) {
@@ -64,6 +62,11 @@ const createStory = function(article, className = "story") {
   //console.log(storyHTML);
 };
 
+// Global variabel defaults to pass into API.
+let language = "en";
+let searchTerm = "UK";
+let pageSize = 10;
+
 // fetch news api
 const loadAPI = function(language, searchTerm, pageSize) {
   mainNode.innerHTML = "";
@@ -103,10 +106,19 @@ switchLanguageButton.addEventListener("click", function(event) {
 
 // load in 10 more results
 loadNextPageButton.addEventListener("click", function(event) {
-  console.log("Loading more results");
+  console.log(event);
+  console.log(pageSize);
+  pageSize = pageSize + 10;
+  loadAPI(language, searchTerm, pageSize);
 });
 
 // submit a search query to the API
-submitSearchButton.addEventListener("submit", function(event) {
+formNode.addEventListener("submit", function(event) {
   console.log(event);
+  // const searchNode = document.createElement("p");
+  // searchNode.className = "search";
+  // let searchResut = searchInput;
+  searchTerm = searchInput;
 });
+
+loadAPI(language, searchTerm, pageSize);

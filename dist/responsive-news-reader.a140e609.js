@@ -108,12 +108,10 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 var mainNode = document.querySelector("main");
 var switchLanguageButton = document.querySelector("#switch-languages");
 var loadNextPageButton = document.querySelector("#load-next-page");
-var submitSearchButton = document.querySelector("#search");
-
-// Global variabel defaults to pass into API.
-var language = "en";
-var searchTerm = "UK";
-var pageSize = 10;
+var submitSearchButton = document.querySelector("#search-button");
+var formNode = document.querySelector("form");
+var searchInput = document.querySelector("#search-field");
+var searchResults = document.querySelector(".search-results");
 
 // Breaking out API object to display
 function displayDataOnPage(newsStories) {
@@ -161,6 +159,11 @@ var createStory = function createStory(article) {
   //console.log(storyHTML);
 };
 
+// Global variabel defaults to pass into API.
+var language = "en";
+var searchTerm = "UK";
+var pageSize = 10;
+
 // fetch news api
 var loadAPI = function loadAPI(language, searchTerm, pageSize) {
   mainNode.innerHTML = "";
@@ -194,14 +197,22 @@ switchLanguageButton.addEventListener("click", function (event) {
 
 // load in 10 more results
 loadNextPageButton.addEventListener("click", function (event) {
-  console.log("Loading more results");
+  console.log(event);
+  console.log(pageSize);
+  pageSize = pageSize + 10;
+  loadAPI(language, searchTerm, pageSize);
 });
 
 // submit a search query to the API
-submitSearchButton.addEventListener("submit", function (event) {
-  console.log("Search submited");
+formNode.addEventListener("submit", function (event) {
   console.log(event);
+  // const searchNode = document.createElement("p");
+  // searchNode.className = "search";
+  // let searchResut = searchInput;
+  searchTerm = searchInput;
 });
+
+loadAPI(language, searchTerm, pageSize);
 },{}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -231,7 +242,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '65176' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '50313' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
