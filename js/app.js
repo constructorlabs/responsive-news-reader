@@ -1,10 +1,8 @@
 const main = document.querySelector('.main');
-// fetch('https://newsapi.org/v2/top-headlines?apiKey=454852947b2747dabc52cf3ebcf4807c&country=au')
+// fetch('https://newsapi.org/v2/top-headlines?apiKey=454852947b2747dabc52cf3ebcf4807c&country=pl')
 
-// fetch('https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=454852947b2747dabc52cf3ebcf4807c')
-fetch('https://newsapi.org/v2/top-headlines?apiKey=454852947b2747dabc52cf3ebcf4807c&country=pl')
+fetch('https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=454852947b2747dabc52cf3ebcf4807c')
     .then(function (response) {
-        // console.log(response);
         return response.json();
     })
     .then(function (body) {
@@ -39,19 +37,6 @@ fetch('https://newsapi.org/v2/top-headlines?apiKey=454852947b2747dabc52cf3ebcf48
 
             articleNews.append(sectionMainDescription);
 
-            // const sectionMainContent = document.createElement('section');
-            // sectionMainContent.className = 'main__articleNews__content';
-
-            // urlContentElement.className = 'main__articleNews__content__url';
-            // urlContentElement.setAttribute('href', urlContent);
-            // urlContentElement.setAttribute('target', '_blank');
-            // urlContentElement.textContent = 'click here for full article';
-            // sectionMainContent.textContent = `${articleContent}`;
-            // sectionMainContent.append(document.createElement('br'));
-            // sectionMainContent.append(urlContentElement);
-
-            // articleNews.append(sectionMainContent);
-
             const sectionMainImage = document.createElement('figure');
             sectionMainImage.className = 'main__articleNews__image';
             sectionMainImage.style.backgroundImage = `url("${article.urlToImage}")`;
@@ -69,8 +54,6 @@ fetch('https://newsapi.org/v2/top-headlines?apiKey=454852947b2747dabc52cf3ebcf48
 
             main.append(articleNews);
         })
-
-
     })
     .catch(function (error) {
         console.log('Server failed to return data: ' + error);
