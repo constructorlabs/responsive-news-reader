@@ -1,0 +1,51 @@
+.header {
+text-align: center;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Noto Serif JP', sans-serif;
+  font-size: 3em
+}
+
+.image {
+  width: 400px
+  max-width: 400px;
+  max-height: 400px;
+  margin-right: 20px;
+}
+
+#newsImage {
+  max-width: 400px;
+  max-height: 300px;
+  margin: 6px;
+}
+
+.form {
+  text-align: center
+}
+
+.newsitem {
+  display: grid;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.newsitem:nth-child(even){
+  background: #eee;
+}
+
+.newsitem:nth-child(odd){
+  background: #ddd;
+}
+
+@media only screen and (max-width: 600px) {
+    .image {
+        display: none;
+    }
+    h1 {
+      font-size: 2em
+    }
+}
