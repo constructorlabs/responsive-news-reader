@@ -28,18 +28,23 @@ function displayErrorToUser(error) {
 const createTitle = function(title, url) {
   return `<a href="${url}"><h2>${title}</h2></a>`;
 };
-
 const createImg = function(image) {
   return `<img src="${image}">`;
 };
-
 const createDescription = function(description) {
   return `<p>${description}</p>`;
 };
-
 const createTimeCountry = function(time, country) {
-  let currentDateTime = new Date();
-  return `<p>${time} | ${country}</p>`;
+  let currentDateTime = Date.now();
+  //console.log(time);
+  let jsTime = new Date(time);
+
+  let articleTimestamp = jsTime.getTime();
+  timeDifference = currentDateTime - articleTimestamp;
+  //console.log(timeDifference);
+  time = timeDifference / 1000 / 60 / 60 / 24;
+  //console.log(time);
+  return `<p>${time.toFixed(0)} days ago | ${country}</p>`;
 };
 //Assemble story componenets
 const createStory = function(article, className = "story") {
@@ -70,10 +75,9 @@ let pageSize = 10;
 // fetch news api
 const loadAPI = function(language, searchTerm, pageSize) {
   mainNode.innerHTML = "";
-
+  console.log(language, searchTerm, pageSize);
   fetch(
-    `https://newsapi.org/v2/everything?q=${searchTerm}&pageSize=${pageSize}&language=${language}&domains
-=bbc.co.uk&apiKey=ca8681b5ce9447468962c7f40280c85f`
+    `https://newsapi.org/v2/everything?q=${searchTerm}&pageSize=${pageSize}&language=${language}&apiKey=ca8681b5ce9447468962c7f40280c85f`
   )
     .then(function(response) {
       return response.json();
@@ -90,17 +94,16 @@ const loadAPI = function(language, searchTerm, pageSize) {
 
 //Switch the language
 switchLanguageButton.addEventListener("click", function(event) {
-  let currentLanguage = "en";
-  if (currentLanguage === "en") {
-    currentLanguage = "es";
+  console.log(event);
+  console.log(language);
+  console.log(typeof language);
+  if (language === "en") {
+    language = "es";
+  } else if (language === "es") {
+    language = "en";
   }
 
-  if (currentLanguage === "es") {
-    currentLanguage = "en";
-  }
-
-  console.log(currentLanguage);
-  language = currentLanguage;
+  console.log(language);
   loadAPI(language, searchTerm, pageSize);
 });
 
@@ -115,10 +118,12 @@ loadNextPageButton.addEventListener("click", function(event) {
 // submit a search query to the API
 formNode.addEventListener("submit", function(event) {
   console.log(event);
+  console.log(event);
   // const searchNode = document.createElement("p");
   // searchNode.className = "search";
   // let searchResut = searchInput;
   searchTerm = searchInput;
+  loadAPI(language, searchTerm, pageSize);
 });
 
 loadAPI(language, searchTerm, pageSize);

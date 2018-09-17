@@ -104,6 +104,8 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   // Override the current require with this new one
   return newRequire;
 })({"index.js":[function(require,module,exports) {
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 // elements avilable on page
 var mainNode = document.querySelector("main");
 var switchLanguageButton = document.querySelector("#switch-languages");
@@ -134,18 +136,23 @@ function displayErrorToUser(error) {
 var createTitle = function createTitle(title, url) {
   return "<a href=\"" + url + "\"><h2>" + title + "</h2></a>";
 };
-
 var createImg = function createImg(image) {
   return "<img src=\"" + image + "\">";
 };
-
 var createDescription = function createDescription(description) {
   return "<p>" + description + "</p>";
 };
-
 var createTimeCountry = function createTimeCountry(time, country) {
-  var currentDateTime = new Date();
-  return "<p>" + time + " | " + country + "</p>";
+  var currentDateTime = Date.now();
+  //console.log(time);
+  var jsTime = new Date(time);
+
+  var articleTimestamp = jsTime.getTime();
+  timeDifference = currentDateTime - articleTimestamp;
+  //console.log(timeDifference);
+  time = timeDifference / 1000 / 60 / 60 / 24;
+  //console.log(time);
+  return "<p>" + time.toFixed(0) + " days ago | " + country + "</p>";
 };
 //Assemble story componenets
 var createStory = function createStory(article) {
@@ -167,8 +174,8 @@ var pageSize = 10;
 // fetch news api
 var loadAPI = function loadAPI(language, searchTerm, pageSize) {
   mainNode.innerHTML = "";
-
-  fetch("https://newsapi.org/v2/everything?q=" + searchTerm + "&pageSize=" + pageSize + "&language=" + language + "&domains\n=bbc.co.uk&apiKey=ca8681b5ce9447468962c7f40280c85f").then(function (response) {
+  console.log(language, searchTerm, pageSize);
+  fetch("https://newsapi.org/v2/everything?q=" + searchTerm + "&pageSize=" + pageSize + "&language=" + language + "&apiKey=ca8681b5ce9447468962c7f40280c85f").then(function (response) {
     return response.json();
   }).then(function (body) {
     displayDataOnPage(body);
@@ -181,17 +188,16 @@ var loadAPI = function loadAPI(language, searchTerm, pageSize) {
 
 //Switch the language
 switchLanguageButton.addEventListener("click", function (event) {
-  var currentLanguage = "en";
-  if (currentLanguage === "en") {
-    currentLanguage = "es";
+  console.log(event);
+  console.log(language);
+  console.log(typeof language === "undefined" ? "undefined" : _typeof(language));
+  if (language === "en") {
+    language = "es";
+  } else if (language === "es") {
+    language = "en";
   }
 
-  if (currentLanguage === "es") {
-    currentLanguage = "en";
-  }
-
-  console.log(currentLanguage);
-  language = currentLanguage;
+  console.log(language);
   loadAPI(language, searchTerm, pageSize);
 });
 
@@ -206,10 +212,12 @@ loadNextPageButton.addEventListener("click", function (event) {
 // submit a search query to the API
 formNode.addEventListener("submit", function (event) {
   console.log(event);
+  console.log(event);
   // const searchNode = document.createElement("p");
   // searchNode.className = "search";
   // let searchResut = searchInput;
   searchTerm = searchInput;
+  loadAPI(language, searchTerm, pageSize);
 });
 
 loadAPI(language, searchTerm, pageSize);
