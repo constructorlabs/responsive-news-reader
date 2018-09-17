@@ -34,14 +34,17 @@ buttonSelector.addEventListener("click", function(event){
 });
 
  //search event listener - BROKEN
- const searchFunc = document.querySelector('.searchClass');
-const inputInfo = document.querySelector('.searchClass') //INPUT? NECESSARY????
- searchFunc.addEventListener("click", function(event){ //COMBINE SEARCH AND INPUT??
+ const searchFunc = document.querySelector('.form__search');
+ searchFunc.addEventListener("submit", function(event){ //COMBINE SEARCH AND INPUT??
     event.preventDefault();
+    console.log(event.target['0'].value); // get the first item in teh form element.
     //WHAT IS VALUE??? GOOGLE IT
-    let url = `https://newsapi.org/v2/everything?q=${event.target.value}&apiKey=534d9b30f7bd4185b60cba8d406e11ec`
+    let url = `https://newsapi.org/v2/everything?q=${event.target['0'].value}&apiKey=534d9b30f7bd4185b60cba8d406e11ec`
     getData(url);
-})
+});
+
+
+
 
  //button function
  function fetchingButtons(url, selector) { //button fetch addresses
@@ -104,7 +107,7 @@ function getDataH(urlH){
     });
 }
 
-getDataH('https://newsapi.org/v2/everything?q=bitcoin&pageSize=1&from=2018-08-16&sortBy=publishedAt&apiKey=534d9b30f7bd4185b60cba8d406e11ec')
+getDataH('https://newsapi.org/v2/top-headlines?sources=bbc-news&pagesize=1&apiKey=676d93104a84419493a5f6fa8fbdb6ed')
 
 
 
@@ -113,7 +116,7 @@ getDataH('https://newsapi.org/v2/everything?q=bitcoin&pageSize=1&from=2018-08-16
 
 
 
-// // Infographic
+// // Infographic FUNCTION/FETCH
 const parentNode3 = document.getElementById("#graphic"); // find the <ul in the html file
 
 function displayDataOnInfo(newsSource){

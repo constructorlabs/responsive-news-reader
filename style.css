@@ -20,6 +20,8 @@ body{
 
 ul{ 
   list-style-type: none;
+  padding-left:4vw;
+  
   
  }
 
@@ -49,6 +51,7 @@ h1 {
   justify-content: flex-start;
   font-size: 40px;
   margin-left: 4.5vw;
+  color:antiquewhite;
 
   
   
@@ -59,6 +62,7 @@ h1 {
   justify-content: center;
   flex-direction: row;
   align-items: center;
+  background-color:black;
   
 }
 
@@ -142,6 +146,7 @@ h1 {
    background: rgba(0, 0, 0, 0.7);
    padding-top: 2vw;
    padding-left: 2vw;
+   padding-bottom:2vw;
    color: white; 
    max-width: 1000px;
    margin-right: 7vw;
@@ -318,7 +323,8 @@ padding-top:5px;
 }
 #newz img {
  
-  height: 15vw;
+  height: 200px;
+  width: 300px;
   background-color:lightblue;
   
 }
@@ -366,6 +372,19 @@ padding-top:5px;
     justify-content: flex-end;
     flex-direction: row;
 
+  }
+    #newz img {
+ 
+      height: 200px;
+      width: 300px;
+      
+      
+    }
+
+    #newz li {
+      
+      width:300px;
+    }
 
   /* .heading {
     display:flex;
