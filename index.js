@@ -1,5 +1,6 @@
-// Sets initial values
+const container = document.querySelector(".container");
 let articlesPerPage = 20;
+
 
 // Holds the API values for generateApiUrl to use to form a URL String
 const apiValues = {
@@ -24,64 +25,60 @@ const generateApiUrl = () => {
 
 // Fetches the news articles from News API and returns content to displayContent
 const getContent = () => {
-    console.log(generateApiUrl());
     fetch(generateApiUrl())
         .then(function (response) {
             return response.json();
         })
         .then(function (content) {
-            console.log(content);
             displayContent(content);
         })
         .catch(error => {
-            displayErrorToUser('Server failed to return data');
+            displayErrorToUser('There was an error retrieving data. Please try again.');
+
         });
 
     // Error message displayed when failed to get content from server
     displayErrorToUser = (errorMessage) => {
-        console.log(errorMessage);
+        container.innerHTML = `<h4>${errorMessage}</h4>`;
     }
 }
 
 // Displays the news articles retrieved from getContent
 const displayContent = (content) => {
-    // Sets how many news cards are added to the page
+    // Sets how many news cards are added to the page before displaying content on them
     setLayout(articlesPerPage);
     const parentNode = document.querySelector(`#page-${apiValues.page}`);
     const newsItemContainer = parentNode.querySelectorAll('.news-item__container');
-    console.log(parentNode);
-    let counter = 0;
 
-    newsItemContainer.forEach(item => {
+    newsItemContainer.forEach((item, index) => {
         const headlineText = item.querySelector('.headline');
         const descriptionText = item.querySelector('.description');
         const dateText = item.querySelector('.date');
         const sourceText = item.querySelector('.source');
         const imgSrc = item.querySelector('.image');
 
-        if (content.articles[counter].urlToImage === null) {
+        if (content.articles[index].urlToImage === null) {
             item.style.display = 'none';
         }
     
-        headlineText.textContent = content.articles[counter].title;
-        descriptionText.textContent = content.articles[counter].description
-        dateText.textContent = timeDifference(content.articles[counter].publishedAt);
-        sourceText.textContent = content.articles[counter].source.name;
-        imgSrc.src = content.articles[counter].urlToImage;
-        item.href = content.articles[counter].url;
-        counter++;
+        headlineText.textContent = content.articles[index].title;
+        descriptionText.textContent = content.articles[index].description
+        dateText.textContent = timeDifference(content.articles[index].publishedAt);
+        sourceText.textContent = content.articles[index].source.name;
+        imgSrc.src = content.articles[index].urlToImage;
+        item.href = content.articles[index].url;
     });
 }
 
 // Returns minutes or hours since article was published if less, otherwise returns date
 const timeDifference = (timePublished) => {
-    let msPerMinute = 60000;
-    let msPerHour = msPerMinute * 60;
-    let msPerDay = msPerHour * 24;
+    const msPerMinute = 60000;
+    const msPerHour = msPerMinute * 60;
+    const msPerDay = msPerHour * 24;
 
-    let currentTime = Date.now();
-    let publishedTime = Date.parse(timePublished) - msPerHour;
-    let elapsedTime = currentTime - publishedTime;
+    const currentTime = Date.now();
+    const publishedTime = Date.parse(timePublished);
+    const elapsedTime = currentTime - publishedTime;
 
     if (elapsedTime < msPerHour) {
         return Math.round(elapsedTime / msPerMinute) + 'm';
@@ -99,7 +96,7 @@ const setLayout = (articlesPerPage) => {
     const newPage = document.createElement('div');
     newPage.className = `news-container`;
     newPage.id = `page-${apiValues.page}`;
-    document.querySelector('.container').appendChild(newPage);
+    container.appendChild(newPage);
 
     for (let i = 0; i < articlesPerPage; i++) {
         const newArticle = document.createElement('a');
@@ -123,11 +120,7 @@ const setLayout = (articlesPerPage) => {
 // Button listener to clone parent DIV to create another page and set the content
 const button = document.querySelector(".more-news-btn");
 button.addEventListener("click", (event) => {
-    console.log("button was clicked");
-
     apiValues.page++;
-    console.log("more page number: " + apiValues.page)
-    console.log("page number " + apiValues.page);
     getContent(apiValues.page);
 })
 
@@ -135,11 +128,9 @@ button.addEventListener("click", (event) => {
 const searchNews = document.querySelector('.search-form');
 searchNews.addEventListener("submit", event => {
     event.preventDefault();
-    apiValues.search = document.querySelector(".search-input").value
-    console.log(apiValues.search);
+    apiValues.search = document.querySelector(".search-input").value;
     searchNews.reset();
     apiValues.page = 1;
-    const container = document.querySelector(".container");
     container.innerHTML = "";
     getContent();
 
@@ -152,7 +143,6 @@ navUk.addEventListener("click", event => {
     apiValues.search = '';
     apiValues.category = '';
     apiValues.page = 1;
-    const container = document.querySelector(".container");
     container.innerHTML = "";
     getContent();
 })
@@ -163,7 +153,6 @@ navTech.addEventListener("click", event => {
     apiValues.search = '';
     apiValues.category = 'technology';
     apiValues.page = 1;
-    const container = document.querySelector(".container");
     container.innerHTML = "";
     getContent();
 })
@@ -175,7 +164,6 @@ navScience.addEventListener("click", event => {
     apiValues.search = '';
     apiValues.category = 'science';
     apiValues.page = 1;
-    const container = document.querySelector(".container");
     container.innerHTML = "";
     getContent();
 })
@@ -187,7 +175,6 @@ navHealth.addEventListener("click", event => {
     apiValues.search = '';
     apiValues.category = 'health';
     apiValues.page = 1;
-    const container = document.querySelector(".container");
     container.innerHTML = "";
     getContent();
 })

@@ -140,7 +140,6 @@ a {
     background-color: #E5E4E4;
 }
 
-
 .news-item__text {
     display: flex;
     flex-direction: column;
@@ -151,7 +150,7 @@ a {
 }
 
 .headline {
-    /* white-space: nowrap; */
+
     display: flex;
 }
 
@@ -186,34 +185,42 @@ a {
 /* Tablet Layout */
 
 @media (min-width: 768px) {
+
     .headline {
         font-size: 18px;
         line-height: 24px;
     }
+
     .description {
         font-size: 14px;
         line-height: 18px;
     }
+
     .date {
         font-size: 12px;
     }
+
     .masthead {
         height: 85px;
     }
+
     .description {
         margin-top: 10px;
         display: unset;
         flex: 1;
     }
+
     .image {
         height: 100%;
         min-width: 200px;
         max-width: 200px;
     }
+
     .news-item__container {
         margin: 10px;
         height: 150px;
     }
+
     .news-item__text {
         margin: 5px;
     }
@@ -226,22 +233,28 @@ a {
         font-size: 24px;
         line-height: 26px
     }
+
     .description {
         font-size: 16px;
         line-height: 18px
     }
+
     .date {
         font-size: 12px;
     }
+
     .source {
         font-size: 12px;
     }
+
     .nav-search-bar {
         display: flex;
     }
+
     .headline {
         padding-top: 4px;
     }
+
     .masthead {
         height: 85px;
     }
@@ -250,12 +263,14 @@ a {
         display: unset;
         padding-top: 10px;
     }
+
     .news-container {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         margin-top:10px;
     }
+
     .news-item__container {
         margin: 10px 20px;
         display: flex;
@@ -265,20 +280,24 @@ a {
         background-color: #F3F2F2;
         box-shadow: 0px 0px 0px 0px rgba(94, 94, 94, 0.36);
     }
+
     .news-item__text {
         margin: 0px;
 
     }
+
     .news-item-info {
         padding-top: 4px;
         padding-right: 10px;
         order: -1;
     }
+
     .image {
         min-width: 25vw;
         max-width: 25vw;
         max-height: 200px;
     }
+    
     #page-1-article-1 {
         width: calc(75vw + 80px);
         display: flex;
@@ -296,7 +315,4 @@ a {
         flex-direction: row;
         height: 300px;
     }
-    /* #page-1-article-2 .image {
-        height: 20vw;
-    } */
 }
