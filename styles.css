@@ -78,7 +78,16 @@ h1 {
     background-color: #666666;
     opacity: 1;
 }
-
+select {
+    top: 46px !important;
+    background-color: #bedde6;
+    font-size: 1em;
+    /* height: 2em; */
+    /* position: absolute;
+    top: 111px;
+    padding-bottom:20px;  */
+    /* display: block;   !important; */
+}
 input[type=text] {
     padding: 0.5em;
     margin: 1em 0;
