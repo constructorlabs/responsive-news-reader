@@ -154,7 +154,7 @@ var createStory = function createStory(article) {
   var className = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "story";
 
   var node = document.createElement("div");
-  var storyHTML = "" + createImg(article.urlToImage) + createTitle(article.title, article.url) + "\n  " + createDescription(article.description) + createTimeCountry(article.publishedAt, article.country);
+  var storyHTML = "<div class=\"article-img\"><a href=\"" + article.url + "\">" + createImg(article.urlToImage) + "</a></div><div class=\"article-text\">" + createTitle(article.title, article.url) + "\n  " + createDescription(article.description) + createTimeCountry(article.publishedAt, article.country) + "</div>";
   node.className = className;
   node.innerHTML = storyHTML;
   mainNode.appendChild(node);

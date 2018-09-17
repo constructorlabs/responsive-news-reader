@@ -46,14 +46,18 @@ const createTimeCountry = function(time, country) {
 //Assemble story componenets
 const createStory = function(article, className = "story") {
   const node = document.createElement("div");
-  const storyHTML = `${createImg(article.urlToImage)}${createTitle(
+  const storyHTML = `<div class="article-img"><a href="${
+    article.url
+  }">${createImg(
+    article.urlToImage
+  )}</a></div><div class="article-text">${createTitle(
     article.title,
     article.url
   )}
   ${createDescription(article.description)}${createTimeCountry(
     article.publishedAt,
     article.country
-  )}`;
+  )}</div>`;
   node.className = className;
   node.innerHTML = storyHTML;
   mainNode.appendChild(node);
