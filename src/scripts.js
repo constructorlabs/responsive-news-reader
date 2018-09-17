@@ -12,15 +12,10 @@ const apiRequests = {
 //object contains stored parameters for searches
   customParameters : {
     q: {val: null, string: ""},
-
     from: {val: null, string: ""},
-
     excludeDomains: {val: null, string: ""},
-
     language: {val: null, string: ""},
-
     page: {val: 1, string: ""},
-
     sortBy: {val: null, string: ""}
   },
 
@@ -93,7 +88,25 @@ const pageHandlers = {
     pageHandlers.checkPage()
 
 
-}
+},
+
+  updateAdvancedOptions: event => {
+    event.preventDefault()
+    apiRequests.updateURL("language", languageSelector.value)
+    apiRequests.updateURL("sortBy", sortBySelector.value )
+    pageHandlers.search(event)
+},
+
+   openCloseAdvanced: event => {
+    advancedSearchMenu.style.display === "none"
+      ? advancedSearchMenu.style.display = "block"
+      : advancedSearchMenu.style.display = "none"
+},
+
+  blockSource: event => {
+    const host = linkElement.hostname
+    console.log(host)
+  }
 
 }
 
@@ -114,22 +127,30 @@ function createStoryPanel(article){
   const headlineElement = assignElement("h2", "headline", article.title)
   const publicationNameElement = assignElement("h4", "publication-name", article.source.name)
   const publicationDateElement = assignElement("h4", "publication-date", convertDateForDisplay(article.publishedAt))
+  const blockButtonElement = assignElement("button", "block-button", "Block")
   const storyImageElement = assignElement("img", "story-image")
   storyImageElement.setAttribute("src", article.urlToImage)
   if (storyImageElement.src === "http://127.0.0.1:3000/null"){
     storyImageElement.setAttribute("src", "../images/No_Image_Available.jpg")
   }
-
   const descriptionElement = assignElement("p", "description-element", article.description)
   const linkElement = assignElement("a", "full-story-link", "See full story")
   linkElement.setAttribute("href", article.url)
-
+  blockButtonElement.addEventListener("click", event => {
+    let host = linkElement.hostname
+    host = host.replace("www.", "")
+    apiRequests.blockList.push(host)
+    const blockedDomains = apiRequests.blockList.join(",")
+    apiRequests.updateURL("excludeDomains", blockedDomains)
+    fetchNews(apiRequests.getURL())
+  })
 
   publicationInfoElement.appendChild(publicationNameElement)
   publicationInfoElement.appendChild(publicationDateElement)
 
   headerLeftElement.appendChild(headlineElement)
   headerLeftElement.appendChild(publicationInfoElement)
+  headerLeftElement.appendChild(blockButtonElement)
 
   headerElement.appendChild(headerLeftElement)
   headerElement.appendChild(storyImageElement)
@@ -192,19 +213,10 @@ const sortBySelector = document.querySelector(".sort-by-select")
 searchFormElement.addEventListener("submit", pageHandlers.search)
 prevPageElement.addEventListener("click", pageHandlers.paginationControl)
 nextPageElement.addEventListener("click", pageHandlers.paginationControl)
+advancedSearchElement.addEventListener("click", pageHandlers.openCloseAdvanced)
+advancedSearchForm.addEventListener("submit", pageHandlers.updateAdvancedOptions)
 
-advancedSearchElement.addEventListener("click", event => {
-  console.log("click")
-  advancedSearchMenu.style.display === "none"
-    ? advancedSearchMenu.style.display = "block"
-    : advancedSearchMenu.style.display = "none"
-})
 
-advancedSearchForm.addEventListener("submit", event => {
-  event.preventDefault()
-  apiRequests.updateURL("language", languageSelector.value)
-  apiRequests.updateURL("sortBy", sortBySelector.value )
-})
 
 
 
