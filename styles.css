@@ -1,0 +1,353 @@
+* {
+    box-sizing: inherit;
+}
+  
+body {
+    margin: 0;
+    box-sizing: border-box;
+    background: rgb(232, 226, 217);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5em;
+    letter-spacing: 0.02em;
+}
+
+h1 {
+    margin: 0;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+}
+
+.news-app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/*
+// HEADER ////////////////////////////
+*/
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: rgb(255, 182, 57); */
+    background-color: #1b3e74; 
+    padding: 0.5em 1em;
+}
+
+.header__logo {
+    width: 55px;
+    height: 50px;
+    padding: 0.3em 0 0.3em 0.2em;
+    vertical-align: center;
+}
+
+.header__logo__wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.header__logo__text  {
+    font-size: 2em;
+    margin: 0;
+    padding: 0.5em 0 0 0.3em;
+    font-family: 'Handlee', cursive;
+    vertical-align: center;
+    color: white;
+    /* font-family: 'Muli', sans-serif; */
+    /* font-family: 'Mukta', sans-serif; */
+    /* font-family: 'Itim', cursive; */
+}
+
+.header__nav {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.header__nav__sections a {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 0 0.4em 0 0.4em;
+    opacity:0.6;
+    background-color: #999999;
+}
+
+.header__nav__sections a:hover {
+    background-color: #666666;
+    opacity: 1;
+}
+select {
+    top: 46px !important;
+    background-color: #bedde6;
+    font-size: 1em;
+    /* height: 2em; */
+    /* position: absolute;
+    top: 111px;
+    padding-bottom:20px;  */
+    /* display: block;   !important; */
+}
+input[type=text] {
+    padding: 0.5em;
+    margin: 1em 0;
+    width: 12em;
+    box-sizing: border-box;
+    border: none;
+    background-color: #416396; 
+    font-size: 0.9em;
+    color: white;
+}
+
+input[type=text]:focus {
+    /* border: 2px solid #ff9900;    */
+    /* background-color: white; */
+    background-color: #0b264f; 
+    color: white;
+}
+
+::placeholder { 
+    color: black;
+    opacity: 1;
+}
+
+
+.header__nav__button {
+    text-decoration: none;
+    padding: 0 0 0.7em 0;
+    border: 0.4em;
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+
+.header__nav__button a {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 0 0.4em 0 0.4em;
+    border: 1em;
+    opacity: 0.7;
+}
+
+.header__nav__button a:hover {
+    /* background-color: #666666; */
+    opacity: 1;
+}
+
+.nav__image__display {
+    padding-left: 1.5em;
+}
+
+/* ///////////////
+// MAIN CONTENT //
+////////////////*/
+
+.content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.content__nav {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    text-decoration: none;
+    list-style: none;
+}
+
+.content__nav li {
+    padding: 0 0.5em;
+}
+
+.content__body {
+    flex: 8;
+    text-align: left;
+    padding: 1em;
+}
+
+.content__country__wrapper {
+    /* background-color: rgb(255, 212, 139); */
+    background-color: #a4cad5;
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    width: 100%;
+    padding: 1em;
+}
+
+.category {
+    padding-left: 1.5em;
+}
+
+.content__message__wrapper {
+    display: none;
+    background: rgb(232, 226, 217);
+    padding: 1em;
+    margin: 0;
+    width: 100%;
+}
+
+.content___message {
+    padding: 1em 0 0 0;
+    margin: 0;
+}
+
+.content__aside {
+    display: none;
+    flex: 4;
+    text-align: center;
+}
+
+.content__footer {
+    flex: 1;
+    text-align: left;
+    padding: 1em;
+}
+
+.key {
+    font-weight: 700;
+}
+
+.description-text {
+    font-weight: 100;
+}
+
+.highlighted {
+    /* Changed on Sunday */
+    background-color: rgb(255, 232, 191);
+    font-weight: bold;
+    padding: 0.2em;
+    border: 1px solid #ffc062;
+    border-radius: 0.2rem;
+}
+
+.article__list {
+    list-style: none;
+    padding: 0;
+}
+
+.article__main {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    /* ADD MARGIN-BOTTOM TO MAIN if you want to separate articles */
+    margin-bottom: 2rem;
+}
+
+.article__main li {
+    padding: 0.3em 0;
+}
+
+.article__header {
+    display: block;
+    font-size: 1.2rem;
+    background: rgb(245, 244, 241);
+    color: black;
+    padding: 1rem 1rem;
+    height: 30%;
+    margin: 0;    
+}
+
+.article__header a {
+    color: black;
+    text-decoration: none;
+}
+
+.article__header a:hover {
+    color: #ff9900;
+    text-decoration: underline;
+}
+
+.article__image {
+  display: none;
+}
+
+.article__image__src {
+    /* ADDED by Mel display: block - to make the a element behave as a block element and properly 'contain' the image. It's naturally an inline element.*/
+    padding: 20%;
+    display: block;
+    width: 100%;
+}
+
+.article__text {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    font-size: 1rem;
+    background: #ffffff;
+    color: black;
+    padding: 1rem;
+    flex: 3;
+}
+
+.article__text a {
+    /* changed Sunday morning */
+    text-decoration: none;
+    padding: 0.7rem;
+    line-height: 3rem; 
+    background-color: #ffc062;
+    color: rgb(120, 46, 0);
+    font-weight: normal;
+    border-radius: 0.3rem;
+    list-style: none;
+    height: 60%
+}
+
+.article__text a:hover {
+    background-color: #ff9900;
+    color: white;
+}
+
+.article__text div  {
+    padding: 0.5em 0;
+    border: 0;
+}
+
+.display__url {
+    padding: 0 0 1em 0;
+}
+
+@media (min-width: 768px) {
+
+    .content__body {
+        padding: 1em 0 1em 1em;
+    }
+    .article__list {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .article__list li {
+        width: 50%;
+        padding-right: 1em;
+    }
+
+    .article__image {
+      min-width: 150px;
+      display: flex;
+      flex: 1;
+      background: #e0e0e0;
+      padding-top: 0;
+    }
+    
+    .article__image__src {
+        width: 100%;
+        border: 0;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        padding-top: 30%;
+    }
+
+    input[type=text] {
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
+    
+    input[type=text]:focus {
+        width: 20em;
+    }
+    }

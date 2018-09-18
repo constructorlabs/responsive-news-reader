@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>News Reader</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Catamaran:700');
+        @import url('https://fonts.googleapis.com/css?family=Catamaran:400');
+        @import url('https://fonts.googleapis.com/css?family=Catamaran:100');
+        @import url('https://fonts.googleapis.com/css?family=Handlee|Itim|Mukta|Muli');     
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="news-app">
+
+        <header class="header">
+            <div class="header__logo__wrapper">
+                <img src="images/eyes-white.png" class="header__logo">
+                <p class="header__logo__text">newsee</p>
+            </div>
+            <div class="header__nav">
+                <form class="header__form">
+                    <div class="header__nav__input">
+                        <input type="text" class="search" name="search" placeholder="&#128269; Search">
+                    </div>
+                </form>
+            </div>
+        </header>
+
+        <div class="content">
+            <nav class="content__nav">
+                <div class="content__country__wrapper">
+                    <form class="country">
+                        Top Headines:
+                    </form>
+                    <form class="category">
+                        Categories:
+                    </form>
+                    <form class="nav__image__display">
+                        <label for="toggle__images">Show images</label>
+                        <input type="checkbox" id="toggle__images" class="toggle__images" checked>
+                    </form>
+                </div>
+                <div class="content__message__wrapper">
+                    <div class="content___message">
+                    </div>
+                </div>
+            </nav>
+
+            <main class="content__body">
+                <div class="content__section__buttons"></div>
+                <ul class="article__list"></ul>
+            </main>
+
+            <aside class="content__aside">
+                Aside content
+            </aside>
+
+            <footer class="content__footer">
+                Footer content
+            </footer>
+        </div>
+    </div>
+    <script src="src/countries-object.js"></script>
+    <script src="src/sources-object.js"></script>
+    <script src="src/index.js"></script>
+</body>
+</html>
