@@ -1,0 +1,133 @@
+.pagehead {
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchsection {
+  display: flex;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.righthandheader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-group {
+  display: flex;
+  list-style-type: none;
+  padding-left: 0;
+  justify-content: center;
+  margin-top: 0;
+  font-size: 20px;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.btn-group button {
+  background-color: #4CAF50;
+  /* Green background */
+  border: 1px solid green;
+  /* Green border */
+  color: white;
+  /* White text */
+  padding: 10px 24px;
+  /* Some padding */
+  cursor: pointer;
+  /* Pointer/hand icon */
+  float: left;
+  /* Float the buttons side by side */
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none;
+  /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+
+.articleBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-style: solid;
+  border-width: 1px;
+  margin-bottom: 5px;
+  padding-top: 15px;
+}
+
+.articleTitle {
+  height: auto;
+}
+
+.articleImage {
+  display: none;
+  max-height: 175px;
+}
+
+.articleBoxContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.articleMeta {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .articleBox {
+    border: none;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mainPageContent {
+    display: flex;
+  }
+
+  .newsFeed {
+    flex: 3;
+  }
+
+  .leftColumn {
+    flex: 1;
+  }
+
+  .rightColumn {
+    flex: 1
+  }
+
+  .imgDiv {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .articleImage {
+    display: block;
+  }
+}
