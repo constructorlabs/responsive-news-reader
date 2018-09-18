@@ -1,0 +1,189 @@
+body {
+  margin: 0px;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: "Ubuntu", Helvetica, Arial, sans-serif;
+}
+*,
+*:before,
+*:after {
+  /* display: none; */
+  box-sizing: inherit;
+}
+
+.header {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  background-color: #a2b6db;
+  margin: 0px;
+  padding: 0.2em;
+}
+
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .main {
+  padding-top: 80px;
+}
+
+/* Style the search field */
+form.search input[type="text"] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.search button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #bbd1e1;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.search button:hover {
+  background: #95b8d1;
+}
+
+/* Clear floats */
+form.search::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+main {
+  margin: 0px;
+}
+
+/*No image displayed in mobile version*/
+img {
+  display: none;
+}
+
+h2 {
+  font-size: 1.2em;
+  background-color: #d1ebe2;
+  margin: 0;
+}
+
+h4 {
+  margin: 0.5em 0em 0em 0em;
+}
+
+.article-div,
+.article-div-w-img {
+  display: flex;
+  flex-flow: wrap;
+  background-color: #f7fbf9;
+  margin: 2em 1em 1em 1em;
+}
+
+.title,
+.date,
+.link {
+  width: 100vw;
+}
+
+.more-news {
+  align-self: flex-end;
+}
+
+.source {
+  margin: 0em 2em 0em 0em;
+}
+
+.news {
+  background-color: #d5b3c2;
+  border-radius: 6px;
+}
+
+.news:hover {
+  background-color: #d64f89;
+}
+
+footer {
+  text-align: right;
+  margin: 1em;
+  font-size: 70%;
+}
+
+/* CSS relating to 'Go to top' button */
+#myBtn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 2em;
+  right: 1em;
+  z-index: 99; /* Make sure it does not overlap */
+  border: none;
+  outline: none;
+  background-color: #a2b6db;
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px;
+  border-radius: 10px; 
+  font-size: 18px;
+}
+
+#myBtn:hover {
+  background-color: #bbd1e1; 
+}
+
+@media (min-width: 768px) {
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  /* Article background colour changes on hover */
+  .article-div-w-img:hover {
+    background-color: #f9eef3;
+  }
+
+  /* Where the article has an image, the image and the description will be placed side by side */
+  .article-div-w-img > .content,
+  .img {
+    width: 46vw;
+  }
+
+  img {
+    display: block;
+    height: auto;
+    max-width: 97%;
+  }
+
+  .link {
+    text-align: right;
+  }
+
+  .article-div {
+    display: flex;
+    flex-flow: wrap;
+  }
+
+  .article-div > .content {
+    width: 100vw;
+  }
+
+  /* Changed 'Go to Top' button position for larger screen due to the general changes in conents position */
+  #myBtn {
+    bottom: 3em;
+    right: 10em;
+  }
+}
