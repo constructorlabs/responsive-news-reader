@@ -20,12 +20,35 @@ const toggle = document.querySelector('#container');
 const toggleContainer = document.querySelector('#toggle-container');
 const pageTitle = document.querySelector('.page-title');
 const logo = document.querySelector('.logo');
+const sidenavOpen = document.querySelector('.fa-bars');
+const sidenavClose = document.querySelector('.fa-times');
+const searchToggle = document.querySelector('.fa-search');
 
 //initial API query & page render
 fetchArticles();
 
 //set 1m interval refresh
 setInterval(fetchArticles,60000);
+
+//Listener for side navigation open
+sidenavOpen.addEventListener('click', event => {
+    event.preventDefault();
+    document.querySelector(".sidenav").style.width = "200px";
+    document.body.style.backgroundColor = "#cccbcb";
+    document.querySelectorAll('.article').forEach(item => {
+        item.style.backgroundColor = '#e4e3e3';
+    });
+});
+
+//Listener for side navigation close
+sidenavClose.addEventListener('click', event => {
+    event.preventDefault();
+    document.querySelector(".sidenav").style.width = "0";
+    document.body.style.backgroundColor = "#e4e3e3";
+    document.querySelectorAll('.article').forEach(item => {
+        item.style.backgroundColor = 'white';
+    });
+});
 
 //Listener for side navigation categories
 sidenavCategory.forEach(link => {
@@ -38,6 +61,17 @@ sidenavCategory.forEach(link => {
         setTimeout(closeNav,500);
         pageTitle.innerHTML = category;
     })
+});
+
+//Listener for search bar display toggle
+searchToggle.addEventListener('click', event => {
+    event.preventDefault();
+    if (document.querySelector(".search").style.width === "0px") {
+        document.querySelector(".search").style.width = "200px";
+    }
+    else {
+        document.querySelector(".search").style.width = "0px";
+    }
 });
 
 //Listener for search query
@@ -169,34 +203,6 @@ function convertDate(date) {
     else if (hours < 24) return `${hours} ${hours > 1 ? 'hours' : 'hour'} ago`;
     else if (days < 7) return `${days} ${days > 1 ? 'days' : 'day'} ago`;
     else return `${weeks} ${weeks > 1 ? 'weeks' : 'week'} ago`;
-}
-
-//Open navigation pane
-function openNav() {
-    document.querySelector(".sidenav").style.width = "200px";
-    document.body.style.backgroundColor = "#cccbcb";
-    document.querySelectorAll('.article').forEach(item => {
-        item.style.backgroundColor = '#e4e3e3';
-    });
-}
-
-//Close navigation pane
-function closeNav() {
-    document.querySelector(".sidenav").style.width = "0";
-    document.body.style.backgroundColor = "#e4e3e3";
-    document.querySelectorAll('.article').forEach(item => {
-        item.style.backgroundColor = 'white';
-    });
-}
-
-//Search bar display function
-function toggleSearch() {
-    if (document.querySelector(".search").style.width === "0px") {
-        document.querySelector(".search").style.width = "200px";
-    }
-    else {
-        document.querySelector(".search").style.width = "0px";
-    }
 }
 
 //Top menu hide function
