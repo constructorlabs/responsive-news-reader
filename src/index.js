@@ -29,7 +29,9 @@ function displayArticles(body) {
       const divNode = document.createElement("div");
 
 	  //Two divs are generated due to the final layout for wide screens
-	  // one with img and one without;
+    // one with img and one without;
+    const articleSource= article.source.id ? article.source.id : article.source.name
+
       if (article.urlToImage) {
         divNode.className = "article-div-w-img";
 
@@ -45,7 +47,7 @@ function displayArticles(body) {
                       article.source.name
                     }</h4></div>
 
-                    <div class="more-news"><button class="news">More headlines from this source</button></div>
+                    <div class="more-news"><button class="news" data-source="${articleSource}">More headlines from this source</button></div>
 
                     <div class="link"><a href="${
                       article.url
@@ -59,11 +61,9 @@ function displayArticles(body) {
 
                     <div class="content"><p>${article.description}</p></div>
 
-                    <div  class="source"><h4>Source: ${
-                      article.source.name
-                    }</h4></div>
+                    <div  class="source"><h4>Source: ${article.source.name}</h4></div>
 
-                    <div class="more-news"><button class="news">More headlines from this source</button></div>
+                    <div class="more-news"><button class="news" data-source="${articleSource}>More headlines from this source</button></div>
 
                     <div class="link"><a href="${
                       article.url
@@ -73,36 +73,10 @@ function displayArticles(body) {
 	  //   The newly created article div is added to the newsfeed
       const parentNode = document.querySelector("#newsfeed");
       parentNode.appendChild(divNode);
-    }
-
-	// Tried adding an event listener to 'More news from this source button', but it does not seem to work.
-    document.querySelector(".news").addEventListener("click", e => {
-	  
-		let requiredSource = "";
-		article.source.id
-        ? (requiredSource = article.source.id)
-		: (requiredSource = article.source.name);
-		
-      document.querySelector("#newsfeed").textContent = "";
-      let newSourceURL =
-        "https://newsapi.org/v2/top-headlines?" +
-        `sources=${requiredSource}&` +
-        "apiKey=7318e7fb7dc04d14af2f0fd675cfda53";
-
-      const source = new Request(newSourceURL);
-
-      fetch(source)
-        .then(function(response) {
-          return response.json();
-        })
-
-        .then(function(body) {
-          displayArticles(body);
-        });
-    });
+    };
+  
   });
 }
-
 
 
 //Add event listener to the search form
@@ -134,7 +108,30 @@ document.querySelector("form").addEventListener("submit", e => {
   document.querySelector("#search").value = "";
 });
 
+	// Tried adding an event listener to 'More news from this source button', but it does not seem to work.
+  document.querySelectorAll(".news").addEventListener("click", e => {
+	  
+    let requiredSource = e.target.dataset.source;
+		
+      document.querySelector("#newsfeed").textContent = "";
+      let newSourceURL =
+        "https://newsapi.org/v2/top-headlines?" +
+        `sources=${requiredSource}&` +
+        "apiKey=7318e7fb7dc04d14af2f0fd675cfda53";
 
+      const source = new Request(newSourceURL);
+
+      fetch(source)
+        .then(function(response) {
+          return response.json();
+        })
+
+        .then(function(body) {
+          displayArticles(body);
+          //This is to remove 'More news from this source button' once the event listener function runs
+          document.querySelectorAll(".news").style.display = "none";
+        });
+    });
 
 //Two functions are executed on scroll - sticky header and 'go to top' button
 window.onscroll = function() {
