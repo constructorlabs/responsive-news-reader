@@ -1,13 +1,12 @@
 //initialize values
 let page = 1;
-let pageSize = 20;
 let searchText = '';
 let category = 'General';  
 let topic = 'Politics';
 let country = 'gb';
 let modeLatestNews = false;
 let toggleNumber;
-let APIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&pageSize=${pageSize}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
+const initialAPIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
     
 //grab HTML elements
 const articles = document.querySelector('.articles');
@@ -25,10 +24,7 @@ const sidenavClose = document.querySelector('.fa-times');
 const searchToggle = document.querySelector('.fa-search');
 
 //initial API query & page render
-fetchArticles();
-
-//set 1m interval refresh
-setInterval(fetchArticles,60000);
+fetchArticles(initialAPIQuery);
 
 //Listener for side navigation open
 sidenavOpen.addEventListener('click', event => {
@@ -43,22 +39,27 @@ sidenavOpen.addEventListener('click', event => {
 //Listener for side navigation close
 sidenavClose.addEventListener('click', event => {
     event.preventDefault();
+    closeSideNav();
+});
+
+//Function for side navigation close
+function closeSideNav() {
     document.querySelector(".sidenav").style.width = "0";
     document.body.style.backgroundColor = "#e4e3e3";
     document.querySelectorAll('.article').forEach(item => {
         item.style.backgroundColor = 'white';
     });
-});
+}
 
 //Listener for side navigation categories
 sidenavCategory.forEach(link => {
     link.addEventListener('click', event => {
         modeLatestNews = true;
         category = event.target.innerHTML;
-        APIQuery = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=4fede2e79736471581f9259c131f0fc2`;  
+        const APIQuery = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=4fede2e79736471581f9259c131f0fc2`; 
         document.querySelector('.page-nav').setAttribute('style','display: none');
-        fetchArticles();
-        setTimeout(closeNav,500);
+        fetchArticles(APIQuery);
+        setTimeout(closeSideNav,500);
         pageTitle.innerHTML = category;
     })
 });
@@ -74,38 +75,34 @@ searchToggle.addEventListener('click', event => {
     }
 });
 
-//Listener for search query
-textArea.addEventListener('input', event => {
-    searchText = event.target.value;
-});
-
 //Listener for search submit
 form.addEventListener('submit', event => {
     event.preventDefault();
     modeLatestNews = false;
+    searchText = textArea.value;
     topic = searchText;
     form.reset(); 
     searchText = '';
     document.querySelector(".search-box").style.display = "none";
-    APIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&pageSize=${pageSize}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
+    const APIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
     document.querySelector('.page-nav').setAttribute('style','display: flex');
-    fetchArticles();
+    fetchArticles(APIQuery);
     pageTitle.innerHTML = 'Search results for ' + topic;
 });
 
 //Listener for next page button
 pageNextButton.addEventListener('click', event => {
     page++;
-    APIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&pageSize=${pageSize}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
-    fetchArticles();
+    const APIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
+    fetchArticles(APIQuery);
 });
 
 //Listener for previous page button
 pagePrevButton.addEventListener('click', event => {
     if (page > 1) {
         page--;
-        APIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&pageSize=${pageSize}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
-        fetchArticles();
+        const APIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
+        fetchArticles(APIQuery);
     } 
 });
 
@@ -121,28 +118,26 @@ toggle.addEventListener('click', function() {
         toggleContainer.style.backgroundColor = 'dodgerblue';
         country = 'gb';
     }
-    APIQuery = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=4fede2e79736471581f9259c131f0fc2`;  
+    const APIQuery = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=4fede2e79736471581f9259c131f0fc2`;  
     modeLatestNews = true;
     document.querySelector('.page-nav').setAttribute('style','display: none');
-    fetchArticles();
-    setTimeout(closeNav,500);
+    fetchArticles(APIQuery);
+    setTimeout(closeSideNav,500);
 });
 
 //Listener for Newsroom link
 logo.addEventListener('click', event => {
     topic = 'Politics';
     page = 1;
-    APIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&pageSize=${pageSize}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
+    const APIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
     modeLatestNews = false;
     document.querySelector('.page-nav').setAttribute('style','display: flex');
     pageTitle.innerHTML = topic;
-    fetchArticles();
+    fetchArticles(APIQuery);
 });
 
 //Fetch data
-function fetchArticles() {
-    console.log('fetching articles now...');
-    console.log(APIQuery);
+function fetchArticles(APIQuery) {
     fetch(APIQuery)
     .then(response => {
         if (!response.ok) throw response;
