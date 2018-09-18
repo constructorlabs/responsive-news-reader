@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="index.css" type="text/css" rel="stylesheet">
+    <title>Responsive News Reader</title>
+</head>
+
+<!--API KEY: 814db06ca1814aeca4562dbafab25378-->
+<body>
+    
+    <div class="app">
+
+        <div class="app__header">
+
+            <header class="app__header__logo"><h1>RESPONSIVE NEWS READER</h1></header>
+
+        </div>
+
+        <div class="app__content">
+
+            <div class="app__content__body" id="articlesBody">
+            </div>
+
+        </div>
+
+        <div class="app__content__sidebar">
+
+                <a class="twitter-timeline" data-width="300" data-height="200" data-theme="light" href="https://twitter.com/NewsAPIorg?ref_src=twsrc%5Etfw">Tweets by NewsAPIorg</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+           
+        </div>
+
+        <footer class="app__footer">
+
+            <form class="app__footer__topic" id="searchTopic">
+                <p>What do you want to search for?</p><input id="topicSearchBar" placeholder="Topic">
+                <button>SEARCH</button>
+            </form>
+
+            <form class="app__footer__source" id="searchSource">
+                    <p>Where do you want your news from?</p>
+                    <select id="countries">
+                        <option value="ar">Argentina</option>
+                        <option value="at">Austria</option>
+                        <option value="au">Australia</option>
+                        <option value="be">Belgium</option>
+                        <option value="bg">Bulgaria</option>
+                        <option value="br">Brazil</option>
+                        <option value="ca">Canada</option>
+                        <option value="co">Colombia</option>
+                        <option value="cu">Cuba</option>
+                        <option value="cz">Czech Republic</option>
+                        <option value="de">Germany</option>
+                        <option value="eg">Egypt</option>
+                        <option value="fr">France</option>
+                        <option value="gr">Greece</option>
+                        <option value="hk">Hong Kong</option>
+                        <option value="hu">Hungary</option>
+                        <option value="id">Indonesia</option>
+                        <option value="ie">Ireland</option>
+                        <option value="il">Israel</option>
+                        <option value="in">India</option>
+                        <option value="it">Italy</option>
+                        <option value="jp">Japan</option>
+                        <option value="lt">Lithuania</option>
+                        <option value="lv">Latvia</option>
+                        <option value="ma">Morocco</option>
+                        <option value="mx">Mexico</option>
+                        <option value="my">Malaysia</option>
+                        <option value="nl">Netherlands</option>
+                        <option value="nz">New Zealand</option>
+                        <option value="ng">Nigeria</option>
+                        <option value="no">Norway</option>
+                        <option value="cn">People’s Republic of China</option>
+                        <option value="pl">Poland</option>
+                        <option value="pt">Portugal</option>
+                        <option value="kr">Republic of Korea</option>
+                        <option value="ph">Republic of the Phillipines</option>
+                        <option value="ro">Romania</option>
+                        <option value="ru">Russian Federation</option>
+                        <option value="sa">Saudi Arabia</option>
+                        <option value="rs">Serbia</option>
+                        <option value="sg">Singapore</option>
+                        <option value="si">Slovenia</option>
+                        <option value="sk">Slovakia</option>
+                        <option value="se">Sweden</option>
+                        <option value="ch">Switzerland</option>
+                        <option value="th">Thailand</option>
+                        <option value="tr">Turkey</option>
+                        <option value="tw">Taiwan</option>
+                        <option value="ua">Ukraine</option>
+                        <option value="ae">United Arab Emirates</option>
+                        <option value="gb" selected>United Kingdom</option>
+                        <option value="us">United States</option>
+                        <option value="ve">Venezuela</option>
+                        <option value="za">South Africa</option>
+
+                    </select>
+            </form>
+
+            <div class="app__footer__credit">
+                    <p>API powered by <a href="https://newsapi.org/" target="_blank">News API</a></p>
+            </div>
+
+        </footer>
+
+    </div>
+
+    <script src="src/index.js"></script>
+
+</body>
+</html>
