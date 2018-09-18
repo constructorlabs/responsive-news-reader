@@ -8,6 +8,6 @@ Some tongue-in-cheek options for search refinement are given, as if to provide y
 
 # How to Use Grabber
 
-Simply download and unpack the .zip file onto your machine, then open up the index.html.
+Simply download and unpack the .zip file(under Clone or Download) onto your machine, then open up the index.html.
 
 All the code is there for you to mess around with and (quite naturally) improve.
