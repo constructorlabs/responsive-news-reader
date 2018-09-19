@@ -10,40 +10,42 @@ const initialAPIQuery = `https://newsapi.org/v2/everything?language=en&page=${pa
     
 //grab HTML elements
 const articles = document.querySelector('.articles');
-const pageNextButton = document.querySelector('.next');
-const pagePrevButton = document.querySelector('.previous');
 const form = document.querySelector('.form');
 const textArea = document.querySelector('.search');
-const sidenavCategory = document.querySelectorAll('.category');
-const toggle = document.querySelector('#container');
 const toggleContainer = document.querySelector('#toggle-container');
 const pageTitle = document.querySelector('.page-title');
-const logo = document.querySelector('.logo');
-const sidenavOpen = document.querySelector('.fa-bars');
-const sidenavClose = document.querySelector('.fa-times');
-const searchToggle = document.querySelector('.fa-search');
 
 //initial API query & page render
 fetchArticles(initialAPIQuery);
 
-//Listener for side navigation open
-sidenavOpen.addEventListener('click', event => {
+//Listener for search submit
+form.addEventListener('submit', submitSearch);
+
+//Listener for clicks
+document.addEventListener('click', event => {
+    if (event.target.matches('.fa-bars')) openSideNav(event);
+    else if (event.target.matches('.fa-times')) closeSideNav(event);
+    else if (event.target.matches('.fa-search')) toggleSearchBar(event);
+    else if (event.target.matches('.logo')) logoClicked(event);
+    else if (event.target.matches('.next')) nextButtonPressed(event);
+    else if (event.target.matches('.previous')) prevButtonPressed(event);
+    else if (event.target.matches('.toggle')) togglePressed(event);
+    else if (event.target.matches('.category')) navCategories(event);
+});
+
+//Function for side navigation open
+function openSideNav(event) {
     event.preventDefault();
     document.querySelector(".sidenav").style.width = "200px";
     document.body.style.backgroundColor = "#cccbcb";
     document.querySelectorAll('.article').forEach(item => {
-        item.style.backgroundColor = '#e4e3e3';
+    item.style.backgroundColor = '#e4e3e3';
     });
-});
-
-//Listener for side navigation close
-sidenavClose.addEventListener('click', event => {
-    event.preventDefault();
-    closeSideNav();
-});
+}
 
 //Function for side navigation close
-function closeSideNav() {
+function closeSideNav(event) {
+    event.preventDefault();
     document.querySelector(".sidenav").style.width = "0";
     document.body.style.backgroundColor = "#e4e3e3";
     document.querySelectorAll('.article').forEach(item => {
@@ -51,21 +53,19 @@ function closeSideNav() {
     });
 }
 
-//Listener for side navigation categories
-sidenavCategory.forEach(link => {
-    link.addEventListener('click', event => {
-        modeLatestNews = true;
+//Function for side navigation categories
+function navCategories(event) {
+    modeLatestNews = true;
         category = event.target.innerHTML;
         const APIQuery = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=4fede2e79736471581f9259c131f0fc2`; 
         document.querySelector('.page-nav').setAttribute('style','display: none');
         fetchArticles(APIQuery);
-        setTimeout(closeSideNav,500);
+        setTimeout(closeSideNav,500,event);
         pageTitle.innerHTML = category;
-    })
-});
+}
 
-//Listener for search bar display toggle
-searchToggle.addEventListener('click', event => {
+//Function for search bar display toggle
+function toggleSearchBar(event) {
     event.preventDefault();
     if (document.querySelector(".search").style.width === "0px") {
         document.querySelector(".search").style.width = "200px";
@@ -73,10 +73,10 @@ searchToggle.addEventListener('click', event => {
     else {
         document.querySelector(".search").style.width = "0px";
     }
-});
+}
 
-//Listener for search submit
-form.addEventListener('submit', event => {
+//function for search submit
+function submitSearch(event) {
     event.preventDefault();
     modeLatestNews = false;
     searchText = textArea.value;
@@ -88,26 +88,26 @@ form.addEventListener('submit', event => {
     document.querySelector('.page-nav').setAttribute('style','display: flex');
     fetchArticles(APIQuery);
     pageTitle.innerHTML = 'Search results for ' + topic;
-});
+}
 
-//Listener for next page button
-pageNextButton.addEventListener('click', event => {
+//Function for next button
+function nextButtonPressed(event) {
     page++;
     const APIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
     fetchArticles(APIQuery);
-});
+}
 
-//Listener for previous page button
-pagePrevButton.addEventListener('click', event => {
+//Function for previous button
+function prevButtonPressed(event) {
     if (page > 1) {
         page--;
         const APIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
         fetchArticles(APIQuery);
     } 
-});
+}
 
-//Listener for toggle
-toggle.addEventListener('click', function() {
+//Function for US/UK toggle
+function togglePressed(event) {
     toggleNumber = !toggleNumber;
     if (toggleNumber) {
         toggleContainer.style.clipPath = 'inset(0 0 0 50%)';
@@ -120,13 +120,12 @@ toggle.addEventListener('click', function() {
     }
     const APIQuery = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=4fede2e79736471581f9259c131f0fc2`;  
     modeLatestNews = true;
-    document.querySelector('.page-nav').setAttribute('style','display: none');
     fetchArticles(APIQuery);
-    setTimeout(closeSideNav,500);
-});
+    setTimeout(closeSideNav,500,event);
+}
 
-//Listener for Newsroom link
-logo.addEventListener('click', event => {
+//Function for Newsroom link
+function logoClicked(event) {
     topic = 'Politics';
     page = 1;
     const APIQuery = `https://newsapi.org/v2/everything?language=en&page=${page}&q=${topic}&apiKey=4fede2e79736471581f9259c131f0fc2`;
@@ -134,7 +133,7 @@ logo.addEventListener('click', event => {
     document.querySelector('.page-nav').setAttribute('style','display: flex');
     pageTitle.innerHTML = topic;
     fetchArticles(APIQuery);
-});
+}
 
 //Fetch data
 function fetchArticles(APIQuery) {
@@ -152,37 +151,13 @@ function renderArticles(body) {
     body.articles.forEach(item => {
         const article = document.createElement('article');
         article.setAttribute('class','article');
-
-        const articleTitle = document.createElement('h1');
-        articleTitle.innerHTML = item.title;
-
-        const articleLink = document.createElement('a');
-        const articleUrl = item.url;
-        articleLink.setAttribute('href',articleUrl);
-        articleLink.setAttribute('class','articleLink');
-        articleLink.appendChild(articleTitle);
-
-        const articleDateSource = document.createElement('h3');
-        articleDateSource.setAttribute('class','dateSource');
-        articleDateSource.innerHTML = `published ${convertDate(item.publishedAt)} by ${item.source.name}`;
-        
-        const articleImg = document.createElement('img');
-        articleImg.setAttribute('src', item.urlToImage);
-
-        const articleDesc = document.createElement('h2');
-        articleDesc.innerHTML = item.description;
-
-        const articleImgDesc = document.createElement('div');
-        articleImgDesc.appendChild(articleImg);
-        articleImgDesc.appendChild(articleDesc);
-        
-        article.appendChild(articleLink);
-        article.appendChild(articleDateSource);
-        article.appendChild(articleImgDesc);
-        
+        article.innerHTML = `<a href=${item.url} class='articleLink'><h1>${item.title}</h1></a>
+                             <h3 class='dateSource'>published ${convertDate(item.publishedAt)} by ${item.source.name}</h3>
+                             <div><img src=${item.urlToImage}><h2>${item.description}</h2></div>`;
         articles.appendChild(article);
     });
 }
+
 //Convert date to human readable format 
 function convertDate(date) {
     const datePublished = new Date(date);
