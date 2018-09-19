@@ -1,34 +1,43 @@
-# Responsive News Reader
+# 'newsee' newsreader app
 
-Let's create a responsive news reader website. To get the latest news the app will display we are going to use [News API](https://newsapi.org/). As with the Weather and Unsplash APIs, you will need to register with the service to obtain an API key.
+![Screenshot](images/screen-shot.png) 
 
-## Objectives
+## Objective > what does it do?
+The purpose of the newsreader app is to display the news with a fully responsive layout for mobile, tablet and desktop screen sizes giving an intuative and user-freindly experience.
 
-- [ ] Create a responsive layout that works well and looks good at mobile, tablet and desktop screen sizes. Please create the mobile version first, then tablet and then desktop.
+## How it works
+The app loads raw data from the [News API](https://newsapi.org/), uses Javascript to display the articles' title, image, description and other details, and CSS to style the UI. 
 
-- [ ] Fetch news articles from News API and display them including title, image, description, publication, date and link to article.
+[View newsee repo on Github](https://github.com/rolandjlevy/responsive-news-reader)
 
-- [ ] Display images for tablet and desktop screens only
+## Technology used
+- [ ] News API
+- [ ] Javascript
+- [ ] CSS
 
-- [ ] Implement a feature of your choice
+## Stages of development
+- [ ] Set up APIs and read the **News API** documentation 
+- [ ] Retrieved the data for news articles 
+- [ ] Used Javascript to display the image, description, publication and date for the current day 
+- [ ] Used CSS to style the layout
 
-## Stretch goals
+## Features achieved
+- [ ] Drop-down menu for showing news from countries wordwide
+- [ ] Drop-down menu for showing news for categories
+- [ ] Images shown in mobile view only
+- [ ] Show / hide images toggle shown in mobile view only
+- [ ] Search bar allows user input to display search results
+- [ ] User's search terms are highlighed in the results
 
-- [ ] Implement pagination which allows you to get the next 20 results and display them
+## Desired features with more time
+- [ ] An option to change text size for accessibility
+- [ ] Drop-down menu for news from different sources
+- [ ] Drop-down menu for news in different languages
+- [ ] A special slideshow gallery of happy / funny articles
+- [ ] Trump's fake news
+- [ ] Show news on a good to bad sliding scale using a slider
+- [ ] When no image replace with a relevant image
+- [ ] Add icons above categories
+- [ ] Random article generator
+- [ ] Focus the selected article and blur / darken the background
 
-- [ ] Add search functionality which allows the user to retrieve news about a particular topic
-
-## Instructions
-
-- Fork and clone this repo
-- Commit your changes frequently with short and descriptive commit messages
-- Create a pull request when complete
-- We want to see great looking webpages
-- Your code should have consistent indentation and sensible naming
-- Use lots of concise functions with a clear purpose
-- Add code comments where it is not immediately obvious what your code does
-- Your code should not throw errors and handle edge cases gracefully. For example not break if server fails to return expected results
-
-## README.md
-
-When finished, include a README.md in your repo. This should explain what the project is, how to run it and how to use it. Someone who is not familiar with the project should be able to look at it and understand what it is and what to do with it.

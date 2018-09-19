@@ -135,6 +135,7 @@ input[type=text]:focus {
 
 .nav__image__display {
     padding-left: 1.5em;
+    display: none;
 }
 
 /* ///////////////
@@ -350,4 +351,9 @@ input[type=text]:focus {
     input[type=text]:focus {
         width: 20em;
     }
+
+    .nav__image__display {
+        display: initial;
+    }
+
     }
