@@ -199,7 +199,7 @@ const highlightFoundWords = function (descriptionText) {
 
 const searchForMatches = function(haystackArray, needleArray) {
     const output = haystackArray.map(function(hay){
-        const found = needleArray.find(needle => hay === needle);
+        const found = needleArray.find(needle => hay.includes(needle));
         return found ? `<span class="highlighted">${hay}</span>` : hay;
     });
     return output;
