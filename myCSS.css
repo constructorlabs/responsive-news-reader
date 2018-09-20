@@ -10,7 +10,6 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 
 .header {
@@ -32,7 +31,6 @@ body {
 .content {
   display: flex;
   flex-direction: column;
-  height: 89vh;
   justify-content: space-evenly;
   text-align: center;
 }
@@ -45,7 +43,6 @@ body {
 
 .content__section2 {
   flex: 10;
-  overflow: auto;
 }
 
 .content__section3 {
@@ -78,17 +75,18 @@ body {
 }
 
 .footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  position: fixed;
+  display: block;
+  bottom: 0;
+  width: 100%;
   height: 3vh;
   text-align: center;
-}
-
-.footer_section1 {
   background-color: black;
   color: white;
   flex: 1;
+}
+
+.footer_section1 {
 }
 
 @media (min-width: 768px) {

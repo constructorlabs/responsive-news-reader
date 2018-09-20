@@ -34,5 +34,11 @@ function displayNews(data) {
     })
     .join("");
 
+  const upToTop = document.querySelector("#uptotop");
+
+  upToTop.addEventListener("click", function(event) {
+    window.scrollTo(0, 0);
+  });
+
   displayArticles.innerHTML = html;
 }
