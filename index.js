@@ -303,6 +303,7 @@ categories.forEach(category => {
       params.country = 'gb';
     }
     params.pageNum = 1; // reset page counter
+    document.querySelector('.pge-current').textContent = params.pageNum;
 
     // reset redact
     params.redacted = false;
