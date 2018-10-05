@@ -1,5 +1,13 @@
-# Responsive News Reader
+## Responsive News Reader
 
-News Reader - responsive website that displays most popular news articles for a present time. Built with Javascript, CSS flex and external API.
+### Technologies used:
+
+- Javascript
+- CSS flex
+- External API
+
+News Reader - responsive website that displays 20 most popular news articles for a present time.
+
+<img  width ="600px" src="./screenshot1.png" alt="screenshot1"/>
 
 Demo app // http://todays-top-news.herokuapp.com
