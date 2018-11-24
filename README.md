@@ -1,6 +1,8 @@
 # Responsive News Reader
 
 ## A responsive news website. Powered by [News API](https://newsapi.org/).
+---
+> [View live demo](https://joelamb.github.io/update-live/)
 
 ## Features
 
