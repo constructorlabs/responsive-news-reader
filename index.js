@@ -26,9 +26,9 @@ const init = () => {
 const setURL = params => {
   return `${params.base}${params.endpoint}?apiKey=${params.apiKey}&q=${
     params.query
-  }&country=${params.country}&category=${params.category}&sortBy=${
+    }&country=${params.country}&category=${params.category}&sortBy=${
     params.sortBy
-  }&pageSize=${params.pageSize}&page=${params.pageNum}`;
+    }&pageSize=${params.pageSize}&page=${params.pageNum}`;
 };
 
 const getNews = params => {
@@ -96,8 +96,8 @@ const createArticle = articleData => {
           <img class='news__image' src="${articleData.urlToImage}" alt="">
           <p class="news__story">${articleData.description}</p>
           <p class="news__publication">Read the full story at <a href="${
-            articleData.url
-          }" class="news__source">${articleData.source.name}</a></p>`;
+    articleData.url
+    }" class="news__source">${articleData.source.name}</a></p>`;
 
   return article;
 };
@@ -303,7 +303,7 @@ categories.forEach(category => {
       params.country = 'gb';
     }
     params.pageNum = 1; // reset page counter
-    document.querySelector('.pge-current').textContent = params.pageNum;
+    document.querySelector('.page-current').textContent = params.pageNum;
 
     // reset redact
     params.redacted = false;
