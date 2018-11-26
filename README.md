@@ -6,8 +6,14 @@ Articles are shown with any available image, description, title and date.
 
 Some tongue-in-cheek options for search refinement are given, as if to provide you with three wholly seperate perspectives.
 
-# How to Use Grabber
+# Set Up
 
-Simply download and unpack the .zip file(under Clone or Download) onto your machine, then open up the index.html.
-
-All the code is there for you to mess around with and (quite naturally) improve.
+Clone the repo
+```
+git clone [repo path]
+```
+Install project dependencies
+```
+npm install
+```
+Copy and paste the index.html path into your browser.
