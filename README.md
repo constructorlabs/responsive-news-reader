@@ -2,7 +2,8 @@
 
 A responsive news reader website which displays the latest news retrieved from [News API](https://newsapi.org/).
 
-![ScreenShot](/screenshots/responsiveNewsReaderPc.png)
+![ScreenShot](/screenshots/responsiveNewsReaderPhone.png)
+![ScreenShot](/screenshots/responsiveNewsReaderTablet.png)
 
 ## Technologies
 
