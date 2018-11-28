@@ -1,6 +1,18 @@
 # Responsive News Reader
 
-### A responsive news reader website which displays the latest news retrieved from [News API](https://newsapi.org/).
+A responsive news reader website which displays the latest news retrieved from [News API](https://newsapi.org/).
+
+![ScreenShot](/screenshots/responsiveNewsReaderPc.png)
+
+## Technologies
+
+- Javascript
+- CSS
+
+## Installation
+
+- Clone this repo.
+- Open index.html file in browser
 
 ## Features
 
