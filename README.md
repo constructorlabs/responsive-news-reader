@@ -2,6 +2,8 @@
 
 A responsive news reader website which displays the latest news retrieved from [News API](https://newsapi.org/).
 
+[View live demo](https://responsive-news-reader.netlify.com/)
+
 ![ScreenShot](/screenshots/responsiveNewsReaderPc.png)
 
 ## Technologies
