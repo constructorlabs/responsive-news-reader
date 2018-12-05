@@ -4,7 +4,7 @@ A responsive news reader website which displays the latest news retrieved from [
 
 [View live demo](https://responsive-news-reader.netlify.com/)
 
-![ScreenShot](/screenshots/responsiveNewsReaderPc.png)
+![ScreenShot](/screenshots/responsiveNewsReaderGithub.png)
 
 ## Technologies
 
