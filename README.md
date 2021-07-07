@@ -1,4 +1,10 @@
+You can view this app live here:
+ https://mysterious-journey-19262.herokuapp.com/
+
+
+
 # Responsive News Reader
+
 
 Let's create a responsive news reader website. To get the latest news the app will display we are going to use [News API](https://newsapi.org/). You will need to register with the service to obtain an API key.
 
